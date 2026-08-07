@@ -1,0 +1,142 @@
+\section{Automated Generation: Search Strategies}
+\label{sec:generation}
+
+\subsection{Scenario Construction: Initial Test Cases}
+
+\paragraph{Seed prompts.}
+Review expert prompts, policy-derived scenarios, safety datasets, attack libraries, synthetic harmful-intent descriptions, and application-specific user stories.
+
+\paragraph{Scenario expansion.}
+Cover semantic paraphrasing, translation, role-play, encoding, formatting, contextual embedding, instruction indirection, and risk-conditioned generation.
+
+\paragraph{Diversity control.}
+Compare novelty penalties, coverage constraints, population methods, quality-diversity search, clustering, and explicit demographic, cultural, or geographic balancing.
+
+\subsection{Model-Based Generation: Attacker Models}
+
+\paragraph{Attacker language models.}
+Review zero-shot generation, proposer--judge loops, attacker--target interaction, model-written evaluations, and attacker fine-tuning.
+
+\paragraph{Reverse generation.}
+Discuss methods that begin from a harmful output, policy violation, or target behavior and search backward for an input that elicits it.
+
+\paragraph{Multi-agent generation.}
+Separate attacker, critic, judge, planner, and target roles. Analyze whether role separation improves exploration or introduces correlated errors.
+
+\subsection{Algorithmic Search: Optimization Signals}
+
+\paragraph{Fuzzing: Mutation.}
+Cover seed selection, mutation operators, random search, evolutionary search, and black-box feedback.
+
+\paragraph{Reinforcement learning.}
+Review attacker training with reward signals from toxicity classifiers, safety judges, target compliance, novelty, or environment outcomes.
+
+\paragraph{Gradient-Level: Token-Level: Activation-Level Optimization.}
+Describe white-box optimization of suffixes, tokens, continuous embeddings, image perturbations, or internal representations. Compare access requirements, transferability, realism, and cost.
+
+\subsection{Adaptive Interaction: Stateful Search}
+
+\paragraph{Iterative refinement.}
+Analyze attacks that learn from refusals, partial compliance, judge feedback, or changes in target behavior.
+
+\paragraph{Multi-turn search.}
+Cover trust building, context shaping, refusal recovery, conversational state, memory persistence, and long-horizon planning.
+
+\paragraph{Application-level search.}
+Extend the search state to retrieved documents, web pages, tool outputs, user permissions, external state, and action consequences.
+
+\section{Evaluation: Judgment: Benchmarking}
+\label{sec:evaluation}
+
+\subsection{Failure Definition: Success Conditions}
+
+\paragraph{Behavioral success.}
+Distinguish policy violation, harmful content, unsafe action, privacy leakage, misinformation, reliability failure, and evaluator disagreement. Every benchmark should define the target behavior before reporting attack success.
+
+\paragraph{Severity: Usefulness.}
+Measure not only whether a guardrail was bypassed, but also whether the response contains actionable, relevant, and sufficiently complete harmful information or performs an unsafe action.
+
+\subsection{Automated Judges: Human Agreement}
+
+\paragraph{Judge families.}
+Compare keyword rules, lexical matching, safety classifiers, reward models, LLM-as-judge, VLM-as-judge, structured rubrics, environment success signals, and human review.
+
+\paragraph{Judge reliability.}
+Report calibration, inter-rater agreement, judge disagreement, false positives, false negatives, judge hacking, and agreement with human judgments.
+
+\subsection{Metrics: Experimental Comparability}
+
+\paragraph{Attack effectiveness.}
+Cover attack success rate, harmfulness score, refusal rate, compliance quality, and task-level success.
+
+\paragraph{Search quality.}
+Cover coverage, diversity, novelty, marginal discovery rate, transferability, robustness, query efficiency, latency, and compute cost.
+
+\paragraph{Safety--utility balance.}
+Report over-refusal, benign-task utility, calibration, safe completion quality, and the trade-off between harmfulness reduction and helpfulness.
+
+\subsection{Benchmarks: Protocol Design}
+
+\paragraph{Static datasets.}
+Compare behavior sets, harmful instructions, refusal suites, adversarial examples, multimodal pairs, and application-specific test collections.
+
+\paragraph{Dynamic environments.}
+Discuss extensible harnesses, agent environments, tool-use simulators, external-state tasks, adaptive attacks, and continual benchmark updates.
+
+\paragraph{Reproducibility checklist.}
+Require model version, system prompt, access condition, sampling parameters, query budget, random seeds, judge version, annotation protocol, compute cost, attack artifacts, and release policy.
+
+\section{Automated Red Teaming Across Generative Models}
+\label{sec:targets}
+
+\subsection{Large Language Models: Text Interaction}
+
+\paragraph{Textual attack surfaces.}
+For text-only large language models (LLMs), automated red teaming searches over three kinds of textual state: the user request, optimized token sequences attached to the request, and the accumulated conversation history. These search spaces support different threat models. Prompt-level methods preserve a natural-language interface and are often evaluated under black-box access. Token-level methods optimize suffixes or learned suffix generators, often using white-box or surrogate-model signals. Conversation-level methods treat the dialogue trajectory as the attack object, so the failure condition depends on how context evolves across turns. This separation is useful because attack success rate alone hides important differences in access assumptions, feedback signals, query cost, and reproducibility. Early LM-based red teaming already cast the task as a generate--interact--judge loop, where an attacker model proposes test cases and an automated evaluator filters unsafe target responses \cite{perez-etal-2022-red}. Later work instantiates this loop with fuzzing, LLM-guided search, gradient-based optimization, and multi-turn interaction.
+
+\paragraph{Prompt-level attacks.}
+Prompt-level methods automate the construction of human-readable adversarial requests. Mutation-based systems start from a seed library and expand it through rewriting operators. GPTFuzzer follows this pattern by mutating jailbreak templates and retaining variants that pass an automated success judge, which turns a small set of hand-written prompts into a larger black-box test suite \cite{yu2023gptfuzzer}. A second family uses an attacker LLM to adapt prompts from target feedback. PAIR refines a candidate jailbreak over a small number of black-box queries, while TAP organizes the search as a tree and prunes weak branches before spending more target queries \cite{chao2023jailbreaking,mehrotra2023tree}. Recent search-based variants make the planning structure more explicit: Better Red Teaming uses large language models to guide red-team search, and Automated Progressive Red Teaming combines intention expansion, intention hiding, diversity filtering, and multi-round exploration \cite{chen-etal-2025-better,jiang-etal-2025-automated}. A third family emphasizes naturalness and stealth. AutoDAN uses a hierarchical genetic algorithm to generate semantically meaningful jailbreak prompts, persuasion-based attacks derive adversarial prompts from social-science persuasion strategies, and MASTERKEY studies deployed chatbot defenses before automatically generating jailbreak prompts against commercial systems \cite{liu2023autodan,zeng-etal-2024-johnny,deng2024masterkey}. These papers suggest that prompt-level red teaming should report more than success rates. Seed diversity, mutation operators, attacker-model choice, judge reliability, query budget, and target-model version determine whether a high success rate reflects broad coverage or a narrow search artifact. Diversity-aware attacker training addresses this issue directly by using GFlowNet-based fine-tuning to produce varied red-team prompts for robust safety tuning \cite{lee2024learning}.
+
+\paragraph{Token-level attacks.}
+Token-level red teaming exposes a lower-level vulnerability surface. Instead of changing the semantic request, suffix attacks optimize short token sequences that shift the aligned model toward an affirmative response. Greedy and gradient-based suffix optimization shows that suffixes learned on open surrogate models can transfer to black-box systems, linking LLM red teaming to adversarial robustness and cross-model transfer \cite{zou2023universal}. This setting gives researchers a controlled way to study optimization objectives, surrogate access, and transferability, but the resulting strings can be unnatural, computationally expensive, and easier to detect than ordinary language attacks. AdvPrompter narrows this gap by training an auxiliary LLM to generate human-readable adversarial suffixes quickly, moving from per-example optimization toward amortized attack generation \cite{paulus2024advprompter}. A useful evaluation of token-level methods should therefore include the access condition, the surrogate and target models, the transfer setting, suffix naturalness or detectability, compute cost, and whether the same attack distribution remains effective after safety tuning.
+
+\paragraph{Conversation-level attacks.}
+Conversation-level methods extend automated red teaming from a single input to an interaction trajectory. The attacker can shape later model behavior through role assignment, fictional framing, gradual escalation, in-context demonstrations, or multilingual interaction. DeepInception constructs nested virtual scenes that induce unsafe behavior and can sustain compliance across subsequent turns \cite{li2023deepinception}. Crescendo shows a gradual escalation pattern in which a conversation begins with benign-looking turns and moves toward a harmful target; its automated variant turns this pattern into a repeatable multi-turn attack \cite{russinovich2024crescendo}. Many-shot jailbreaking demonstrates a long-context variant, where many demonstrations of undesirable behavior steer later outputs and make context length itself an attack surface \cite{anil2024manyshot}. HARM broadens the scope by combining a top-down risk taxonomy with multi-turn adversarial probing, while multilingual multi-turn red teaming shows that safety can degrade across both turn count and language \cite{zhang-etal-2024-holistic,singhania-etal-2025-multi}. These results imply that LLM red teaming should evaluate trajectories rather than isolated requests. A model that refuses a harmful single-turn prompt may still fail after context shaping, repeated demonstrations, or accumulated conversational commitments.
+
+\subsection{VLMs: MLLMs: Cross-Modal Inputs}
+
+\paragraph{Visual attack surfaces.}
+Organize attacks by text-only inputs, malicious images, visual instructions, OCR, image--text mismatch, adversarial perturbations, and jointly optimized inputs.
+
+\paragraph{Cross-modal evaluation.}
+Track whether the failure originates in the vision encoder, fusion module, language model, safety layer, or modality interaction.
+
+\subsection{T2I: T2V: Diffusion Systems}
+
+\paragraph{Text-to-image testing.}
+Cover unsafe prompt generation, safety-filter bypass, semantic obfuscation, image-space perturbation, prompt--image mismatch, and benign prompts that produce harmful images.
+
+\paragraph{Text-to-video testing.}
+Extend the taxonomy to temporal consistency, unsafe actions, identity and privacy risks, audio or video conditioning, and harms that emerge across frames.
+
+\paragraph{Image-aware judgment.}
+Require image or video evaluators and targeted human validation rather than text-only safety labels.
+
+\subsection{Agents: RAG: Tool-Use}
+
+\paragraph{Indirect prompt injection.}
+Cover malicious instructions embedded in retrieved documents, web pages, files, tool outputs, and external data.
+
+\paragraph{Tool misuse.}
+Evaluate privilege escalation, unsafe planning, unauthorized actions, data exfiltration, and failures caused by tool output interpretation.
+
+\paragraph{Environment-level success.}
+Measure action consequences, security-property violations, task completion, reversibility, and user impact rather than textual harmfulness alone.
+
+\subsection{Multilingual Testing: Cultural Context}
+
+\paragraph{Language coverage.}
+Discuss low-resource languages, code-switching, translation, dialect, and language-specific safety gaps.
+
+\paragraph{Cultural coverage.}
+Discuss regional norms, demographic context, participatory testing, and the risk that automated generation reproduces cultural bias.

@@ -1,0 +1,390 @@
+% !TeX program = pdflatex
+\documentclass[review]{fcs}
+
+\title{Automated Red Teaming for Generative Models: A Survey}
+% \shorttitle{Automated Red Teaming for Generative Models}
+\author[1,*]{Anonymous Author(s)}
+\address[1]{Anonymous Institution}
+\corremail{anonymous@example.com}
+\fcssetup{
+  received = {month dd, yyyy},
+  accepted = {month dd, yyyy},
+}
+
+\begin{abstract}
+The rapid deployment of generative models has created a need for automated red-teaming methods that discover failures beyond manually authored test cases. This survey focuses on automated red-teaming systems that generate, execute, and evaluate adversarial or safety-relevant interactions with generative models and model-based applications. We study automated red teaming across large language models, vision-language models, text-to-image and text-to-video systems, retrieval-augmented applications, and tool-using agents. We organize the literature around a closed-loop pipeline that connects risk objectives, test-case generation, interaction and execution, outcome judgment, failure triage, and mitigation. Within this pipeline, we unify red-teaming strategies by their search space, optimization signal, access assumptions, interaction horizon, and modality. We then compare evaluation metrics, benchmarks, automated judges, human-in-the-loop protocols, and reporting practices, with particular attention to attack success, harm severity, coverage, transferability, cost, and over-refusal. Finally, we identify open problems in long-horizon interaction, multimodal and multilingual testing, reliable evaluation, adaptive coverage, reproducibility, and the responsible use of automated red-teaming systems. The survey is intended to provide a common vocabulary and a practical roadmap for building scalable, evidence-based automated red-teaming evaluations.
+\end{abstract}
+\keywords{automated red teaming; generative models; large language models; vision-language models; text-to-image generation; AI safety; adversarial evaluation; jailbreaks}
+
+\begin{document}
+
+\section{Introduction}
+
+\subsection{Motivation: Problem Scope}
+
+\paragraph{Why red teaming matters.}
+Generative models can fail under inputs that are rare, indirect, context-dependent, or outside the distribution represented by standard safety datasets. Red teaming treats safety assessment as proactive discovery: a tester constructs situations that may expose harmful compliance, privacy leakage, policy evasion, unsafe tool use, or other undesirable behavior before deployment.
+
+\paragraph{Why automation matters.}
+Manual red teaming provides valuable expertise but is expensive, difficult to reproduce, and limited in coverage. Automated red teaming extends this process by generating test cases, searching through interaction states, executing attacks, judging outputs, and retaining failures as regression tests. The central challenge is not merely to maximize attack success, but to discover diverse, relevant, and verifiable failure modes.
+
+\subsection{Survey Positioning: Research Questions}
+
+\paragraph{Scope.}
+This survey focuses on automated or partially automated red-teaming systems for generative models. LLMs, VLMs/MLLMs, T2I/T2V systems, RAG applications, and tool-using agents are treated as target systems. General alignment, generic adversarial examples, and static safety benchmarks are included only when they support an automated red-teaming component.
+
+\paragraph{Research questions.}
+The survey is organized around five questions: how red-team objectives are specified; how test cases are generated and searched; how interactions and failures are evaluated; how methods transfer across models, modalities, and applications; and how discovered failures improve subsequent mitigation and regression testing.
+
+\paragraph{Relation to prior surveys.}
+Prior surveys provide complementary views of generative-model red teaming, LLM security, attack evaluation, practical red-teaming systems, and multimodal safety \cite{Lin_2025,Das_2025,Jabbar_2025,purpura-etal-2025-building,liu2024safetymultimodallargelanguage}. We use these works as field-level anchors, then reorganize the evidence around automation boundaries, closed-loop feedback, and target-system transfer.
+
+\subsection{Contributions: Article Roadmap}
+
+\paragraph{Contributions.}
+The survey makes four contributions:
+\begin{itemize}
+  \item a closed-loop framework that connects risk specification, attack generation, execution, judgment, triage, and mitigation;
+  \item a taxonomy of automated generation methods based on search space, feedback, access, interaction, and modality;
+  \item a comparison of evaluators, metrics, benchmarks, and reporting protocols; and
+  \item a research agenda for coverage, reliability, multimodality, long-horizon testing, and responsible use.
+\end{itemize}
+
+\paragraph{Article roadmap.}
+Section~\ref{sec:methodology} describes the survey protocol. Section~\ref{sec:framework} defines the threat model and closed-loop framework. Section~\ref{sec:generation} reviews automated generation and search. Section~\ref{sec:evaluation} discusses judgment, metrics, and benchmarks. Section~\ref{sec:targets} organizes evidence by target system. Section~\ref{sec:mitigation} connects failures to mitigation. Section~\ref{sec:practice} covers tools, human expertise, and responsible use. Section~\ref{sec:agenda} presents open problems.
+
+\section{Survey Methodology: Scope}
+\label{sec:methodology}
+
+\subsection{Literature Protocol: Evidence Base}
+
+\paragraph{Retrieval strategy.}
+Report the databases, search engines, venues, time range, and query terms used to collect papers. Search terms should include automated red teaming, adversarial search, jailbreak generation, safety evaluation, prompt injection, MLLM safety, T2I safety, agent security, and red-team benchmark.
+
+\paragraph{Screening procedure.}
+Describe deduplication, title--abstract screening, full-text screening, citation chaining, and the replacement of preprints by published versions when available.
+
+\subsection{Inclusion Criteria: Coding Schema}
+
+\paragraph{Inclusion rule.}
+Include a paper when automation contributes to risk specification, test generation, adversarial search, interaction, outcome judgment, benchmark construction, failure triage, or mitigation using red-team traces. Separate direct red-teaming papers from supporting safety, jailbreak, and agent-security papers.
+
+\paragraph{Paper-level coding.}
+Annotate target system, risk, attacker access, generation mechanism, interaction horizon, feedback signal, evaluator, benchmark, metric, compute cost, and outcome. Use this schema to build comparison tables rather than summarizing papers as an unrelated sequence.
+
+\subsection{Survey Limitations: Coverage Bias}
+
+\paragraph{Evidence limitations.}
+State the cutoff date, language restrictions, treatment of unpublished work, benchmark bias, closed-model access limitations, and the risk that rapidly changing attack methods become obsolete.
+
+\section{Unified Automated Red-Teaming Framework}
+\label{sec:framework}
+
+\subsection{Definitions: System Boundaries}
+
+\paragraph{Automated red teaming.}
+Define automated red teaming as goal-directed discovery of undesirable behavior in which one or more stages of test generation, selection, interaction, judgment, or iteration are automated under an explicit threat model.
+
+\paragraph{Target system boundary.}
+Separate the target model, safety layer, orchestration layer, retrieval layer, memory, tools, and deployed application. A discovered failure should be attributed to the smallest component or interaction responsible for it.
+
+\subsection{Threat Model: Attack Conditions}
+
+\paragraph{Attacker access.}
+Distinguish black-box, gray-box, white-box, and application-level access. Record query limits, model knowledge, system-prompt visibility, gradient access, activation access, control over retrieved content, and control over tools or memory.
+
+\paragraph{Risk objective.}
+Classify objectives into harmful compliance, privacy leakage, prompt injection, policy evasion, misinformation, bias, copyright exposure, unsafe tool use, reliability failure, and over-refusal.
+
+\paragraph{Interaction horizon.}
+Separate single-turn, iterative, multi-turn, stateful, multi-agent, and long-horizon settings. The horizon determines whether the attack optimizes a response, a conversation trajectory, or an external action.
+
+\subsection{Closed-Loop Pipeline: Evaluation Cycle}
+
+\paragraph{Risk specification.}
+Translate a policy, threat model, harm taxonomy, or application requirement into a test objective and an observable failure condition.
+
+\paragraph{Test generation.}
+Construct an initial population of prompts, scenarios, images, videos, retrieved documents, tool outputs, or multi-turn plans.
+
+\paragraph{Search: Interaction.}
+Select, mutate, optimize, or compose test cases while interacting with the target system. The search state may include prompts, conversation history, tool state, model feedback, and prior failures.
+
+\paragraph{Outcome judgment.}
+Determine whether the target behavior satisfies the failure condition using rules, classifiers, reward models, LLM judges, VLM judges, environments, or human annotators.
+
+\paragraph{Triage: Regression.}
+Cluster failures, estimate severity and novelty, remove duplicates, record reproducible attack traces, and convert confirmed failures into held-out regression tests.
+
+\section{Automated Generation: Search Strategies}
+\label{sec:generation}
+
+\subsection{Scenario Construction: Initial Test Cases}
+
+\paragraph{Seed prompts.}
+Review expert prompts, policy-derived scenarios, safety datasets, attack libraries, synthetic harmful-intent descriptions, and application-specific user stories.
+
+\paragraph{Scenario expansion.}
+Cover semantic paraphrasing, translation, role-play, encoding, formatting, contextual embedding, instruction indirection, and risk-conditioned generation.
+
+\paragraph{Diversity control.}
+Compare novelty penalties, coverage constraints, population methods, quality-diversity search, clustering, and explicit demographic, cultural, or geographic balancing.
+
+\subsection{Model-Based Generation: Attacker Models}
+
+\paragraph{Attacker language models.}
+Review zero-shot generation, proposer--judge loops, attacker--target interaction, model-written evaluations, and attacker fine-tuning.
+
+\paragraph{Reverse generation.}
+Discuss methods that begin from a harmful output, policy violation, or target behavior and search backward for an input that elicits it.
+
+\paragraph{Multi-agent generation.}
+Separate attacker, critic, judge, planner, and target roles. Analyze whether role separation improves exploration or introduces correlated errors.
+
+\subsection{Algorithmic Search: Optimization Signals}
+
+\paragraph{Fuzzing: Mutation.}
+Cover seed selection, mutation operators, random search, evolutionary search, and black-box feedback.
+
+\paragraph{Reinforcement learning.}
+Review attacker training with reward signals from toxicity classifiers, safety judges, target compliance, novelty, or environment outcomes.
+
+\paragraph{Gradient-Level: Token-Level: Activation-Level Optimization.}
+Describe white-box optimization of suffixes, tokens, continuous embeddings, image perturbations, or internal representations. Compare access requirements, transferability, realism, and cost.
+
+\subsection{Adaptive Interaction: Stateful Search}
+
+\paragraph{Iterative refinement.}
+Analyze attacks that learn from refusals, partial compliance, judge feedback, or changes in target behavior.
+
+\paragraph{Multi-turn search.}
+Cover trust building, context shaping, refusal recovery, conversational state, memory persistence, and long-horizon planning.
+
+\paragraph{Application-level search.}
+Extend the search state to retrieved documents, web pages, tool outputs, user permissions, external state, and action consequences.
+
+\section{Evaluation: Judgment: Benchmarking}
+\label{sec:evaluation}
+
+\subsection{Failure Definition: Success Conditions}
+
+\paragraph{Behavioral success.}
+Distinguish policy violation, harmful content, unsafe action, privacy leakage, misinformation, reliability failure, and evaluator disagreement. Every benchmark should define the target behavior before reporting attack success.
+
+\paragraph{Severity: Usefulness.}
+Measure not only whether a guardrail was bypassed, but also whether the response contains actionable, relevant, and sufficiently complete harmful information or performs an unsafe action.
+
+\subsection{Automated Judges: Human Agreement}
+
+\paragraph{Judge families.}
+Compare keyword rules, lexical matching, safety classifiers, reward models, LLM-as-judge, VLM-as-judge, structured rubrics, environment success signals, and human review.
+
+\paragraph{Judge reliability.}
+Report calibration, inter-rater agreement, judge disagreement, false positives, false negatives, judge hacking, and agreement with human judgments.
+
+\subsection{Metrics: Experimental Comparability}
+
+\paragraph{Attack effectiveness.}
+Cover attack success rate, harmfulness score, refusal rate, compliance quality, and task-level success.
+
+\paragraph{Search quality.}
+Cover coverage, diversity, novelty, marginal discovery rate, transferability, robustness, query efficiency, latency, and compute cost.
+
+\paragraph{Safety--utility balance.}
+Report over-refusal, benign-task utility, calibration, safe completion quality, and the trade-off between harmfulness reduction and helpfulness.
+
+\subsection{Benchmarks: Protocol Design}
+
+\paragraph{Static datasets.}
+Compare behavior sets, harmful instructions, refusal suites, adversarial examples, multimodal pairs, and application-specific test collections.
+
+\paragraph{Dynamic environments.}
+Discuss extensible harnesses, agent environments, tool-use simulators, external-state tasks, adaptive attacks, and continual benchmark updates.
+
+\paragraph{Reproducibility checklist.}
+Require model version, system prompt, access condition, sampling parameters, query budget, random seeds, judge version, annotation protocol, compute cost, attack artifacts, and release policy.
+
+\section{Automated Red Teaming Across Generative Models}
+\label{sec:targets}
+
+\subsection{Large Language Models: Text Interaction}
+
+\paragraph{Prompt-level attacks.}
+Review semantic jailbreaks, mutation-based fuzzing, role-play, encoding, multilingual prompts, prompt injection, and refusal manipulation.
+
+\paragraph{Token-level attacks.}
+Review adversarial suffixes, gradient-guided optimization, transfer attacks, activation steering, and access-dependent evaluation.
+
+\paragraph{Conversation-level attacks.}
+Analyze multi-turn persuasion, context contamination, many-shot behavior, memory persistence, and stateful safety drift.
+
+\subsection{VLMs: MLLMs: Cross-Modal Inputs}
+
+\paragraph{Visual attack surfaces.}
+Organize attacks by text-only inputs, malicious images, visual instructions, OCR, image--text mismatch, adversarial perturbations, and jointly optimized inputs.
+
+\paragraph{Cross-modal evaluation.}
+Track whether the failure originates in the vision encoder, fusion module, language model, safety layer, or modality interaction.
+
+\subsection{T2I: T2V: Diffusion Systems}
+
+\paragraph{Text-to-image testing.}
+Cover unsafe prompt generation, safety-filter bypass, semantic obfuscation, image-space perturbation, prompt--image mismatch, and benign prompts that produce harmful images.
+
+\paragraph{Text-to-video testing.}
+Extend the taxonomy to temporal consistency, unsafe actions, identity and privacy risks, audio or video conditioning, and harms that emerge across frames.
+
+\paragraph{Image-aware judgment.}
+Require image or video evaluators and targeted human validation rather than text-only safety labels.
+
+\subsection{Agents: RAG: Tool-Use}
+
+\paragraph{Indirect prompt injection.}
+Cover malicious instructions embedded in retrieved documents, web pages, files, tool outputs, and external data.
+
+\paragraph{Tool misuse.}
+Evaluate privilege escalation, unsafe planning, unauthorized actions, data exfiltration, and failures caused by tool output interpretation.
+
+\paragraph{Environment-level success.}
+Measure action consequences, security-property violations, task completion, reversibility, and user impact rather than textual harmfulness alone.
+
+\subsection{Multilingual Testing: Cultural Context}
+
+\paragraph{Language coverage.}
+Discuss low-resource languages, code-switching, translation, dialect, and language-specific safety gaps.
+
+\paragraph{Cultural coverage.}
+Discuss regional norms, demographic context, participatory testing, and the risk that automated generation reproduces cultural bias.
+
+\section{Failure Remediation: Safety Improvement}
+\label{sec:mitigation}
+
+\subsection{Training-Time Mitigation: Red-Team Traces}
+
+\paragraph{Safety tuning.}
+Review supervised fine-tuning, preference optimization, adversarial training, data filtering, and targeted training with red-team traces.
+
+\paragraph{Generalization test.}
+Evaluate held-out risks, unseen attack strategies, cross-model transfer, and the possibility that mitigation memorizes known attacks.
+
+\subsection{Inference-Time Mitigation: Guardrails}
+
+\paragraph{Input protection.}
+Cover prompt filters, injection detection, perturbation defenses, policy classifiers, and context sanitization.
+
+\paragraph{Output protection.}
+Cover refusal policies, output filters, self-critique, model ensembles, decoding controls, and multimodal safety layers.
+
+\subsection{Application Mitigation: System Controls}
+
+\paragraph{System security.}
+Discuss access control, least-privilege tools, retrieval sanitization, memory isolation, monitoring, human approval, and safe failure behavior.
+
+\paragraph{Model-system distinction.}
+Emphasize that model alignment cannot address every risk created by orchestration, data flow, permissions, or external actions.
+
+\subsection{Regression Testing: Continuous Red Teaming}
+
+\paragraph{Failure retention.}
+Describe how confirmed failures become versioned regression cases with severity, provenance, reproduction steps, and ownership.
+
+\paragraph{Safety drift.}
+Measure changes across model updates, policy updates, guardrail updates, tool changes, retrieval changes, and judge changes.
+
+\section{Practice: Tools: Responsible Use}
+\label{sec:practice}
+
+\subsection{Frameworks: Evaluation Harnesses}
+
+\paragraph{Framework capabilities.}
+Compare model adapters, attack plugins, judges, logging, parallel execution, multimodal inputs, tool environments, and regression testing.
+
+\paragraph{Benchmark versus harness.}
+Distinguish static benchmark convenience from extensible harnesses that support adaptive attackers, application context, and reproducible experiments.
+
+\subsection{Human Expertise: Participatory Testing}
+
+\paragraph{Human contribution.}
+Identify tasks that remain difficult to automate, including novel-harm discovery, contextual severity judgment, community representation, and test prioritization.
+
+\paragraph{Human--machine division.}
+Frame automation as a force multiplier for human expertise. Report where humans design policies, validate judges, inspect failures, or approve disclosure.
+
+\subsection{Artifact Safety: Disclosure Practice}
+
+\paragraph{Risk controls.}
+Discuss access control, redaction, staged release, harmful-content handling, artifact storage, and the risk that attack prompts become reusable attack tools.
+
+\paragraph{Reporting standard.}
+Connect threat model, generator, execution environment, evaluator, metric, cost, failure, mitigation, and held-out regression result in one report.
+
+\section{Open Problems: Research Agenda}
+\label{sec:agenda}
+
+\subsection{Coverage: Discovery Guarantees}
+
+\paragraph{Risk-space coverage.}
+Develop principled definitions of coverage, novelty, diminishing returns, and confidence that important failure modes remain undiscovered.
+
+\subsection{Judgment: Evaluation Reliability}
+
+\paragraph{Adversary-resistant judges.}
+Build calibrated multimodal judges, quantify uncertainty, detect judge gaming, and combine automated judgment with targeted human review.
+
+\subsection{Long-Horizon Testing: Stateful Systems}
+
+\paragraph{Persistent interaction.}
+Move beyond single-turn prompts toward memory, tools, planning, external state, and realistic environments.
+
+\subsection{Transfer: Cross-Modal Robustness}
+
+\paragraph{Generalization across systems.}
+Measure whether failures transfer across model families, versions, modalities, languages, applications, and safety policies.
+
+\subsection{Continual Red Teaming: Evaluation Drift}
+
+\paragraph{Adaptive maintenance.}
+Design systems that update risk taxonomies, search policies, and regression suites without silently changing the evaluation target.
+
+\subsection{Governance: Responsible Release}
+
+\paragraph{Reproducibility: Disclosure.}
+Establish shared protocols for versioning, access, benchmark maintenance, artifact release, high-severity reporting, and public accountability.
+
+\section{Conclusion}
+
+Automated red teaming should be evaluated as a closed-loop safety-evaluation system rather than as a collection of isolated jailbreak techniques. A useful survey must therefore connect risk specification, generation, search, interaction, judgment, coverage, mitigation, and responsible operational practice across generative-model targets.
+
+\section*{Acknowledgements}
+The authors thank the researchers and practitioners who develop public safety benchmarks, red-teaming tools, and responsible disclosure practices.
+
+\section*{Competing Interest}
+The authors declare that they have no competing interests or financial conflicts to disclose.
+
+\appendix
+
+\section{Detailed Survey Protocol}
+
+\subsection{Search Strings: Sources}
+Add the final database list, search strings, date range, and screening flow here.
+
+\subsection{Paper Annotation: Evidence Table}
+Add the complete coding fields and examples used to classify each paper.
+
+\section{Extended Taxonomy Tables}
+
+Add tables comparing papers by target system, threat model, generation strategy, interaction horizon, evaluator, metrics, and release status.
+
+\section{Evaluation Checklist}
+
+Add a checklist that reviewers can use to assess whether an automated red-teaming result is reproducible, valid, sufficiently broad, and responsibly reported.
+
+\bibliographystyle{fcs}
+\bibliography{ref}
+
+% The FCS biography block can be restored for the final submission.
+% \begin{biography}{photo}
+% Please provide each author's biography here with no more than 120 words.
+% \end{biography}
+
+\end{document}
