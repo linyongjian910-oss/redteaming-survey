@@ -1,0 +1,143 @@
+\begin{thebibliography}{10}
+
+\bibitem{Lin_2025}
+Lin L, Mu~H, Zhai Z, Wang M, Wang Y, Wang R, Gao J, Zhang Y, Che W, Baldwin T,
+  Han X, Li~H.
+\newblock Against the achilles' heel: A survey on red teaming for generative
+  models.
+\newblock Journal of Artificial Intelligence Research, 2025, 82: 687--775
+
+\bibitem{Das_2025}
+Das B~C, Amini M~H, Wu~Y.
+\newblock Security and privacy challenges of large language models: A survey.
+\newblock ACM Computing Surveys, 2025, 57(6): 1--39
+
+\bibitem{Jabbar_2025}
+Jabbar M~S, Al-Azani S, Alotaibi A, Ahmed M.
+\newblock Red teaming large language models: A comprehensive review and
+  critical analysis.
+\newblock Information Processing and Management, 2025, 62(6): 104239
+
+\bibitem{purpura-etal-2025-building}
+Purpura A, Wadhwa S, Zymet J, Gupta A, Luo A, Rad M~K, Shinde S, Sorower M~S.
+\newblock Building safe genai applications: An end-to-end overview of red
+  teaming for large language models.
+\newblock In: Proceedings of the 5th Workshop on Trustworthy NLP.
+\newblock 2025,  335--350
+
+\bibitem{liu2024safetymultimodallargelanguage}
+Liu X, Zhu Y, Lan Y, Yang C, Qiao Y.
+\newblock Safety of multimodal large language models on images and texts, 2024
+
+\bibitem{ganguli2022redteaming}
+Ganguli D, Lovitt L, Kernion J, Askell A, Bai Y, Kadavath S, Mann B, Perez E,
+  Schiefer N, Ndousse K, Jones A, Bowman S, Chen A, Conerly T, DasSarma N,
+  Drain D, Elhage N, El-Showk S, Fort S, Hatfield-Dodds Z, Henighan T,
+  Hernandez D, Hume T, Jacobson J, Johnston S, Kravec S, Olsson C, Ringer S,
+  Tran-Johnson E, Amodei D, Brown T, Joseph N, McCandlish S, Olah C, Kaplan J,
+  Clark J.
+\newblock Red teaming language models to reduce harms: Methods, scaling
+  behaviors, and lessons learned.
+\newblock arXiv preprint arXiv:2209.07858, 2022
+
+\bibitem{perez2022redteaming}
+Perez E, Huang S, Song F, Cai T, Ring R, Aslanides J, Glaese A, McAleese N,
+  Irving G.
+\newblock Red teaming language models with language models.
+\newblock In: Proceedings of the 2022 Conference on Empirical Methods in
+  Natural Language Processing.
+\newblock 2022,  3419--3448
+
+\bibitem{ge2024mart}
+Ge~S, Zhou C, Hou R, Khabsa M, Wang Y~C, Wang Q, Han J, Mao Y.
+\newblock {MART}: Improving {LLM} safety with multi-round automatic
+  red-teaming.
+\newblock In: Proceedings of the 2024 Conference of the North American Chapter
+  of the Association for Computational Linguistics: Human Language
+  Technologies.
+\newblock 2024,  1927--1937
+
+\bibitem{lee2025diverseattacks}
+Lee S, Kim M, Cherif L, Dobre D, Lee J, Hwang S~J, Kawaguchi K, Gidel G, Bengio
+  Y, Malkin N, Jain M.
+\newblock Learning diverse attacks on large language models for robust
+  red-teaming and safety tuning.
+\newblock In: International Conference on Learning Representations.
+\newblock 2025
+
+\bibitem{zhao2025diverct}
+Zhao A, Xu~Q, Lin M, Wang S, Liu Y~J, Zheng Z, Huang G.
+\newblock Diver-ct: Diversity-enhanced red teaming large language model
+  assistants with relaxing constraints.
+\newblock In: Proceedings of the AAAI Conference on Artificial Intelligence.
+\newblock 2025,  26021--26030
+
+\bibitem{bianchi2024safetytuned}
+Bianchi F, Suzgun M, Attanasio G, R{\"o}ttger P, Jurafsky D, Hashimoto T, Zou
+  J~Y.
+\newblock Safety-tuned llamas: Lessons from improving the safety of large
+  language models that follow instructions.
+\newblock In: International Conference on Learning Representations.
+\newblock 2024
+
+\bibitem{pan2025overrefusal}
+Pan L, Tong Y, Zhang X, Zhang X, Zhou J, Chu Z.
+\newblock Understanding and mitigating overrefusal in {LLM}s from an unveiling
+  perspective of safety decision boundary.
+\newblock In: Proceedings of the 2025 Conference on Empirical Methods in
+  Natural Language Processing.
+\newblock 2025,  21057--21075
+
+\bibitem{rottger2024xstest}
+R{\"o}ttger P, Kirk H, Vidgen B, Attanasio G, Bianchi F, Hovy D.
+\newblock {XST}est: A test suite for identifying exaggerated safety behaviours
+  in large language models.
+\newblock In: Proceedings of the 2024 Conference of the North American Chapter
+  of the Association for Computational Linguistics: Human Language
+  Technologies.
+\newblock 2024,  5377--5400
+
+\bibitem{mazeika2024harmbench}
+Mazeika M, Phan L, Yin X, Zou A, Wang Z, Mu~N, Sakhaee E, Li~N, Basart S, Li~B,
+  Forsyth D, Hendrycks D.
+\newblock {HarmBench}: A standardized evaluation framework for automated red
+  teaming and robust refusal.
+\newblock In: Proceedings of the 41st International Conference on Machine
+  Learning.
+\newblock 2024,  35181--35224
+
+\bibitem{wei2023jailbroken}
+Wei A, Haghtalab N, Steinhardt J.
+\newblock Jailbroken: How does {LLM} safety training fail?
+\newblock In: Advances in Neural Information Processing Systems.
+\newblock 2023
+
+\bibitem{andriushchenko2025adaptive}
+Andriushchenko M, Croce F, Flammarion N.
+\newblock Jailbreaking leading safety-aligned llms with simple adaptive
+  attacks.
+\newblock In: International Conference on Learning Representations.
+\newblock 2025
+
+\bibitem{andriushchenko2025pasttense}
+Andriushchenko M, Flammarion N.
+\newblock Does refusal training in {LLM}s generalize to the past tense?
+\newblock In: International Conference on Learning Representations.
+\newblock 2025
+
+\bibitem{wang2025safetyreasoning}
+Wang H, Qin Z, Shen L, Wang X, Tao D, Cheng M.
+\newblock Safety reasoning with guidelines.
+\newblock In: Proceedings of the 42nd International Conference on Machine
+  Learning.
+\newblock 2025,  64084--64108
+
+\bibitem{chao2024jailbreakbench}
+Chao P, Debenedetti E, Robey A, Andriushchenko M, Croce F, Sehwag V, Dobriban
+  E, Flammarion N, Pappas G~J, Tram{\`e}r F, Hassani H, Wong E.
+\newblock Jailbreakbench: An open robustness benchmark for jailbreaking large
+  language models.
+\newblock In: Advances in Neural Information Processing Systems.
+\newblock 2024
+
+\end{thebibliography}
