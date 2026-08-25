@@ -116,7 +116,7 @@
 \@writefile{toc}{\contentsline {section}{\numberline {7}Failure Remediation: Safety Improvement}{4}{section.7}\protected@file@percent }
 \newlabel{sec:mitigation}{{7}{4}{Failure Remediation: Safety Improvement}{section.7}{}}
 \newlabel{sec:mitigation@cref}{{[section][7][]7}{[1][4][]4}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Training-Time Mitigation: Red-Team Traces}{4}{subsection.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}From Red-Team Traces to Safety Tuning}{4}{subsection.7.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {7.1.0.1}Remediation as a Closed Loop.}{4}{paragraph.7.1.0.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {7.1.0.2}From Failure Traces to Training Supervision.}{4}{paragraph.7.1.0.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {7.1.0.3}Targeted Repair and the Safety--Utility Trade-off.}{4}{paragraph.7.1.0.3}\protected@file@percent }
@@ -130,31 +130,180 @@
 \citation{rottger2024xstest}
 \citation{bianchi2024safetytuned}
 \citation{andriushchenko2025pasttense,andriushchenko2025adaptive}
+\citation{han2024wildguard,inan2023llamaguard,zeng2024shieldgemma}
+\citation{rebedea2023nemo}
+\citation{liu2025guardcalibration}
+\citation{zhang2025intention}
+\citation{rebedea2023nemo}
+\citation{xu2024safedecoding,shen2025jailbreakantidote}
+\citation{han2024wildguard,inan2023llamaguard,rebedea2023nemo}
+\citation{xu2024safedecoding,ghosal2025immune}
+\citation{zhang2025intention,zhu2025reasoningtodefend}
 \@writefile{toc}{\contentsline {paragraph}{\numberline {7.1.0.5}Robustness to Training Attacks Is Not General Robustness.}{5}{paragraph.7.1.0.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{\numberline {7.1.0.6}Evaluating Remediation Beyond the Training Distribution.}{5}{paragraph.7.1.0.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Inference-Time Mitigation: Guardrails}{5}{subsection.7.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {7.2.0.1}Input protection.}{5}{paragraph.7.2.0.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {7.2.0.2}Output protection.}{5}{paragraph.7.2.0.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Application Mitigation: System Controls}{5}{subsection.7.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {7.3.0.1}System security.}{5}{paragraph.7.3.0.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {7.3.0.2}Model-system distinction.}{5}{paragraph.7.3.0.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Regression Testing: Continuous Red Teaming}{5}{subsection.7.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {7.4.0.1}Failure retention.}{5}{paragraph.7.4.0.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {7.4.0.2}Safety drift.}{5}{paragraph.7.4.0.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {8}Practice: Tools: Responsible Use}{5}{section.8}\protected@file@percent }
-\newlabel{sec:practice}{{8}{5}{Practice: Tools: Responsible Use}{section.8}{}}
-\newlabel{sec:practice@cref}{{[section][8][]8}{[1][5][]5}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Frameworks: Evaluation Harnesses}{5}{subsection.8.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {8.1.0.1}Framework capabilities.}{5}{paragraph.8.1.0.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {8.1.0.2}Benchmark versus harness.}{5}{paragraph.8.1.0.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Human Expertise: Participatory Testing}{5}{subsection.8.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {8.2.0.1}Human contribution.}{5}{paragraph.8.2.0.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {8.2.0.2}Human--machine division.}{5}{paragraph.8.2.0.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Artifact Safety: Disclosure Practice}{5}{subsection.8.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {8.3.0.1}Risk controls.}{5}{paragraph.8.3.0.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {8.3.0.2}Reporting standard.}{5}{paragraph.8.3.0.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}From Safety Judgment to Runtime Control}{5}{subsection.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {7.2.0.1}Runtime intervention.}{5}{paragraph.7.2.0.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {7.2.0.2}Evaluator-to-guard transfer.}{5}{paragraph.7.2.0.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {7.2.0.3}Locations of runtime control.}{5}{paragraph.7.2.0.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {7.2.0.4}Feedback-conditioned defensive generation.}{5}{paragraph.7.2.0.4}\protected@file@percent }
+\citation{xu2024cider}
+\citation{chi2024llamaguardvision,verma2025multiguard}
+\citation{ghosal2025immune}
+\citation{yoon2025safree}
+\citation{liang2025t2vshield}
+\citation{he2026tear}
+\citation{yang2026salmonnguard}
+\citation{kang2026audioguard}
+\citation{liu2025guardcalibration}
+\citation{chi2024llamaguardvision,liang2025t2vshield,he2026tear}
+\citation{debenedetti2024agentdojo}
+\citation{debenedetti2025camel}
+\citation{wu2025isolategpt}
+\citation{jia2025taskshield,mou2026toolsafe}
+\citation{do2026leastprivilege}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {7.2.0.5}Cross-modal safety signals.}{6}{paragraph.7.2.0.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {7.2.0.6}Generative media and audio.}{6}{paragraph.7.2.0.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {7.2.0.7}Guardrails as an attack surface.}{6}{paragraph.7.2.0.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Application Mitigation: System Controls}{6}{subsection.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {7.3.0.1}Model and system safety.}{6}{paragraph.7.3.0.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {7.3.0.2}Independent system controls.}{6}{paragraph.7.3.0.2}\protected@file@percent }
+\citation{debenedetti2024agentdojo,ruan2024toolemu}
+\citation{chen2026cordon}
+\citation{mazeika2024harmbench,chao2024jailbreakbench}
+\citation{openai2023gpt4systemcard}
+\citation{zhou2025autoredteamer}
+\citation{zhang2025jbdistill}
+\citation{openai2023gpt4systemcard,zhou2025autoredteamer,zhang2025jbdistill}
+\citation{derczynski2024garak,lopezmunoz2024pyrit,ukaisi2024inspect,promptfooDocs}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {7.3.0.3}Consequences and recovery.}{7}{paragraph.7.3.0.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {7.3.0.4}System-level red teaming.}{7}{paragraph.7.3.0.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Regression Testing: Continuous Red Teaming}{7}{subsection.7.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {7.4.0.1}Failure promotion.}{7}{paragraph.7.4.0.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {7.4.0.2}Version-aware replay.}{7}{paragraph.7.4.0.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {7.4.0.3}Retained versus renewed testing.}{7}{paragraph.7.4.0.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {7.4.0.4}Continuous red-teaming loop.}{7}{paragraph.7.4.0.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Practice: Tools: Responsible Use}{7}{section.8}\protected@file@percent }
+\newlabel{sec:practice}{{8}{7}{Practice: Tools: Responsible Use}{section.8}{}}
+\newlabel{sec:practice@cref}{{[section][8][]8}{[1][7][]7}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Frameworks: Evaluation Harnesses}{7}{subsection.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {8.1.0.1}Framework capabilities.}{7}{paragraph.8.1.0.1}\protected@file@percent }
+\citation{lopezmunoz2024pyrit}
+\citation{ukaisi2024inspect}
+\citation{debenedetti2024agentdojo,metaCybersecurityBenchmarks}
+\citation{liu2024mmsafetybench}
+\citation{lopezmunoz2024pyrit}
+\citation{ukaisi2024inspect}
+\citation{mazeika2024harmbench}
+\citation{chao2024jailbreakbench}
+\citation{derczynski2024garak,openaiEvals,promptfooDocs,mazeika2024harmbench,chao2024jailbreakbench,debenedetti2024agentdojo,metaCybersecurityBenchmarks,liang2023helm}
+\citation{ukaisi2024inspect}
+\citation{quaye2024adversarialnibbler,rastogi2026goingplaces,weidinger-etal-2024-star}
+\citation{quaye2024adversarialnibbler}
+\citation{rastogi2026goingplaces,chiu-etal-2025-culturalbench}
+\citation{weidinger-etal-2024-star,kim2026darkbright}
+\citation{quaye2024adversarialnibbler,rastogi2026goingplaces,chiu-etal-2025-culturalbench}
+\citation{radharapu-etal-2023-aart,perez2022redteaming,quaye2026bridging,alvaradogarcia2026sociotechnical}
+\citation{radharapu-etal-2023-aart,quaye2026bridging}
+\citation{perez2022redteaming}
+\citation{alvaradogarcia2026sociotechnical}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {8.1.0.2}Interaction scope.}{8}{paragraph.8.1.0.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {8.1.0.3}Benchmark versus harness.}{8}{paragraph.8.1.0.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {8.1.0.4}Persistence across runs.}{8}{paragraph.8.1.0.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {8.1.0.5}The automation boundary.}{8}{paragraph.8.1.0.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Human Expertise: Participatory Testing}{8}{subsection.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {8.2.0.1}Expanding the risk space.}{8}{paragraph.8.2.0.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {8.2.0.2}Scaling human-specified risks.}{8}{paragraph.8.2.0.2}\protected@file@percent }
+\citation{perez2022redteaming,alvaradogarcia2026sociotechnical}
+\citation{perez2022redteaming}
+\citation{dinan-etal-2019-build,rastogi2026goingplaces,quaye2024adversarialnibbler}
+\citation{weidinger-etal-2024-star,NEURIPS2023_a74b697b,mostafazadeh-davani-etal-2024-d3code}
+\citation{perez2022redteaming,weidinger-etal-2024-star,alvaradogarcia2026sociotechnical}
+\citation{alvaradogarcia2026sociotechnical}
+\citation{radharapu-etal-2023-aart,perez2022redteaming,alvaradogarcia2026sociotechnical}
+\citation{ahmad2025externalredteaming}
+\citation{fang2024llmagentsautonomouslyhack}
+\citation{qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,zhu2025teamsllmagentsexploit}
+\citation{qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,zhu2025teamsllmagentsexploit}
+\citation{solaiman2019release}
+\citation{qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,fang2024llmagentsautonomouslyexploit,zhu2025teamsllmagentsexploit}
+\citation{zhang2025cybenchframeworkevaluatingcybersecurity,mazeika2024harmbench,ganguli2022redteaming}
+\citation{ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,zhu2025teamsllmagentsexploit}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {8.2.0.3}Human validation of automated judgments.}{9}{paragraph.8.2.0.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {8.2.0.4}Limits of human scaling.}{9}{paragraph.8.2.0.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}From Red-Team Artifacts to Responsible Disclosure}{9}{subsection.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Open Problems: Research Agenda}{9}{section.9}\protected@file@percent }
+\newlabel{sec:agenda}{{9}{9}{Open Problems: Research Agenda}{section.9}{}}
+\newlabel{sec:agenda@cref}{{[section][9][]9}{[1][9][]9}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Coverage and Discovery Guarantees}{9}{subsection.9.1}\protected@file@percent }
+\newlabel{sec:coverage}{{9.1}{9}{Coverage and Discovery Guarantees}{subsection.9.1}{}}
+\newlabel{sec:coverage@cref}{{[subsection][1][9]9.1}{[1][9][]9}{}{}{}}
+\citation{mazeika2024harmbench,chao2024jailbreakbench}
+\citation{li2024salad}
+\citation{liang2023helm}
+\citation{tong2023multimon}
+\citation{perez2022redteaming}
+\citation{tong2023multimon}
+\citation{pugh2016qualitydiversity}
+\citation{yu2024llmfuzzer}
+\citation{mehrotra2024tap}
+\citation{chao2025pair}
+\citation{liu2024autodan}
+\citation{chao1984unseenclasses}
+\citation{chao2024jailbreakbench,souly2024strongreject}
+\citation{schwinn2026coinflip}
+\citation{gao2026reliablejailbreakjudge}
+\citation{mehrotra2024tap}
+\citation{shi2024optimization}
+\citation{schwinn2026coinflip}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {9.1.0.1}Representation: What is the denominator?}{10}{paragraph.9.1.0.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {9.1.0.2}Identity: What counts as a distinct failure?}{10}{paragraph.9.1.0.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {9.1.0.3}Discovery dynamics: How does marginal discovery evolve?}{10}{paragraph.9.1.0.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\numberline {9.1.0.4}Stopping confidence: When can testing stop?}{10}{paragraph.9.1.0.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Judgment: Evaluation Reliability}{10}{subsection.9.2}\protected@file@percent }
+\citation{chao2024jailbreakbench}
+\citation{jung2024trust}
+\citation{treeteaming2026}
+\citation{chen2024agentpoison,zou2025poisonedrag}
+\citation{debenedetti2024agentdojo,zhang2025asb,zhan2024injecagent,abdelnabi2023indirect}
+\citation{yan2025muse}
+\citation{zhang2025asb,debenedetti2024agentdojo}
+\citation{debenedetti2024agentdojo,zhang2025asb,zhan2024injecagent}
+\citation{ruan2024toolemu}
+\citation{yao2025taubench,xie2024osworld}
+\citation{debenedetti2024agentdojo,yao2025taubench}
+\citation{debenedetti2024agentdojo,wang2025webinject,ruan2024toolemu}
+\citation{zhou2024webarena,xie2024osworld,yao2025taubench}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Stateful and Long-Horizon Testing}{11}{subsection.9.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}Transfer Across Models, Representations, and Systems}{11}{subsection.9.4}\protected@file@percent }
+\citation{zou2023gcg}
+\citation{liu2024autodan}
+\citation{liao2024amplegcg}
+\citation{meade2025triggers}
+\citation{deng2024multilingual}
+\citation{geng2025coninstruction}
+\citation{liu2023houyi}
+\citation{hu2026jailbreakzero}
+\citation{lu2025poex}
+\citation{mazeika2024harmbench,chao2024jailbreakbench}
+\citation{mazeika2024harmbench,chao2024jailbreakbench}
+\citation{doumbouya2025h4rm3l,mehrotra2024treeofattacks}
+\citation{wang2026agenticeval}
+\citation{wang2026agenticeval}
+\citation{pan2026dynamicredteaming}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.5}Continual Red Teaming: Evaluation Drift}{12}{subsection.9.5}\protected@file@percent }
+\citation{kiela2021dynabench}
+\citation{white2025livebench}
+\citation{feffer2024redteaming}
+\citation{ahmad2025externalredteaming,solaiman2019release}
+\citation{cattell2024coordinatedflaw}
+\citation{wang2026beyondleaderboard}
+\citation{kiela2021dynabench,white2025livebench}
+\citation{zhu2025teamsllmagentsexploit}
+\citation{feffer2024redteaming,cattell2024coordinatedflaw}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.6}Governance: Responsible Release}{13}{subsection.9.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}Conclusion}{13}{section.10}\protected@file@percent }
 \bibstyle{fcs}
-\bibdata{ref}
+\bibdata{7-9}
 \bibcite{Lin_2025}{1}
 \bibcite{Das_2025}{2}
 \bibcite{Jabbar_2025}{3}
@@ -166,27 +315,6 @@
 \bibcite{lee2025diverseattacks}{9}
 \bibcite{zhao2025diverct}{10}
 \bibcite{bianchi2024safetytuned}{11}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Open Problems: Research Agenda}{6}{section.9}\protected@file@percent }
-\newlabel{sec:agenda}{{9}{6}{Open Problems: Research Agenda}{section.9}{}}
-\newlabel{sec:agenda@cref}{{[section][9][]9}{[1][5][]6}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Coverage: Discovery Guarantees}{6}{subsection.9.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {9.1.0.1}Risk-space coverage.}{6}{paragraph.9.1.0.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Judgment: Evaluation Reliability}{6}{subsection.9.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {9.2.0.1}Adversary-resistant judges.}{6}{paragraph.9.2.0.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Long-Horizon Testing: Stateful Systems}{6}{subsection.9.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {9.3.0.1}Persistent interaction.}{6}{paragraph.9.3.0.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}Transfer: Cross-Modal Robustness}{6}{subsection.9.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {9.4.0.1}Generalization across systems.}{6}{paragraph.9.4.0.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.5}Continual Red Teaming: Evaluation Drift}{6}{subsection.9.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {9.5.0.1}Adaptive maintenance.}{6}{paragraph.9.5.0.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.6}Governance: Responsible Release}{6}{subsection.9.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {9.6.0.1}Reproducibility: Disclosure.}{6}{paragraph.9.6.0.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {10}Conclusion}{6}{section.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {A}Detailed Survey Protocol}{6}{appendix.A}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Search Strings: Sources}{6}{subsection.A.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Paper Annotation: Evidence Table}{6}{subsection.A.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {B}Extended Taxonomy Tables}{6}{appendix.B}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {C}Evaluation Checklist}{6}{appendix.C}\protected@file@percent }
 \bibcite{pan2025overrefusal}{12}
 \bibcite{rottger2024xstest}{13}
 \bibcite{mazeika2024harmbench}{14}
@@ -195,4 +323,105 @@
 \bibcite{andriushchenko2025pasttense}{17}
 \bibcite{wang2025safetyreasoning}{18}
 \bibcite{chao2024jailbreakbench}{19}
-\gdef \@abspage@last{7}
+\bibcite{han2024wildguard}{20}
+\bibcite{inan2023llamaguard}{21}
+\bibcite{zeng2024shieldgemma}{22}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Detailed Survey Protocol}{14}{appendix.A}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Search Strings: Sources}{14}{subsection.A.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Paper Annotation: Evidence Table}{14}{subsection.A.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B}Extended Taxonomy Tables}{14}{appendix.B}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {C}Evaluation Checklist}{14}{appendix.C}\protected@file@percent }
+\bibcite{rebedea2023nemo}{23}
+\bibcite{liu2025guardcalibration}{24}
+\bibcite{zhang2025intention}{25}
+\bibcite{xu2024safedecoding}{26}
+\bibcite{shen2025jailbreakantidote}{27}
+\bibcite{ghosal2025immune}{28}
+\bibcite{zhu2025reasoningtodefend}{29}
+\bibcite{xu2024cider}{30}
+\bibcite{chi2024llamaguardvision}{31}
+\bibcite{verma2025multiguard}{32}
+\bibcite{yoon2025safree}{33}
+\bibcite{liang2025t2vshield}{34}
+\bibcite{he2026tear}{35}
+\bibcite{yang2026salmonnguard}{36}
+\bibcite{kang2026audioguard}{37}
+\bibcite{debenedetti2024agentdojo}{38}
+\bibcite{debenedetti2025camel}{39}
+\bibcite{wu2025isolategpt}{40}
+\bibcite{jia2025taskshield}{41}
+\bibcite{mou2026toolsafe}{42}
+\bibcite{do2026leastprivilege}{43}
+\bibcite{ruan2024toolemu}{44}
+\bibcite{chen2026cordon}{45}
+\bibcite{openai2023gpt4systemcard}{46}
+\bibcite{zhou2025autoredteamer}{47}
+\bibcite{zhang2025jbdistill}{48}
+\bibcite{derczynski2024garak}{49}
+\bibcite{lopezmunoz2024pyrit}{50}
+\bibcite{ukaisi2024inspect}{51}
+\bibcite{promptfooDocs}{52}
+\bibcite{metaCybersecurityBenchmarks}{53}
+\bibcite{liu2024mmsafetybench}{54}
+\bibcite{openaiEvals}{55}
+\bibcite{liang2023helm}{56}
+\bibcite{quaye2024adversarialnibbler}{57}
+\bibcite{rastogi2026goingplaces}{58}
+\bibcite{weidinger-etal-2024-star}{59}
+\bibcite{chiu-etal-2025-culturalbench}{60}
+\bibcite{kim2026darkbright}{61}
+\bibcite{radharapu-etal-2023-aart}{62}
+\bibcite{quaye2026bridging}{63}
+\bibcite{alvaradogarcia2026sociotechnical}{64}
+\bibcite{dinan-etal-2019-build}{65}
+\bibcite{NEURIPS2023_a74b697b}{66}
+\bibcite{mostafazadeh-davani-etal-2024-d3code}{67}
+\bibcite{ahmad2025externalredteaming}{68}
+\bibcite{fang2024llmagentsautonomouslyhack}{69}
+\bibcite{qi2023finetuningalignedlanguagemodels}{70}
+\bibcite{zhu2025teamsllmagentsexploit}{71}
+\bibcite{solaiman2019release}{72}
+\bibcite{fang2024llmagentsautonomouslyexploit}{73}
+\bibcite{zhang2025cybenchframeworkevaluatingcybersecurity}{74}
+\bibcite{li2024salad}{75}
+\bibcite{tong2023multimon}{76}
+\bibcite{pugh2016qualitydiversity}{77}
+\bibcite{yu2024llmfuzzer}{78}
+\bibcite{mehrotra2024tap}{79}
+\bibcite{chao2025pair}{80}
+\bibcite{liu2024autodan}{81}
+\bibcite{chao1984unseenclasses}{82}
+\bibcite{souly2024strongreject}{83}
+\bibcite{schwinn2026coinflip}{84}
+\bibcite{gao2026reliablejailbreakjudge}{85}
+\bibcite{shi2024optimization}{86}
+\bibcite{jung2024trust}{87}
+\bibcite{treeteaming2026}{88}
+\bibcite{chen2024agentpoison}{89}
+\bibcite{zou2025poisonedrag}{90}
+\bibcite{zhang2025asb}{91}
+\bibcite{zhan2024injecagent}{92}
+\bibcite{abdelnabi2023indirect}{93}
+\bibcite{yan2025muse}{94}
+\bibcite{yao2025taubench}{95}
+\bibcite{xie2024osworld}{96}
+\bibcite{wang2025webinject}{97}
+\bibcite{zhou2024webarena}{98}
+\bibcite{zou2023gcg}{99}
+\bibcite{liao2024amplegcg}{100}
+\bibcite{meade2025triggers}{101}
+\bibcite{deng2024multilingual}{102}
+\bibcite{geng2025coninstruction}{103}
+\bibcite{liu2023houyi}{104}
+\bibcite{hu2026jailbreakzero}{105}
+\bibcite{lu2025poex}{106}
+\bibcite{doumbouya2025h4rm3l}{107}
+\bibcite{mehrotra2024treeofattacks}{108}
+\bibcite{wang2026agenticeval}{109}
+\bibcite{pan2026dynamicredteaming}{110}
+\bibcite{kiela2021dynabench}{111}
+\bibcite{white2025livebench}{112}
+\bibcite{feffer2024redteaming}{113}
+\bibcite{cattell2024coordinatedflaw}{114}
+\bibcite{wang2026beyondleaderboard}{115}
+\gdef \@abspage@last{18}

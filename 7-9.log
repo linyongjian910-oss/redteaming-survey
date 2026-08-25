@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.8.1)  7 AUG 2026 23:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.8.1)  22 AUG 2026 12:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1356,56 +1356,163 @@ LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
 
 
 [5]
+
+
+
+[6]
+
+
+
+[7]
+
+
+
+[8]
+
+
+Overfull \hbox (3.0641pt too wide) in paragraph at lines 375--376
+[]\OT1/minntx/m/n/9 The re-viewed stud-ies use markedly dif-fer-ent re-lease pr
+ac-tices. Harm-
+ []
+
+
+
+[9]
+Overfull \hbox (5.68925pt too wide) in paragraph at lines 390--391
+\OT1/minntx/m/n/9 Ex-ist-ing bench-marks largely adopt a closed-world rep-re-se
+n-ta-tion. Harm-
+ []
+
+
+
+
+
+[10]
+
+
+
+[11]
+
+
+
+[12]
+Overfull \hbox (5.73114pt too wide) in paragraph at lines 437--438
+[]\OT1/minntx/m/n/9 Once the sys-tem, tar-get def-i-ni-tion, or mea-sure-ment p
+ro-ce-dure evolves,
+ []
+
+
+
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 5.5pt on input line 370.
+(Font)              scaled to size 5.5pt on input line 451.
 
 
-(./7-9.bbl
-
-[6])
+[13] (./7-9.bbl
 
 
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
+
+
+[14]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[15]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[16]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+[17]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+)
+
+[leftcolumn badness]: 10000 on 361.93433pt
+[rightcolumn badness]: 10000 on 361.93433pt
+[leftcolumn badness]: 10000 on 361.93433pt
+[rightcolumn badness]: 10000 on 361.93433pt
+[leftcolumn badness]: 10000 on 361.93433pt
+[rightcolumn badness]: 10000 on 361.93433pt
+[leftcolumn badness]: 10000 on 361.93433pt
+[rightcolumn badness]: 10000 on 361.93433pt
+[leftcolumn badness]: 10000 on 361.93433pt
+[rightcolumn badness]: 10000 on 361.93433pt
+[leftcolumn badness]: 10000 on 361.93433pt
+[rightcolumn badness]: 10000 on 361.93433pt
+[leftcolumn badness]: 10000 on 361.93433pt
+[rightcolumn badness]: 10000 on 361.93433pt
+[leftcolumn badness]: 10000 on 361.93433pt
+[rightcolumn badness]: 10000 on 361.93433pt
+[leftcolumn badness]: 10000 on 361.93433pt
+[rightcolumn badness]: 10000 on 361.93433pt
+[leftcolumn badness]: 10000 on 361.93433pt
+[rightcolumn badness]: 10000 on 361.93433pt
+[leftcolumn badness]: 10000 on 361.93433pt
+[rightcolumn badness]: 10000 on 361.93433pt
 - LAST -
-Extra skip:0.0pt
-Left:223.07118pt/1.96199pt
-Right:223.07118pt/1.96199pt
-Split: 224.86739pt
-Output:224.86739pt
-Pageshrink: 0.0pt
-Pagestretch: 0.0pt
+Extra skip:25.18484pt
+Left:374.18025pt/1.96199pt
+Right:348.9954pt/1.96199pt
+Split: 374.38403pt
+Output:374.38403pt
+Pageshrink: 4.0pt
+Pagestretch: 3.0pt
 @colht:654.41342pt
-FLUSHEND [output]: 224.86739pt
+FLUSHEND [output]: 374.38403pt
 FLUSHEND [leftcolumn badness]: 10000
 FUSHEND [rightcolumn badness]: 10000
-[7] (./7-9.aux)
+[18] (./7-9.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2020/03/25>
  ***********
 Package rerunfilecheck Info: File `7-9.out' has not changed.
-(rerunfilecheck)             Checksum: E9CBE3BC0BE067A50FC261C46668F94E;11278.
+(rerunfilecheck)             Checksum: 1FC98EC8C1634919AB9928FB670442B5;11456.
  ) 
 Here is how much of TeX's memory you used:
- 31512 strings out of 475046
- 587441 string characters out of 5760956
+ 31730 strings out of 475046
+ 592192 string characters out of 5760956
  967296 words of memory out of 5000000
- 53855 multiletter control sequences out of 15000+600000
- 610854 words of font info for 141 fonts, out of 8000000 for 9000
+ 53955 multiletter control sequences out of 15000+600000
+ 611291 words of font info for 142 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 113i,14n,115p,1506b,801s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/tex-gyre/qhvb.pfb><d:/La
-tex/texlive/2025/texmf-dist/fonts/type1/public/tex-gyre/qtmb.pfb><d:/Latex/texl
-ive/2025/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb><d:/Latex/texlive/2025
-/texmf-dist/fonts/type1/public/newtx/txsym.pfb><d:/Latex/texlive/2025/texmf-dis
-t/fonts/type1/public/newtx/txsys.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/ty
-pe1/public/newtx/ztmb.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/
-newtx/ztmr.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/newtx/ztmri
-.pfb>
-Output written on 7-9.pdf (7 pages, 208083 bytes).
+ 113i,14n,115p,1877b,801s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/newtx/NewTXMI.pfb><d:/La
+tex/texlive/2025/texmf-dist/fonts/type1/public/tex-gyre/qhvb.pfb><d:/Latex/texl
+ive/2025/texmf-dist/fonts/type1/public/tex-gyre/qtmb.pfb><d:/Latex/texlive/2025
+/texmf-dist/fonts/type1/public/tex-gyre/qtmr.pfb><d:/Latex/texlive/2025/texmf-d
+ist/fonts/type1/public/newtx/txsym.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/
+type1/public/newtx/txsys.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/type1/publ
+ic/newtx/ztmb.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/newtx/zt
+mr.pfb><d:/Latex/texlive/2025/texmf-dist/fonts/type1/public/newtx/ztmri.pfb>
+Output written on 7-9.pdf (18 pages, 291510 bytes).
 PDF statistics:
- 472 PDF objects out of 1000 (max. 8388607)
- 437 compressed objects within 5 object streams
- 159 named destinations out of 1000 (max. 500000)
+ 842 PDF objects out of 1000 (max. 8388607)
+ 791 compressed objects within 8 object streams
+ 276 named destinations out of 1000 (max. 500000)
  418 words of extra memory for PDF output out of 10000 (max. 10000000)
 

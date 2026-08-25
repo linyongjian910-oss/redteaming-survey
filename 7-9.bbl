@@ -1,4 +1,4 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{100}
 
 \bibitem{Lin_2025}
 Lin L, Mu~H, Zhai Z, Wang M, Wang Y, Wang R, Gao J, Zhang Y, Che W, Baldwin T,
@@ -139,5 +139,677 @@ Chao P, Debenedetti E, Robey A, Andriushchenko M, Croce F, Sehwag V, Dobriban
   language models.
 \newblock In: Advances in Neural Information Processing Systems.
 \newblock 2024
+
+\bibitem{han2024wildguard}
+Han S, Rao K, Ettinger A, Jiang L, Lin B~Y, Lambert N, Choi Y, Dziri N.
+\newblock Wildguard: Open one-stop moderation tools for safety risks,
+  jailbreaks, and refusals of {LLM}s.
+\newblock In: Advances in Neural Information Processing Systems.
+\newblock 2024
+
+\bibitem{inan2023llamaguard}
+Inan H, Upasani K, Chi J, Rungta R, Iyer K, Mao Y, Tontchev M, Hu~Q, Fuller B,
+  Testuggine D, Khabsa M.
+\newblock Llama guard: {LLM}-based input-output safeguard for human-{AI}
+  conversations.
+\newblock arXiv preprint arXiv:2312.06674, 2023
+
+\bibitem{zeng2024shieldgemma}
+Zeng W, Liu Y, Mullins R, Peran L, Fernandez J, Harkous H, Narasimhan K, Proud
+  D, Kumar P, Radharapu B, Sturman O, Wahltinez O.
+\newblock Shieldgemma: Generative {AI} content moderation based on gemma.
+\newblock arXiv preprint arXiv:2407.21772, 2024
+
+\bibitem{rebedea2023nemo}
+Rebedea T, Dinu R, Sreedhar M~N, Parisien C, Cohen J.
+\newblock {NeMo} guardrails: A toolkit for controllable and safe {LLM}
+  applications with programmable rails.
+\newblock In: Proceedings of the 2023 Conference on Empirical Methods in
+  Natural Language Processing: System Demonstrations.
+\newblock 2023,  431--445
+
+\bibitem{liu2025guardcalibration}
+Liu H, Huang H, Gu~X, Wang H, Wang Y.
+\newblock On calibration of {LLM}-based guard models for reliable content
+  moderation.
+\newblock In: International Conference on Learning Representations.
+\newblock 2025
+
+\bibitem{zhang2025intention}
+Zhang Y, Ding L, Zhang L, Tao D.
+\newblock Intention analysis makes {LLM}s a good jailbreak defender.
+\newblock In: Proceedings of the 31st International Conference on Computational
+  Linguistics.
+\newblock 2025,  2947--2968
+
+\bibitem{xu2024safedecoding}
+Xu~Z, Jiang F, Niu L, Jia J, Lin B~Y, Poovendran R.
+\newblock {SafeDecoding}: Defending against jailbreak attacks via safety-aware
+  decoding.
+\newblock In: Proceedings of the 62nd Annual Meeting of the Association for
+  Computational Linguistics (Volume 1: Long Papers).
+\newblock 2024,  5587--5605
+
+\bibitem{shen2025jailbreakantidote}
+Shen G, Zhao D, Dong Y, He~X, Zeng Y.
+\newblock Jailbreak antidote: Runtime safety-utility balance via sparse
+  representation adjustment in large language models.
+\newblock In: International Conference on Learning Representations.
+\newblock 2025
+
+\bibitem{ghosal2025immune}
+Ghosal S~S, Chakraborty S, Singh V, Guan T, Wang M, Beirami A, Huang F,
+  Velasquez A, Manocha D, Bedi A~S.
+\newblock Immune: Improving safety against jailbreaks in multi-modal {LLM}s via
+  inference-time alignment.
+\newblock In: Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition (CVPR).
+\newblock 2025,  25038--25049
+
+\bibitem{zhu2025reasoningtodefend}
+Zhu J, Yan L, Wang S, Yin D, Sha L.
+\newblock Reasoning-to-defend: Safety-aware reasoning can defend large language
+  models from jailbreaking.
+\newblock In: Proceedings of the 2025 Conference on Empirical Methods in
+  Natural Language Processing.
+\newblock 2025,  29343--29361
+
+\bibitem{xu2024cider}
+Xu~Y, Qi~X, Qin Z, Wang W.
+\newblock Cross-modality information check for detecting jailbreaking in
+  multimodal large language models.
+\newblock In: Findings of the Association for Computational Linguistics: EMNLP
+  2024.
+\newblock 2024,  13715--13726
+
+\bibitem{chi2024llamaguardvision}
+Chi J, Karn U, Zhan H, Smith E, Rando J, Zhang Y, Plawiak K, Delpierre~Coudert
+  Z, Upasani K, Pasupuleti M.
+\newblock Llama guard 3 vision: Safeguarding human-{AI} image understanding
+  conversations.
+\newblock arXiv preprint arXiv:2411.10414, 2024
+
+\bibitem{verma2025multiguard}
+Verma S, Hines K, Bilmes J, Siska C, Zettlemoyer L, Gonen H, Singh C.
+\newblock {MULTIGUARD}: An efficient approach for {AI} safety moderation across
+  languages and modalities.
+\newblock In: Proceedings of the 2025 Conference on Empirical Methods in
+  Natural Language Processing.
+\newblock 2025,  16173--16187
+
+\bibitem{yoon2025safree}
+Yoon J, Yu~S, Patil V~R, Yao H, Bansal M.
+\newblock Safree: Training-free and adaptive guard for safe text-to-image and
+  video generation.
+\newblock In: International Conference on Learning Representations.
+\newblock 2025
+
+\bibitem{liang2025t2vshield}
+Liang S, Liu J, Zhai J, Fang T, Tu~R, Liu A, Cao X, Tao D.
+\newblock T2vshield: Model-agnostic jailbreak defense for text-to-video models.
+\newblock arXiv preprint arXiv:2504.15512, 2025
+
+\bibitem{he2026tear}
+He~J, Hou G, Li~H, Huang Z, Chen K, Yu~Y, Jiang W, Xu~G, Zhang T.
+\newblock Tear: Temporal-aware automated red-teaming for text-to-video models.
+\newblock In: Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition (CVPR).
+\newblock June 2026,  41--50
+
+\bibitem{yang2026salmonnguard}
+Yang Y, Zhang X, Han Z, Wang S, Zhuang J, Jin Z, Shao J, Sun G, Zhang C.
+\newblock Speech-audio compositional attacks on multimodal {LLM}s and their
+  mitigation with {SALMONN}-guard.
+\newblock arXiv preprint arXiv:2511.10222, 2026
+
+\bibitem{kang2026audioguard}
+Kang M, Fang C, Li~B.
+\newblock Audioguard: Toward comprehensive audio safety protection across
+  diverse threat models.
+\newblock arXiv preprint arXiv:2604.08867, 2026
+
+\bibitem{debenedetti2024agentdojo}
+Debenedetti E, Zhang J, Balunovi{\'c} M, Beurer-Kellner L, Fischer M,
+  Tram{\`e}r F.
+\newblock {AgentDojo}: A dynamic environment to evaluate prompt injection
+  attacks and defenses for llm agents.
+\newblock In: Advances in Neural Information Processing Systems 37.
+\newblock 2024.
+\newblock Datasets and Benchmarks Track
+
+\bibitem{debenedetti2025camel}
+Debenedetti E, Shumailov I, Fan T, Hayes J, Carlini N, Fabian D, Kern C, Shi C,
+  Terzis A, Tram{\`e}r F.
+\newblock Defeating prompt injections by design.
+\newblock arXiv preprint arXiv:2503.18813, 2025
+
+\bibitem{wu2025isolategpt}
+Wu~Y, Roesner F, Kohno T, Zhang N, Iqbal U.
+\newblock {IsolateGPT}: An execution isolation architecture for {LLM}-based
+  agentic systems.
+\newblock In: Proceedings of the Network and Distributed System Security
+  Symposium.
+\newblock 2025
+
+\bibitem{jia2025taskshield}
+Jia F, Wu~T, Qin X, Squicciarini A.
+\newblock The task shield: Enforcing task alignment to defend against indirect
+  prompt injection in {LLM} agents.
+\newblock In: Proceedings of the 63rd Annual Meeting of the Association for
+  Computational Linguistics.
+\newblock 2025,  29680--29697
+
+\bibitem{mou2026toolsafe}
+Mou Y, Xue Z, Li~L, Liu P, Zhang S, Ye~W, Shao J.
+\newblock Toolsafe: Enhancing tool invocation safety of {LLM}-based agents via
+  proactive step-level guardrail and feedback.
+\newblock In: Findings of the Association for Computational Linguistics: ACL
+  2026.
+\newblock 2026,  37125--37153
+
+\bibitem{do2026leastprivilege}
+Yan Z, Weng J, Chen C, Peng D, Qin E, Guan J, Liu J, Yu~Q, Yuan Y, Meng F, Che
+  C, Hu~M.
+\newblock Do coding agents understand least-privilege authorization?
+\newblock arXiv preprint arXiv:2605.14859, 2026
+
+\bibitem{ruan2024toolemu}
+Ruan Y, Dong H, Wang A, Pitis S, Zhou Y, Ba~J, Dubois Y, Maddison C, Hashimoto
+  T.
+\newblock Identifying the risks of {LM} agents with an {LM}-emulated sandbox.
+\newblock In: International Conference on Learning Representations.
+\newblock 2024
+
+\bibitem{chen2026cordon}
+Chen Z, Liu H, Xu~D, Dong D, Li~J, Pu~B, Zhai J.
+\newblock Cordon: Semantic transactions for tool-using {LLM} agents.
+\newblock arXiv preprint arXiv:2606.17573, 2026
+
+\bibitem{openai2023gpt4systemcard}
+{OpenAI} .
+\newblock Gpt-4 system card, 2023
+
+\bibitem{zhou2025autoredteamer}
+Zhou A, Wu~K, Pinto F, Chen Z, Zeng Y, Yang Y, Yang S, Koyejo S, Zou J~Y, Li~B.
+\newblock Autoredteamer: Autonomous red teaming with lifelong attack
+  integration.
+\newblock In: Advances in Neural Information Processing Systems.
+\newblock 2025
+
+\bibitem{zhang2025jbdistill}
+Zhang J, Elgohary A, Wang X, Iftekhar A~S~M, Magooda A, Van~Durme B, Khashabi
+  D, Jackson K.
+\newblock Jailbreak distillation: Renewable safety benchmarking.
+\newblock In: Findings of the Association for Computational Linguistics: EMNLP
+  2025.
+\newblock 2025,  25066--25089
+
+\bibitem{derczynski2024garak}
+Derczynski L, Galinkin E, Martin J, Majumdar S, Inie N.
+\newblock {garak}: A framework for security probing large language models, 2024
+
+\bibitem{lopezmunoz2024pyrit}
+Lopez~Munoz G~D, Minnich A~J, Lutz R, Lundeen R, Dheekonda R~S~R, Chikanov N,
+  Jagdagdorj B~E, Pouliot M, Chawla S, Maxwell W, Bullwinkel B, Pratt K,
+  Gruyter d~J, Siska C, Bryan P, Westerhoff T, Kawaguchi C, Seifert C, Kumar
+  R~S~S, Zunger Y.
+\newblock {PyRIT}: A framework for security risk identification and red teaming
+  in generative ai system, 2024
+
+\bibitem{ukaisi2024inspect}
+{AI Security Institute, UK} .
+\newblock {Inspect AI}: Framework for large language model evaluations, 2024.
+\newblock Official software documentation. Accessed 2026-08-09
+
+\bibitem{promptfooDocs}
+{promptfoo} .
+\newblock {promptfoo}: Llm evals and red teaming.
+\newblock Official software documentation. Accessed 2026-08-09
+
+\bibitem{metaCybersecurityBenchmarks}
+{Meta Purple Llama Contributors} .
+\newblock {CybersecurityBenchmarks}.
+\newblock Official software repository documentation. Accessed 2026-08-09
+
+\bibitem{liu2024mmsafetybench}
+Liu X, Zhu Y, Gu~J, Lan Y, Yang C, Qiao Y.
+\newblock {MM-SafetyBench}: A benchmark for safety evaluation of multimodal
+  large language models.
+\newblock In: Proceedings of the European Conference on Computer Vision (ECCV).
+\newblock 2024
+
+\bibitem{openaiEvals}
+{OpenAI} .
+\newblock {OpenAI Evals}.
+\newblock Official software repository. Accessed 2026-08-09
+
+\bibitem{liang2023helm}
+Liang P, Bommasani R, Lee T, Tsipras D, Soylu D, Yasunaga M, Zhang Y, Narayanan
+  D, Wu~Y, Kumar A, Newman B, Yuan B, Yan B, Zhang C, Cosgrove C, Manning C~D,
+  Re~C, Acosta-Navas D, Hudson D~A, Zelikman E, Durmus E, Ladhak F, Rong F, Ren
+  H, Yao H, Wang J, Santhanam K, Orr L, Zheng L, Yuksekgonul M, Suzgun M, Kim
+  N, Guha N, Chatterji N~S, Khattab O, Henderson P, Huang Q, Chi R~A, Xie S~M,
+  Santurkar S, Ganguli S, Hashimoto T, Icard T, Zhang T, Chaudhary V, Wang W,
+  Li~X, Mai Y, Zhang Y, Koreeda Y.
+\newblock Holistic evaluation of language models.
+\newblock Transactions on Machine Learning Research, 2023
+
+\bibitem{quaye2024adversarialnibbler}
+Quaye J, Parrish A, Inel O, Rastogi C, Kirk H~R, Kahng M, Van~Liemt E, Bartolo
+  M, Tsang J, White J, Clement N, Mosquera R, Ciro J, Reddi V~J, Aroyo L.
+\newblock Adversarial nibbler: An open red-teaming method for identifying
+  diverse harms in text-to-image generation.
+\newblock In: Proceedings of the 2024 ACM Conference on Fairness,
+  Accountability, and Transparency.
+\newblock 2024,  388--406
+
+\bibitem{rastogi2026goingplaces}
+Rastogi C, Bhutani M, Kahng M, Muhammad S~H, Razumovskaia E, Suresh P, Ahmad
+  I~S, Kalia C, Mahomed Y, Maji M, Lee M, Parrish A, Quaye J, Reddi V~J, Verma
+  A, Aroyo L.
+\newblock Going {PLACES}: Participatory localized red teaming for text-to-image
+  safety in the global south.
+\newblock In: Proceedings of the 2026 ACM Conference on Fairness,
+  Accountability, and Transparency.
+\newblock 2026,  2608--2642
+
+\bibitem{weidinger-etal-2024-star}
+Weidinger L, Mellor J~F~J, Pegueroles B~G, Marchal N, Kumar R, Lum K, Akbulut
+  C, Diaz M, Bergman A~S, Rodriguez M~D, Rieser V, Isaac W.
+\newblock {STAR}: {S}ocio{T}echnical approach to red teaming language models.
+\newblock In: Proceedings of the 2024 Conference on Empirical Methods in
+  Natural Language Processing.
+\newblock 2024,  21516--21532
+
+\bibitem{chiu-etal-2025-culturalbench}
+Chiu Y~Y, Jiang L, Lin B~Y, Park C~Y, Li~S~S, Ravi S, Bhatia M, Antoniak M,
+  Tsvetkov Y, Shwartz V, Choi Y.
+\newblock {C}ultural{B}ench: A robust, diverse and challenging benchmark for
+  measuring {LM}s' cultural knowledge through human-{AI} red-teaming.
+\newblock In: Proceedings of the 63rd Annual Meeting of the Association for
+  Computational Linguistics (Volume 1: Long Papers).
+\newblock 2025,  25663--25701
+
+\bibitem{kim2026darkbright}
+Kim S, Jo~Y, Na~S, Lim H, Lee E, Choi Y~M, Cho S, Hong H.
+\newblock Dark and bright side of participatory red-teaming with targets of
+  stereotyping for eliciting harmful behaviors from large language models.
+\newblock arXiv preprint arXiv:2602.19124, 2026
+
+\bibitem{radharapu-etal-2023-aart}
+Radharapu B, Robinson K, Aroyo L, Lahoti P.
+\newblock {AART}: {AI}-assisted red-teaming with diverse data generation for
+  new {LLM}-powered applications.
+\newblock In: Proceedings of the 2023 Conference on Empirical Methods in
+  Natural Language Processing: Industry Track.
+\newblock 2023,  380--395
+
+\bibitem{quaye2026bridging}
+Quaye J, Parrish A, Rastogi C, Kahng M, Inel O, Aroyo L, Reddi V~J.
+\newblock Bridging the scale gap: Augmenting human red-teaming to uncover
+  latent risks in {T2I} models.
+\newblock In: Proceedings of the 2026 ACM Conference on Fairness,
+  Accountability, and Transparency.
+\newblock 2026,  7422--7449
+
+\bibitem{alvaradogarcia2026sociotechnical}
+Alvarado~Garcia A, Wan R, Oguine O~C, Badillo-Urquiola K.
+\newblock Red teaming {LLM}s as socio-technical practice: From exploration and
+  data creation to evaluation.
+\newblock In: Proceedings of the 2026 CHI Conference on Human Factors in
+  Computing Systems.
+\newblock 2026
+
+\bibitem{dinan-etal-2019-build}
+Dinan E, Humeau S, Chintagunta B, Weston J.
+\newblock Build it break it fix it for dialogue safety: Robustness from
+  adversarial human attack.
+\newblock In: Proceedings of the 2019 Conference on Empirical Methods in
+  Natural Language Processing and the 9th International Joint Conference on
+  Natural Language Processing.
+\newblock 2019,  4537--4546
+
+\bibitem{NEURIPS2023_a74b697b}
+Aroyo L, Taylor A~S, D{\'i}az M, Homan C~M, Parrish A, Serapio-Garc{\'i}a G,
+  Prabhakaran V, Wang D.
+\newblock {DICES} dataset: Diversity in conversational {AI} evaluation for
+  safety.
+\newblock In: Advances in Neural Information Processing Systems.
+\newblock 2023.
+\newblock Datasets and Benchmarks Track
+
+\bibitem{mostafazadeh-davani-etal-2024-d3code}
+Davani A, D{\'i}az M, Baker D, Prabhakaran V.
+\newblock {D}3{CODE}: Disentangling disagreements in data across cultures on
+  offensiveness detection and evaluation.
+\newblock In: Proceedings of the 2024 Conference on Empirical Methods in
+  Natural Language Processing.
+\newblock 2024,  18511--18526
+
+\bibitem{ahmad2025externalredteaming}
+Ahmad L, Agarwal S, Lampe M, Mishkin P.
+\newblock Openai's approach to external red teaming for ai models and systems,
+  2025
+
+\bibitem{fang2024llmagentsautonomouslyhack}
+Fang R, Bindu R, Gupta A, Zhan Q, Kang D.
+\newblock Llm agents can autonomously hack websites, 2024
+
+\bibitem{qi2023finetuningalignedlanguagemodels}
+Qi~X, Zeng Y, Xie T, Chen P~Y, Jia R, Mittal P, Henderson P.
+\newblock Fine-tuning aligned language models compromises safety, even when
+  users do not intend to!, 2023
+
+\bibitem{zhu2025teamsllmagentsexploit}
+Zhu Y, Kellermann A, Gupta A, Li~P, Fang R, Bindu R, Kang D.
+\newblock Teams of llm agents can exploit zero-day vulnerabilities, 2025
+
+\bibitem{solaiman2019release}
+Solaiman I, Brundage M, Clark J, Askell A, Herbert-Voss A, Wu~J, Radford A,
+  Krueger G, Kim J~W, Kreps S, McCain M, Newhouse A, Blazakis J, McGuffie K,
+  Wang J.
+\newblock Release strategies and the social impacts of language models, 2019
+
+\bibitem{fang2024llmagentsautonomouslyexploit}
+Fang R, Bindu R, Gupta A, Kang D.
+\newblock Llm agents can autonomously exploit one-day vulnerabilities, 2024
+
+\bibitem{zhang2025cybenchframeworkevaluatingcybersecurity}
+Zhang A~K, Perry N, Dulepet R, Ji~J, Menders C, Lin J~W, Jones E, Hussein G,
+  Liu S, Jasper D, Peetathawatchai P, Sivashankar V, Zamoshchin D, Glikbarg L,
+  Askaryar D, Yang H, Zhang A, Alluri R, Tran N, Sangpisit R, Yiorkadjis P,
+  Osele K, Raghupathi G, Boneh D, Ho~D~E, Liang P.
+\newblock Cybench: A framework for evaluating cybersecurity capabilities and
+  risks of language models, 2025
+
+\bibitem{li2024salad}
+Li~L, Dong B, Wang R, Hu~X, Zuo W, Lin D, Qiao Y, Shao J.
+\newblock {SALAD}-bench: A hierarchical and comprehensive safety benchmark for
+  large language models.
+\newblock In: Findings of the Association for Computational Linguistics: ACL
+  2024.
+\newblock 2024,  3923--3954
+
+\bibitem{tong2023multimon}
+Tong S, Jones E, Steinhardt J.
+\newblock Mass-producing failures of multimodal systems with language models.
+\newblock In: Advances in Neural Information Processing Systems.
+\newblock 2023,  29292--29322
+
+\bibitem{pugh2016qualitydiversity}
+Pugh J~K, Soros L~B, Stanley K~O.
+\newblock Quality diversity: A new frontier for evolutionary computation.
+\newblock Frontiers in Robotics and AI, 2016, 3
+
+\bibitem{yu2024llmfuzzer}
+Yu~J, Lin X, Yu~Z, Xing X.
+\newblock {LLM-Fuzzer}: Scaling assessment of large language model jailbreaks.
+\newblock In: 33rd USENIX Security Symposium (USENIX Security 24).
+\newblock 2024,  4657--4674
+
+\bibitem{mehrotra2024tap}
+Mehrotra A, Zampetakis M, Kassianik P, Nelson B, Anderson H, Singer Y, Karbasi
+  A.
+\newblock Tree of attacks: Jailbreaking black-box llms automatically.
+\newblock In: Advances in Neural Information Processing Systems.
+\newblock 2024,  61065--61105
+
+\bibitem{chao2025pair}
+Chao P, Robey A, Dobriban E, Hassani H, Pappas G~J, Wong E.
+\newblock Jailbreaking black box large language models in twenty queries.
+\newblock In: 2025 IEEE Conference on Secure and Trustworthy Machine Learning
+  (SaTML).
+\newblock 2025,  23--42
+
+\bibitem{liu2024autodan}
+Liu X, Xu~N, Chen M, Xiao C.
+\newblock {AutoDAN}: Generating stealthy jailbreak prompts on aligned large
+  language models.
+\newblock In: International Conference on Learning Representations.
+\newblock 2024,  56174--56194
+
+\bibitem{chao1984unseenclasses}
+Chao A.
+\newblock Nonparametric estimation of the number of classes in a population.
+\newblock Scandinavian Journal of Statistics, 1984, 11(4): 265--270
+
+\bibitem{souly2024strongreject}
+Souly A, Lu~Q, Bowen D, Trinh T, Hsieh E, Pandey S, Abbeel P, Svegliato J,
+  Emmons S, Watkins O, Toyer S.
+\newblock A strongreject for empty jailbreaks.
+\newblock In: Advances in Neural Information Processing Systems.
+\newblock 2024
+
+\bibitem{schwinn2026coinflip}
+Schwinn L, Ladenburger M, Beyer T, Mofakhami M, Gidel G, G{"u}nnemann S.
+\newblock A coin flip for safety: Llm judges fail to reliably measure
+  adversarial robustness.
+\newblock arXiv preprint arXiv:2603.06594, 2026
+
+\bibitem{gao2026reliablejailbreakjudge}
+Gao Y.
+\newblock How reliable is your jailbreak judge? calibration and adversarial
+  robustness of automated asr scoring.
+\newblock arXiv preprint arXiv:2606.25487, 2026
+
+\bibitem{shi2024optimization}
+Shi J, Yuan Z, Liu Y, Huang Y, Zhou P, Sun L, Gong N~Z.
+\newblock Optimization-based prompt injection attack to llm-as-a-judge.
+\newblock In: Proceedings of the 2024 ACM SIGSAC Conference on Computer and
+  Communications Security.
+\newblock 2024,  660--674
+
+\bibitem{jung2024trust}
+Jung J, Brahman F, Choi Y.
+\newblock Trust or escalate: Llm judges with provable guarantees for human
+  agreement.
+\newblock arXiv preprint arXiv:2407.18370, 2024
+
+\bibitem{treeteaming2026}
+Li~C, Li~L, Shao J.
+\newblock Treeteaming: Autonomous red-teaming of vision-language models via
+  hierarchical strategy exploration.
+\newblock In: Proceedings of the IEEE/CVF Conference on Computer Vision and
+  Pattern Recognition (CVPR).
+\newblock 2026,  37684--37693
+
+\bibitem{chen2024agentpoison}
+Chen Z, Xiang Z, Xiao C, Song D, Li~B.
+\newblock {AgentPoison}: Red-teaming {LLM} agents via poisoning memory or
+  knowledge bases.
+\newblock In: Advances in Neural Information Processing Systems.
+\newblock 2024
+
+\bibitem{zou2025poisonedrag}
+Zou W, Geng R, Wang B, Jia J.
+\newblock {PoisonedRAG}: Knowledge corruption attacks to retrieval-augmented
+  generation of large language models.
+\newblock In: 34th USENIX Security Symposium (USENIX Security 25).
+\newblock August 2025,  3827--3844
+
+\bibitem{zhang2025asb}
+Zhang H, Huang J, Mei K, Yao Y, Wang Z, Zhan C, Wang H, Zhang Y.
+\newblock Agent security bench ({ASB}): Formalizing and benchmarking attacks
+  and defenses in {LLM}-based agents.
+\newblock In: International Conference on Learning Representations.
+\newblock 2025
+
+\bibitem{zhan2024injecagent}
+Zhan Q, Liang Z, Ying Z, Kang D.
+\newblock {InjecAgent}: Benchmarking indirect prompt injections in
+  tool-integrated large language model agents.
+\newblock In: Findings of the Association for Computational Linguistics: ACL
+  2024.
+\newblock 2024,  10471--10506
+
+\bibitem{abdelnabi2023indirect}
+Abdelnabi S, Greshake K, Mishra S, Endres C, Holz T, Fritz M.
+\newblock Not what you've signed up for: Compromising real-world
+  {LLM}-integrated applications with indirect prompt injection.
+\newblock In: Proceedings of the 16th ACM Workshop on Artificial Intelligence
+  and Security.
+\newblock 2023,  79--90
+
+\bibitem{yan2025muse}
+Yan S, Zeng L, Wu~X, Han C, Zhang K, Peng C, Cao X, Cai X, Guo C.
+\newblock {MUSE}: {MCTS}-driven red teaming framework for enhanced multi-turn
+  dialogue safety in large language models.
+\newblock In: Proceedings of the 2025 Conference on Empirical Methods in
+  Natural Language Processing.
+\newblock 2025,  21282--21303
+
+\bibitem{yao2025taubench}
+Yao S, Shinn N, Razavi P, Narasimhan K.
+\newblock {$\tau$}-bench: A benchmark for
+  \underline{T}ool-\underline{A}gent-\underline{U}ser interaction in real-world
+  domains.
+\newblock In: International Conference on Learning Representations.
+\newblock 2025
+
+\bibitem{xie2024osworld}
+Xie T, Zhang D, Chen J, Li~X, Zhao S, Cao R, Hua T~J, Cheng Z, Shin D, Lei F,
+  Liu Y, Xu~Y, Zhou S, Savarese S, Xiong C, Zhong V, Yu~T.
+\newblock {OSWorld}: Benchmarking multimodal agents for open-ended tasks in
+  real computer environments.
+\newblock In: Advances in Neural Information Processing Systems.
+\newblock 2024
+
+\bibitem{wang2025webinject}
+Wang X, Bloch J, Shao Z, Hu~Y, Zhou S, Gong N~Z.
+\newblock {WebInject}: Prompt injection attack to web agents.
+\newblock In: Proceedings of the 2025 Conference on Empirical Methods in
+  Natural Language Processing.
+\newblock 2025,  2010--2030
+
+\bibitem{zhou2024webarena}
+Zhou S, Xu~F~F, Zhu H, Zhou X, Lo~R, Sridhar A, Cheng X, Ou~T, Bisk Y, Fried D,
+  Alon U, Neubig G.
+\newblock {WebArena}: A realistic web environment for building autonomous
+  agents.
+\newblock In: International Conference on Learning Representations.
+\newblock 2024
+
+\bibitem{zou2023gcg}
+Zou A, Wang Z, Carlini N, Nasr M, Kolter J~Z, Fredrikson M.
+\newblock Universal and transferable adversarial attacks on aligned language
+  models, 2023
+
+\bibitem{liao2024amplegcg}
+Liao Z, Sun H.
+\newblock {AmpleGCG}: Learning a universal and transferable generative model of
+  adversarial suffixes for jailbreaking both open and closed {LLM}s.
+\newblock In: First Conference on Language Modeling.
+\newblock 2024
+
+\bibitem{meade2025triggers}
+Meade N, Patel A, Reddy S.
+\newblock Investigating adversarial trigger transfer in large language models.
+\newblock Transactions of the Association for Computational Linguistics, 2025,
+  13: 953--979
+
+\bibitem{deng2024multilingual}
+Deng Y, Zhang W, Pan S~J, Bing L.
+\newblock Multilingual jailbreak challenges in large language models.
+\newblock In: The Twelfth International Conference on Learning Representations.
+\newblock 2024
+
+\bibitem{geng2025coninstruction}
+Geng J, Tran T~T, Nakov P, Gurevych I.
+\newblock Con instruction: Universal jailbreaking of multimodal large language
+  models via non-textual modalities.
+\newblock In: Proceedings of the 63rd Annual Meeting of the Association for
+  Computational Linguistics (Volume 1: Long Papers).
+\newblock 2025,  2917--2933
+
+\bibitem{liu2023houyi}
+Liu Y, Deng G, Li~Y, Wang K, Wang Z, Wang X, Zhang T, Liu Y, Wang H, Zheng Y,
+  Zhang L~Y, Liu Y.
+\newblock Prompt injection attack against {LLM}-integrated applications, 2023
+
+\bibitem{hu2026jailbreakzero}
+Hu~K, Aggarwal A, Khodabandeh M, Zhang D, Hsin E, Chen L, Jain A, Fredrikson M,
+  Bharadwaj A.
+\newblock Jailbreak-zero: A path to {P}areto optimal red teaming for large
+  language models.
+\newblock In: Proceedings of the 64th Annual Meeting of the Association for
+  Computational Linguistics (Volume 1: Long Papers).
+\newblock 2026,  46720--46746
+
+\bibitem{lu2025poex}
+Lu~X, Huang Z, Li~X, Zhang C, Ji~X, Xu~W.
+\newblock {POEX}: Towards policy executable jailbreak attacks against the
+  {LLM}-based robots, 2025
+
+\bibitem{doumbouya2025h4rm3l}
+Doumbouya M~K~B, Nandi A, Poesia G, Ghilardi D, Goldie A, Bianchi F, Jurafsky
+  D, Manning C.
+\newblock {h4rm3l}: A language for composable jailbreak attack synthesis.
+\newblock In: Yue Y, Garg A, Peng N, Sha F, Yu~R, eds, International Conference
+  on Learning Representations.
+\newblock 2025,  57253--57286
+
+\bibitem{mehrotra2024treeofattacks}
+Mehrotra A, Zampetakis M, Kassianik P, Nelson B, Anderson H, Singer Y, Karbasi
+  A.
+\newblock Tree of attacks: Jailbreaking black-box {LLMs} automatically.
+\newblock In: Globerson A, Mackey L, Belgrave D, Fan A, Paquet U, Tomczak J,
+  Zhang C, eds, Advances in Neural Information Processing Systems.
+\newblock 2024,  61065--61105
+
+\bibitem{wang2026agenticeval}
+Wang Y, Wang X, Yao Y, Li~X, Yang X, Teng Y, Ma~X, Wang Y.
+\newblock {AgenticEval}: Toward agentic and self-evolving safety evaluation of
+  large language models.
+\newblock In: Findings of the Association for Computational Linguistics: ACL
+  2026.
+\newblock July 2026,  14789--14808
+
+\bibitem{pan2026dynamicredteaming}
+Pan J, Jian B, Hager P, Zhang Y, Liu C, Jungmann F, Li~H~B, Canisius J, You C,
+  Wu~J, Zhu J, Liu F, Liu Y, Bubeck N, Knolle M, Chen C, Wachinger C, Gong Z,
+  Ouyang C, Kaissis G, Wiestler B, Rueckert D.
+\newblock Addressing benchmarking gaps in large language models for health and
+  medicine with dynamic red-teaming.
+\newblock Nature Health, 2026
+
+\bibitem{kiela2021dynabench}
+Kiela D, Bartolo M, Nie Y, Kaushik D, Geiger A, Wu~Z, Vidgen B, Prasad G, Singh
+  A, Ringshia P, Ma~Z, Thrush T, Riedel S, Waseem Z, Stenetorp P, Jia R, Bansal
+  M, Potts C, Williams A.
+\newblock {Dynabench}: Rethinking benchmarking in {NLP}.
+\newblock In: Proceedings of the 2021 Conference of the North American Chapter
+  of the Association for Computational Linguistics: Human Language
+  Technologies.
+\newblock June 2021,  4110--4124
+
+\bibitem{white2025livebench}
+White C, Dooley S, Roberts M, Pal A, Feuer B, Jain S, Shwartz-Ziv R, Jain N,
+  Saifullah K, Dey S, {Shubh-Agrawal} , Sandha S, Naidu S, Hegde C, LeCun Y,
+  Goldstein T, Neiswanger W, Goldblum M.
+\newblock {LiveBench}: A challenging, contamination-limited {LLM} benchmark.
+\newblock In: Yue Y, Garg A, Peng N, Sha F, Yu~R, eds, International Conference
+  on Learning Representations.
+\newblock 2025,  91595--91631
+
+\bibitem{feffer2024redteaming}
+Feffer M, Sinha A, Deng W~H, Lipton Z~C, Heidari H.
+\newblock Red-teaming for generative {AI}: Silver bullet or security theater?
+\newblock Proceedings of the {AAAI}/{ACM} Conference on {AI}, Ethics, and
+  Society, 2024, 7: 421--437
+
+\bibitem{cattell2024coordinatedflaw}
+Cattell S, Ghosh A, Kaffee L~A.
+\newblock Coordinated flaw disclosure for {AI}: Beyond security
+  vulnerabilities.
+\newblock Proceedings of the {AAAI}/{ACM} Conference on {AI}, Ethics, and
+  Society, 2024, 7: 267--280
+
+\bibitem{wang2026beyondleaderboard}
+Wang W, Ma~Z, Yu~G, Cheung Y~F, Ding M, Liu J, Chen W, Shen L.
+\newblock Beyond the leaderboard: Rethinking medical benchmarks for large
+  language models.
+\newblock In: Proceedings of the 64th Annual Meeting of the Association for
+  Computational Linguistics (Volume 1: Long Papers).
+\newblock July 2026,  43078--43123
 
 \end{thebibliography}
