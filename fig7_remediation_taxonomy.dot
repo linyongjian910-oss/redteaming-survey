@@ -1,0 +1,22 @@
+// Figure 7 topology for: Automated Red Teaming for Generative Models: A Survey
+// Editable Graphviz/DOT representation. The companion TikZ source fixes the
+// publication geometry used for the supplied SVG, PDF, and PNG exports.
+digraph RemediationTaxonomy {
+  graph [rankdir=LR, splines=curved, bgcolor="white", pad="0.08", nodesep="0.42", ranksep="0.68"];
+  node [shape=rect, style="rounded,filled", fontname="Helvetica", color="#73808C", penwidth=0.8];
+  edge [color="#5F6B76", penwidth=0.8, arrowsize=0.65, fontname="Helvetica"];
+
+  discovery [label="Automated Red-Team\nFailure Discovery", fillcolor="#DDEBF7"];
+  confirmed [label="Confirmed /\nReproducible Failure", fillcolor="#DDEBF7"];
+  training [label="Training-Time Safety Tuning\nFailure traces -> supervision\nMART | R2D2 / HarmBench | DiveR-CT", fillcolor="#FCE4D6"];
+  runtime [label="Runtime Safety Control\nJudgments -> intervention signals\nWildGuard | SafeDecoding | Jailbreak Antidote | Immune", fillcolor="#E2F0D9"];
+  system [label="Application-Level System Controls\nSeparate decisions from authority\nCaMeL | IsolateGPT | Task Shield | ToolSafe", fillcolor="#EDE7F6"];
+  continuous [label="Continuous Testing\nPersistence: retain and replay\nRenewal: new attacks / refreshed artifacts\nAutoRedTeamer | Jailbreak Distillation", fillcolor="#FFF2CC"];
+
+  discovery -> confirmed;
+  confirmed -> training;
+  confirmed -> runtime;
+  confirmed -> system;
+  confirmed -> continuous;
+  continuous -> discovery [label="  retained + new failures", constraint=false, minlen=3];
+}

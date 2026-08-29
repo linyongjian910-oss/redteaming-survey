@@ -1,0 +1,41 @@
+# macOS / editor metadata
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# LaTeX compilation intermediates
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.glg
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.ist
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+
+# Tool-generated temporary directories
+_minted*/
+
+# Rendered manuscript PDFs are build outputs.  Keep PDF figure assets instead.
+/*.pdf
+!/fig*.pdf
+!/fig/**/*.pdf
