@@ -340,6 +340,62 @@ A mature remediation loop therefore combines two complementary mechanisms: persi
 \paragraph{Framework capabilities.}
 Evaluation harnesses operationalize automated red-teaming loops by connecting target or model adapters, attack and probe modules, evaluators, execution controls, and result logging. Among the harness-oriented systems examined here, this integration layer is not tied to one attack method. garak, PyRIT, Inspect AI, and promptfoo illustrate the pattern: each documents mechanisms for binding target systems, applying probes or evaluation logic, managing runs or concurrency, and storing outputs or scores \cite{derczynski2024garak,lopezmunoz2024pyrit,ukaisi2024inspect,promptfooDocs}. The common abstraction is therefore an executable red-team workflow that can organize targets, evaluation, execution, and records across runs rather than a single jailbreak algorithm.
 
+\begingroup
+\newcommand{\tblYes}{\tikz[baseline=-0.55ex,scale=.13]{\fill (0,0) circle (1);}}
+\newcommand{\tblPart}{\tikz[baseline=-0.55ex,scale=.13]{\fill (0,1) arc (90:270:1) -- cycle; \draw (0,0) circle (1);}}
+\newcommand{\tblNo}{\tikz[baseline=-0.55ex,scale=.13]{\draw (0,0) circle (1);}}
+\newcommand{\tblUnclear}{--}
+\begin{table*}[!t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{1.5pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lccccccccl@{}}
+\toprule
+Framework & Targets & Attack & Judge & Modal & Tool & Logs & Rerun & 8.1 focus \\
+\midrule
+\multicolumn{9}{@{}l@{}}{\textit{\textbf{Harnesses}}}\\[-1pt]
+garak~\cite{derczynski2024garak}
+& LLM & P & B & \tblUnclear & \tblNo & \tblYes & \tblUnclear
+& Security probes \\
+PyRIT~\cite{lopezmunoz2024pyrit}
+& LLM/MLLM & P & B+E & \tblYes & \tblUnclear & \tblYes & \tblUnclear
+& Multimodal red-team \\
+Inspect AI~\cite{ukaisi2024inspect}
+& LLM/agent & P & B+E & \tblUnclear & \tblYes & \tblYes & \tblYes
+& Tools, sandbox, re-score \\
+promptfoo~\cite{promptfooDocs}
+& LLM & C & B+E & \tblUnclear & \tblUnclear & \tblYes & \tblPart
+& Prompt/policy eval. \\
+\addlinespace[2pt]
+\midrule
+\multicolumn{9}{@{}l@{}}{\textit{\textbf{Benchmark systems}}}\\[-1pt]
+HarmBench~\cite{mazeika2024harmbench}
+& LLM & C & B & \tblNo & \tblNo & \tblPart & \tblYes
+& Attack/defense comparison \\
+JailbreakBench~\cite{chao2024jailbreakbench}
+& LLM & C & B & \tblNo & \tblNo & \tblPart & \tblYes
+& Artifacts + protocol \\
+\addlinespace[2pt]
+\midrule
+\multicolumn{9}{@{}l@{}}{\textit{\textbf{Task environments}}}\\[-1pt]
+AgentDojo~\cite{debenedetti2024agentdojo}
+& Agent & L & B & \tblNo & \tblYes & \tblPart & \tblPart
+& Tool/action security \\
+CybersecurityBenchmarks~\cite{metaCybersecurityBenchmarks}
+& Cyber/agent & L & B & \tblNo & \tblPart & \tblUnclear & \tblPart
+& Cyber task environment \\
+\bottomrule
+\end{tabular*}
+\caption{Comparison of automated red-teaming harnesses and related evaluation infrastructures.}
+\label{tab:redteam-harnesses}
+\par\vspace{1pt}\raggedright
+\begin{minipage}{\textwidth}
+\footnotesize\textit{Note:} \tblYes\ supported; \tblNo\ not supported; \tblPart\ partial or limited; \tblUnclear\ unclear. Attack: L limited, C configurable, P plugin-based. Judge: B built-in, B+E built-in with external evaluation.
+\end{minipage}
+\end{table*}
+\endgroup
+
 \paragraph{Interaction scope.}
 Harnesses differ most in the scope of interaction they can execute. Evaluation scope ranges from prompt-response probing to modular attacks, multimodal targets, tools, sandboxes, and agent environments. PyRIT extends red-team workflows through modular attacks and multimodal targets \cite{lopezmunoz2024pyrit}, while Inspect AI exposes tasks, solvers, tools, scorers, sandboxes, and execution logs \cite{ukaisi2024inspect}. AgentDojo and CybersecurityBenchmarks further illustrate evaluation in environments where success depends on tool use or application-level behavior \cite{debenedetti2024agentdojo,metaCybersecurityBenchmarks}. The relevant distinction is not simply the number of supported features, but how much of the target system can be brought inside the executable evaluation loop.
 
