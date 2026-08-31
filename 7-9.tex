@@ -11,273 +11,34 @@
   accepted = {month dd, yyyy},
 }
 
+
+
 \begin{abstract}
 The rapid deployment of generative models has created a need for automated red-teaming methods that discover failures beyond manually authored test cases. This survey focuses on automated red-teaming systems that generate, execute, and evaluate adversarial or safety-relevant interactions with generative models and model-based applications. We study automated red teaming across large language models, vision-language models, text-to-image and text-to-video systems, retrieval-augmented applications, and tool-using agents. We organize the literature around a closed-loop pipeline that connects risk objectives, test-case generation, interaction and execution, outcome judgment, failure triage, and mitigation. Within this pipeline, we unify red-teaming strategies by their search space, optimization signal, access assumptions, interaction horizon, and modality. We then compare evaluation metrics, benchmarks, automated judges, human-in-the-loop protocols, and reporting practices, with particular attention to attack success, harm severity, coverage, transferability, cost, and over-refusal. Finally, we identify open problems in long-horizon interaction, multimodal and multilingual testing, reliable evaluation, adaptive coverage, reproducibility, and the responsible use of automated red-teaming systems. The survey is intended to provide a common vocabulary and a practical roadmap for building scalable, evidence-based automated red-teaming evaluations.
+
+
+
 \end{abstract}
 \keywords{automated red teaming; generative models; large language models; vision-language models; text-to-image generation; AI safety; adversarial evaluation; jailbreaks}
 
 \begin{document}
 
-\section{Introduction}
-
-\subsection{Motivation: Problem Scope}
-
-\paragraph{Why red teaming matters.}
-Generative models can fail under inputs that are rare, indirect, context-dependent, or outside the distribution represented by standard safety datasets. Red teaming treats safety assessment as proactive discovery: a tester constructs situations that may expose harmful compliance, privacy leakage, policy evasion, unsafe tool use, or other undesirable behavior before deployment.
-
-\paragraph{Why automation matters.}
-Manual red teaming provides valuable expertise but is expensive, difficult to reproduce, and limited in coverage. Automated red teaming extends this process by generating test cases, searching through interaction states, executing attacks, judging outputs, and retaining failures as regression tests. The central challenge is not merely to maximize attack success, but to discover diverse, relevant, and verifiable failure modes.
-
-\subsection{Survey Positioning: Research Questions}
-
-\paragraph{Scope.}
-This survey focuses on automated or partially automated red-teaming systems for generative models. LLMs, VLMs/MLLMs, T2I/T2V systems, RAG applications, and tool-using agents are treated as target systems. General alignment, generic adversarial examples, and static safety benchmarks are included only when they support an automated red-teaming component.
-
-\paragraph{Research questions.}
-The survey is organized around five questions: how red-team objectives are specified; how test cases are generated and searched; how interactions and failures are evaluated; how methods transfer across models, modalities, and applications; and how discovered failures improve subsequent mitigation and regression testing.
-
-\paragraph{Relation to prior surveys.}
-Prior surveys provide complementary views of generative-model red teaming, LLM security, attack evaluation, practical red-teaming systems, and multimodal safety \cite{Lin_2025,Das_2025,Jabbar_2025,purpura-etal-2025-building,liu2024safetymultimodallargelanguage}. We use these works as field-level anchors, then reorganize the evidence around automation boundaries, closed-loop feedback, and target-system transfer.
-
-\subsection{Contributions: Article Roadmap}
-
-\paragraph{Contributions.}
-The survey makes four contributions:
-\begin{itemize}
-  \item a closed-loop framework that connects risk specification, attack generation, execution, judgment, triage, and mitigation;
-  \item a taxonomy of automated generation methods based on search space, feedback, access, interaction, and modality;
-  \item a comparison of evaluators, metrics, benchmarks, and reporting protocols; and
-  \item a research agenda for coverage, reliability, multimodality, long-horizon testing, and responsible use.
-\end{itemize}
-
-\paragraph{Article roadmap.}
-Section~\ref{sec:methodology} describes the survey protocol. Section~\ref{sec:framework} defines the threat model and closed-loop framework. Section~\ref{sec:generation} reviews automated generation and search. Section~\ref{sec:evaluation} discusses judgment, metrics, and benchmarks. Section~\ref{sec:targets} organizes evidence by target system. Section~\ref{sec:mitigation} connects failures to mitigation. Section~\ref{sec:practice} covers tools, human expertise, and responsible use. Section~\ref{sec:agenda} presents open problems.
-
-\section{Survey Methodology: Scope}
-\label{sec:methodology}
-
-\subsection{Literature Protocol: Evidence Base}
-
-\paragraph{Retrieval strategy.}
-Report the databases, search engines, venues, time range, and query terms used to collect papers. Search terms should include automated red teaming, adversarial search, jailbreak generation, safety evaluation, prompt injection, MLLM safety, T2I safety, agent security, and red-team benchmark.
-
-\paragraph{Screening procedure.}
-Describe deduplication, title--abstract screening, full-text screening, citation chaining, and the replacement of preprints by published versions when available.
-
-\subsection{Inclusion Criteria: Coding Schema}
-
-\paragraph{Inclusion rule.}
-Include a paper when automation contributes to risk specification, test generation, adversarial search, interaction, outcome judgment, benchmark construction, failure triage, or mitigation using red-team traces. Separate direct red-teaming papers from supporting safety, jailbreak, and agent-security papers.
-
-\paragraph{Paper-level coding.}
-Annotate target system, risk, attacker access, generation mechanism, interaction horizon, feedback signal, evaluator, benchmark, metric, compute cost, and outcome. Use this schema to build comparison tables rather than summarizing papers as an unrelated sequence.
-
-\subsection{Survey Limitations: Coverage Bias}
-
-\paragraph{Evidence limitations.}
-State the cutoff date, language restrictions, treatment of unpublished work, benchmark bias, closed-model access limitations, and the risk that rapidly changing attack methods become obsolete.
-
-\section{Unified Automated Red-Teaming Framework}
-\label{sec:framework}
-
-\subsection{Definitions: System Boundaries}
-
-\paragraph{Automated red teaming.}
-Define automated red teaming as goal-directed discovery of undesirable behavior in which one or more stages of test generation, selection, interaction, judgment, or iteration are automated under an explicit threat model.
-
-\paragraph{Target system boundary.}
-Separate the target model, safety layer, orchestration layer, retrieval layer, memory, tools, and deployed application. A discovered failure should be attributed to the smallest component or interaction responsible for it.
-
-\subsection{Threat Model: Attack Conditions}
-
-\paragraph{Attacker access.}
-Distinguish black-box, gray-box, white-box, and application-level access. Record query limits, model knowledge, system-prompt visibility, gradient access, activation access, control over retrieved content, and control over tools or memory.
-
-\paragraph{Risk objective.}
-Classify objectives into harmful compliance, privacy leakage, prompt injection, policy evasion, misinformation, bias, copyright exposure, unsafe tool use, reliability failure, and over-refusal.
-
-\paragraph{Interaction horizon.}
-Separate single-turn, iterative, multi-turn, stateful, multi-agent, and long-horizon settings. The horizon determines whether the attack optimizes a response, a conversation trajectory, or an external action.
-
-\subsection{Closed-Loop Pipeline: Evaluation Cycle}
-
-\paragraph{Risk specification.}
-Translate a policy, threat model, harm taxonomy, or application requirement into a test objective and an observable failure condition.
-
-\paragraph{Test generation.}
-Construct an initial population of prompts, scenarios, images, videos, retrieved documents, tool outputs, or multi-turn plans.
-
-\paragraph{Search: Interaction.}
-Select, mutate, optimize, or compose test cases while interacting with the target system. The search state may include prompts, conversation history, tool state, model feedback, and prior failures.
-
-\paragraph{Outcome judgment.}
-Determine whether the target behavior satisfies the failure condition using rules, classifiers, reward models, LLM judges, VLM judges, environments, or human annotators.
-
-\paragraph{Triage: Regression.}
-Cluster failures, estimate severity and novelty, remove duplicates, record reproducible attack traces, and convert confirmed failures into held-out regression tests.
-
-\section{Automated Generation: Search Strategies}
-\label{sec:generation}
-
-\subsection{Scenario Construction: Initial Test Cases}
-
-\paragraph{Seed prompts.}
-Review expert prompts, policy-derived scenarios, safety datasets, attack libraries, synthetic harmful-intent descriptions, and application-specific user stories.
-
-\paragraph{Scenario expansion.}
-Cover semantic paraphrasing, translation, role-play, encoding, formatting, contextual embedding, instruction indirection, and risk-conditioned generation.
-
-\paragraph{Diversity control.}
-Compare novelty penalties, coverage constraints, population methods, quality-diversity search, clustering, and explicit demographic, cultural, or geographic balancing.
-
-\subsection{Model-Based Generation: Attacker Models}
-
-\paragraph{Attacker language models.}
-Review zero-shot generation, proposer--judge loops, attacker--target interaction, model-written evaluations, and attacker fine-tuning.
-
-\paragraph{Reverse generation.}
-Discuss methods that begin from a harmful output, policy violation, or target behavior and search backward for an input that elicits it.
-
-\paragraph{Multi-agent generation.}
-Separate attacker, critic, judge, planner, and target roles. Analyze whether role separation improves exploration or introduces correlated errors.
-
-\subsection{Algorithmic Search: Optimization Signals}
-
-\paragraph{Fuzzing: Mutation.}
-Cover seed selection, mutation operators, random search, evolutionary search, and black-box feedback.
-
-\paragraph{Reinforcement learning.}
-Review attacker training with reward signals from toxicity classifiers, safety judges, target compliance, novelty, or environment outcomes.
-
-\paragraph{Gradient-Level: Token-Level: Activation-Level Optimization.}
-Describe white-box optimization of suffixes, tokens, continuous embeddings, image perturbations, or internal representations. Compare access requirements, transferability, realism, and cost.
-
-\subsection{Adaptive Interaction: Stateful Search}
-
-\paragraph{Iterative refinement.}
-Analyze attacks that learn from refusals, partial compliance, judge feedback, or changes in target behavior.
-
-\paragraph{Multi-turn search.}
-Cover trust building, context shaping, refusal recovery, conversational state, memory persistence, and long-horizon planning.
-
-\paragraph{Application-level search.}
-Extend the search state to retrieved documents, web pages, tool outputs, user permissions, external state, and action consequences.
-
-\section{Evaluation: Judgment: Benchmarking}
-\label{sec:evaluation}
-
-\subsection{Failure Definition: Success Conditions}
-
-\paragraph{Behavioral success.}
-Distinguish policy violation, harmful content, unsafe action, privacy leakage, misinformation, reliability failure, and evaluator disagreement. Every benchmark should define the target behavior before reporting attack success.
-
-\paragraph{Severity: Usefulness.}
-Measure not only whether a guardrail was bypassed, but also whether the response contains actionable, relevant, and sufficiently complete harmful information or performs an unsafe action.
-
-\subsection{Automated Judges: Human Agreement}
-
-\paragraph{Judge families.}
-Compare keyword rules, lexical matching, safety classifiers, reward models, LLM-as-judge, VLM-as-judge, structured rubrics, environment success signals, and human review.
-
-\paragraph{Judge reliability.}
-Report calibration, inter-rater agreement, judge disagreement, false positives, false negatives, judge hacking, and agreement with human judgments.
-
-\subsection{Metrics: Experimental Comparability}
-
-\paragraph{Attack effectiveness.}
-Cover attack success rate, harmfulness score, refusal rate, compliance quality, and task-level success.
-
-\paragraph{Search quality.}
-Cover coverage, diversity, novelty, marginal discovery rate, transferability, robustness, query efficiency, latency, and compute cost.
-
-\paragraph{Safety--utility balance.}
-Report over-refusal, benign-task utility, calibration, safe completion quality, and the trade-off between harmfulness reduction and helpfulness.
-
-\subsection{Benchmarks: Protocol Design}
-
-\paragraph{Static datasets.}
-Compare behavior sets, harmful instructions, refusal suites, adversarial examples, multimodal pairs, and application-specific test collections.
-
-\paragraph{Dynamic environments.}
-Discuss extensible harnesses, agent environments, tool-use simulators, external-state tasks, adaptive attacks, and continual benchmark updates.
-
-\paragraph{Reproducibility checklist.}
-Require model version, system prompt, access condition, sampling parameters, query budget, random seeds, judge version, annotation protocol, compute cost, attack artifacts, and release policy.
-
-\section{Automated Red Teaming Across Generative Models}
-\label{sec:targets}
-
-\subsection{Large Language Models: Text Interaction}
-
-\paragraph{Prompt-level attacks.}
-Review semantic jailbreaks, mutation-based fuzzing, role-play, encoding, multilingual prompts, prompt injection, and refusal manipulation.
-
-\paragraph{Token-level attacks.}
-Review adversarial suffixes, gradient-guided optimization, transfer attacks, activation steering, and access-dependent evaluation.
-
-\paragraph{Conversation-level attacks.}
-Analyze multi-turn persuasion, context contamination, many-shot behavior, memory persistence, and stateful safety drift.
-
-\subsection{VLMs: MLLMs: Cross-Modal Inputs}
-
-\paragraph{Visual attack surfaces.}
-Organize attacks by text-only inputs, malicious images, visual instructions, OCR, image--text mismatch, adversarial perturbations, and jointly optimized inputs.
-
-\paragraph{Cross-modal evaluation.}
-Track whether the failure originates in the vision encoder, fusion module, language model, safety layer, or modality interaction.
-
-\subsection{T2I: T2V: Diffusion Systems}
-
-\paragraph{Text-to-image testing.}
-Cover unsafe prompt generation, safety-filter bypass, semantic obfuscation, image-space perturbation, prompt--image mismatch, and benign prompts that produce harmful images.
-
-\paragraph{Text-to-video testing.}
-Extend the taxonomy to temporal consistency, unsafe actions, identity and privacy risks, audio or video conditioning, and harms that emerge across frames.
-
-\paragraph{Image-aware judgment.}
-Require image or video evaluators and targeted human validation rather than text-only safety labels.
-
-\subsection{Agents: RAG: Tool-Use}
-
-\paragraph{Indirect prompt injection.}
-Cover malicious instructions embedded in retrieved documents, web pages, files, tool outputs, and external data.
-
-\paragraph{Tool misuse.}
-Evaluate privilege escalation, unsafe planning, unauthorized actions, data exfiltration, and failures caused by tool output interpretation.
-
-\paragraph{Environment-level success.}
-Measure action consequences, security-property violations, task completion, reversibility, and user impact rather than textual harmfulness alone.
-
-\subsection{Multilingual Testing: Cultural Context}
-
-\paragraph{Language coverage.}
-Discuss low-resource languages, code-switching, translation, dialect, and language-specific safety gaps.
-
-\paragraph{Cultural coverage.}
-Discuss regional norms, demographic context, participatory testing, and the risk that automated generation reproduces cultural bias.
+\setcounter{section}{6}
 
 \section{Failure Remediation: Safety Improvement}
 \label{sec:mitigation}
 
 \subsection{Learning from Red-Team Failures}
 
-\paragraph{Remediation as a Closed Loop.}
-Failure discovery need not be the terminal stage of automated red teaming. Red-team traces can expose concrete conditions under which a target model produces harmful or otherwise undesirable behavior, creating evidence for subsequent safety tuning. Ganguli et al. frame red teaming as a process that discovers, measures, and attempts to reduce harmful outputs, and release 38,961 red-team attacks for further analysis \cite{ganguli2022redteaming}. Perez et al. demonstrate that one language model can generate test cases for another and uncover tens of thousands of offensive replies across multiple failure types \cite{perez2022redteaming}. Their work primarily establishes scalable failure discovery and characterization, rather than direct remediation of the target model. MART connects these stages by generating adversarial prompts, using them in target-model safety fine-tuning, and launching new attacks against the updated target \cite{ge2024mart}. This progression turns red-team evidence into a potential input to model improvement, motivating the conversion of confirmed failures into training supervision.
+Early automated red-teaming studies focused primarily on scalable failure discovery and characterization \cite{ganguli2022redteaming,perez2022redteaming}. More recent work connects these failures to model updates by reusing adversarial examples during safety tuning, expanding the distribution of attacks used for training, and generating new attacks against updated targets \cite{ge2024mart,lee2025diverseattacks,zhao2025diverct,mazeika2024harmbench}. These developments move remediation from isolated repair toward an iterative process in which red-team generation also determines part of the safety-training distribution.
 
-\paragraph{From Failure Traces to Training Supervision.}
-Recent systems reuse automatically generated adversarial prompts as safety-training data rather than treating them only as test cases. MART directly fine-tunes the target model using safety-aligned data constructed around adversarially elicited prompts before launching another attack round \cite{ge2024mart}. Related work reuses diverse generated attacks for safety tuning and evaluates the resulting models against other reinforcement-learning-based red-teamers \cite{lee2025diverseattacks}, while DiveR-CT links the diversity and composition of collected attacks to downstream blue-team tuning \cite{zhao2025diverct}. Taken together, these studies suggest that, from a closed-loop red-teaming perspective, the common element is not a particular optimization procedure but the reuse of failure-inducing inputs to construct subsequent safety supervision. Once these traces are reused for model updates, the red-team generator begins to shape the model's evolving safety-training distribution.
+\noindent\textbf{Training on Failures.} A direct approach converts successful red-team cases into safety supervision. MART \cite{ge2024mart} constructs safety-aligned data around adversarial prompts and fine-tunes the target model on these examples before the next attack round. This establishes a direct path from observed failures to targeted model updates. Once red-team traces enter training, the composition of those traces also becomes important.
 
-\paragraph{Targeted Repair and the Safety--Utility Trade-off.}
-Targeted safety supervision can substantially improve measured safety, but remediation should be evaluated jointly with its effects on benign behavior. Safety-Tuned LLaMAs reports that adding roughly 3\% safety examples, corresponding to a few hundred demonstrations, substantially improves safety without significant degradation on standard capability and helpfulness benchmarks \cite{bianchi2024safetytuned}. The same study finds exaggerated safety under more extensive safety tuning, including refusals on prompts that are safe but superficially resemble unsafe requests. RASS addresses this boundary problem by automatically generating and selecting prompts near the safety decision boundary for targeted over-refusal mitigation \cite{pan2025overrefusal}. XSTest provides a complementary evaluation protocol with 250 safe prompts and 200 unsafe contrasts for measuring exaggerated safety \cite{rottger2024xstest}. These findings show that safety improvement cannot be measured by harmful-query refusal alone. The resulting safety--utility trade-off motivates a shift from one-shot safety tuning toward training procedures in which new failures are repeatedly generated against the updated model.
+\noindent\textbf{Diverse Attack Training.} Learning Diverse Attacks \cite{lee2025diverseattacks} trains red-team policies to discover attacks with different behaviors and reuses the resulting data for safety tuning. DiveR-CT \cite{zhao2025diverct} relaxes constraints during red-team generation to increase attack diversity and examines how the resulting attacks affect downstream blue-team tuning. Both studies treat diversity as part of the data-generation problem for remediation, extending the training set beyond repeated variants of the same successful attack.
 
-\paragraph{From One-Shot Repair to Adaptive Adversarial Training.}
-A fixed set of failure traces may support an initial repair, but it cannot by itself reveal how vulnerabilities change after the target model is updated. Automated red teaming becomes part of the training-data generation process when new attacks are generated against the revised model and fed back into subsequent updates. MART provides the clearest example: an adversarial model generates prompts that elicit unsafe responses, the target model is safety-fine-tuned using safety-aligned data constructed around the resulting adversarial prompts, and the attacker then searches against the updated target in the next round \cite{ge2024mart}. MART reports up to an 84.7\% reduction in violation rate after four rounds, while helpfulness on non-adversarial prompts remains stable. HarmBench provides a complementary adversarial-training setting through R2D2, which maintains persistent test cases that are dynamically optimized during training and evaluates attack-defense performance across a standardized collection of methods and models \cite{mazeika2024harmbench}. Learning Diverse Attacks and DiveR-CT provide supporting evidence that the diversity and composition of generated attacks affect downstream safety tuning, although they do not implement the same attacker--defender loop as MART \cite{lee2025diverseattacks,zhao2025diverct}. Once generated attacks are reused for model updates, red-team search helps define the model's evolving safety-training distribution.
+\noindent\textbf{Re-Attacking Updated Models.} Diversity within one training round does not account for changes introduced by the model update itself. An attack that exposed the original target may disappear after tuning, while other weaknesses can remain or become easier to discover. MART \cite{ge2024mart} addresses this by alternating adversarial prompt generation and safety fine-tuning across multiple rounds, so later attacks are generated against the revised target. R2D2 in HarmBench \cite{mazeika2024harmbench} follows a related adversarial-training setting in which persistent test cases are dynamically optimized during training. The common design choice is to refresh the attack distribution as the target changes. This creates a stronger remediation loop than training once on a fixed collection of failures, because later red-team rounds probe the residual vulnerabilities of the updated model.
 
-\paragraph{Robustness to Training Attacks Is Not General Robustness.}
-If automated attacks shape the safety-training distribution, evaluation must also ask what happens outside that distribution. Jailbroken identifies competing objectives and mismatched generalization as two failure modes through which safety training can remain vulnerable despite extensive safety training \cite{wei2023jailbroken}. Direct counterevidence comes from Simple Adaptive Attacks, which reports 100\% attack success on several tested safety-aligned models, including R2D2, when the attack is adapted to the target model \cite{andriushchenko2025adaptive}. A different distribution shift appears in the past-tense reformulation study: on GPT-4o, the reported success rate increases from 1\% for direct requests to 88\% after 20 past-tense reformulation attempts \cite{andriushchenko2025pasttense}. Explicitly adding past-tense examples can improve defense against that specific reformulation, but this result reinforces rather than resolves the generalization problem. Safety Reasoning with Guidelines similarly reports that direct refusal training can rely on superficial mappings under out-of-distribution attacks, while guideline-based reasoning improves the reported OOD performance \cite{wang2025safetyreasoning}. Together, these findings indicate that remediation may fail to generalize beyond the failure patterns represented during training.
-
-\paragraph{Evaluating Remediation Beyond the Training Distribution.}
-Training-time remediation should therefore be evaluated along three dimensions: held-out harmful behaviors, unseen or adaptive attack strategies, and benign utility. HarmBench standardizes comparisons across 18 red-teaming methods and 33 target models and defenses, while also showing that no tested defense is uniformly effective \cite{mazeika2024harmbench}. JailbreakBench complements this setting with an open collection of attack artifacts, 100 behaviors, and standardized threat-model and scoring protocols \cite{chao2024jailbreakbench}. These benchmarks support reproducible comparison, but neither should be treated as a complete measure of deployment risk. Benign behavior requires separate evaluation. XSTest pairs 250 safe prompts with 200 unsafe contrasts to measure exaggerated safety \cite{rottger2024xstest}, while Safety-Tuned LLaMAs reports that stronger safety tuning can produce refusals on superficially similar safe prompts \cite{bianchi2024safetytuned}. Past-tense reformulations and adaptive attacks provide additional tests beyond the remediation-time distribution \cite{andriushchenko2025pasttense,andriushchenko2025adaptive}. No single benchmark covers all three dimensions. Training-time remediation should be viewed as expanding the region over which safety behavior generalizes, rather than merely eliminating the failures used as training examples. Retaining confirmed failures as reusable regression cases is discussed in Section~7.4.
+\noindent\textbf{Limitations.} Repeated remediation still does not establish robustness to attack strategies outside the training distribution. Simple Adaptive Attacks \cite{andriushchenko2025adaptive} reports high attack success on several safety-aligned models when attacks are adapted to the target, while past-tense reformulation \cite{andriushchenko2025pasttense} shows that a simple change in attack form can recover substantial attack success after refusal training. Safety Reasoning with Guidelines \cite{wang2025safetyreasoning} further reports that direct refusal training can generalize poorly under out-of-distribution attacks. Training-time remediation therefore requires held-out evaluation on attack strategies and behaviors that were not used to construct the remediation data.
 
 \subsection{Turning Safety Judgments into Runtime Control}
 
@@ -330,83 +91,74 @@ Regression replay should therefore be version-aware. A previously observed failu
 Fixed regression cases and renewed adversarial discovery answer different questions. Retained cases ask whether previously confirmed failures recur after a change; they cannot by themselves show that new attack strategies have not opened a different failure region. AutoRedTeamer addresses the renewal side through memory-guided attack selection and a strategy proposer that continuously discovers and integrates new attack vectors \cite{zhou2025autoredteamer}. Jailbreak Distillation renews the evaluation artifact instead: it distills attacks into updateable safety benchmarks and supports rerunning the construction pipeline as new models and attack methods become available \cite{zhang2025jbdistill}. The distinction is consequential: AutoRedTeamer renews the attacker, whereas Jailbreak Distillation renews the benchmark. Passing a retained regression suite provides evidence that the retained failures do not recur under the tested configuration, not evidence of broad safety coverage. Neither paper alone establishes a complete regression workflow for arbitrary model-system changes.
 
 \paragraph{Continuous red-teaming loop.}
-A mature remediation loop therefore combines two complementary mechanisms: persistence, which retains verified failures to detect recurrence, and renewal, which updates attacks or evaluation artifacts to probe beyond known failures \cite{openai2023gpt4systemcard,zhou2025autoredteamer,zhang2025jbdistill}. In this view, mitigation is not the endpoint of red teaming but a state transition in a continuing evaluation loop: retained failure cases are replayed against the mitigated or updated configuration, while renewed search tests whether the repair generalizes beyond the cases that motivated it. Questions about how taxonomies, judges, and evaluation targets can evolve without undermining longitudinal comparability are taken up in the future directions below.
+A mature remediation loop therefore combines two complementary mechanisms: persistence, which retains verified failures to detect recurrence, and renewal, which updates attacks or evaluation artifacts to probe beyond known failures \cite{openai2023gpt4systemcard,zhou2025autoredteamer,zhang2025jbdistill}. In this view, mitigation is not the endpoint of red teaming but a state transition in a continuing evaluation loop: retained failure cases are replayed against the mitigated or updated configuration, while renewed search tests whether the repair generalizes beyond the cases that motivated it. Questions about how taxonomies, judges, and evaluation targets can themselves evolve without undermining longitudinal comparability are deferred to Section~9.5.
 
 \section{Practice: Tools: Responsible Use}
 \label{sec:practice}
 
+
 \subsection{Operationalizing Red Teaming with Evaluation Harnesses}
 
-\paragraph{Framework capabilities.}
-Evaluation harnesses operationalize automated red-teaming loops by connecting target or model adapters, attack and probe modules, evaluators, execution controls, and result logging. Among the harness-oriented systems examined here, this integration layer is not tied to one attack method. garak, PyRIT, Inspect AI, and promptfoo illustrate the pattern: each documents mechanisms for binding target systems, applying probes or evaluation logic, managing runs or concurrency, and storing outputs or scores \cite{derczynski2024garak,lopezmunoz2024pyrit,ukaisi2024inspect,promptfooDocs}. The common abstraction is therefore an executable red-team workflow that can organize targets, evaluation, execution, and records across runs rather than a single jailbreak algorithm.
+Accordingly, reusable evaluation harnesses have become an important part of automated red teaming \cite{derczynski2024garak,lopezmunoz2024pyrit,promptfooDocs,mazeika2024harmbench,ukaisi2024inspect,debenedetti2024agentdojo}. They package recurring red-team operations into executable workflows, making experiments easier to configure, repeat, and extend across targets. Table~\ref{tab:redteam_harnesses} compares representative systems by the capabilities they support.
 
 \begingroup
-\newcommand{\tblYes}{\tikz[baseline=-0.55ex,scale=.13]{\fill (0,0) circle (1);}}
-\newcommand{\tblPart}{\tikz[baseline=-0.55ex,scale=.13]{\fill (0,1) arc (90:270:1) -- cycle; \draw (0,0) circle (1);}}
-\newcommand{\tblNo}{\tikz[baseline=-0.55ex,scale=.13]{\draw (0,0) circle (1);}}
-\newcommand{\tblUnclear}{--}
-\begin{table*}[!t]
+\newcommand{\tblYes}{\tikz[baseline=-0.55ex,scale=.105]{\fill (0,0) circle (1);}}
+\newcommand{\tblPart}{\tikz[baseline=-0.55ex,scale=.105]{\fill (0,1) arc (90:270:1) -- cycle; \draw (0,0) circle (1);}}
+\newcommand{\tblNo}{\tikz[baseline=-0.55ex,scale=.105]{\draw (0,0) circle (1);}}
+\noindent\begin{minipage}{\columnwidth}
 \centering
-\footnotesize
-\setlength{\tabcolsep}{1.5pt}
-\renewcommand{\arraystretch}{1.08}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lccccccccl@{}}
+\scriptsize
+\setlength{\tabcolsep}{1.25pt}
+\renewcommand{\arraystretch}{1.07}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lccccccc@{}}
 \toprule
-Framework & Targets & Attack & Judge & Modal & Tool & Logs & Rerun & 8.1 focus \\
+System & Target & Gen. & Judge & MM & Adapt. & Trace & Repeat \\
 \midrule
-\multicolumn{9}{@{}l@{}}{\textit{\textbf{Harnesses}}}\\[-1pt]
+\multicolumn{8}{@{}l@{}}{\textit{\textbf{Harnesses}}}\\[-1.5pt]
 garak~\cite{derczynski2024garak}
-& LLM & P & B & \tblUnclear & \tblNo & \tblYes & \tblUnclear
-& Security probes \\
+& LLM & \tblPart & \tblYes & \tblNo & \tblNo & \tblYes & \tblPart \\
 PyRIT~\cite{lopezmunoz2024pyrit}
-& LLM/MLLM & P & B+E & \tblYes & \tblUnclear & \tblYes & \tblUnclear
-& Multimodal red-team \\
-Inspect AI~\cite{ukaisi2024inspect}
-& LLM/agent & P & B+E & \tblUnclear & \tblYes & \tblYes & \tblYes
-& Tools, sandbox, re-score \\
+& LLM/M & \tblYes & \tblYes & \tblYes & \tblPart & \tblYes & \tblPart \\
 promptfoo~\cite{promptfooDocs}
-& LLM & C & B+E & \tblUnclear & \tblUnclear & \tblYes & \tblPart
-& Prompt/policy eval. \\
-\addlinespace[2pt]
+& LLM & \tblYes & \tblYes & \tblPart & \tblNo & \tblYes & \tblYes \\
+EasyJailbreak~\cite{zhou2024easyjailbreak}
+& LLM & \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
+ARTKIT~\cite{artkitDocs}
+& GenAI & \tblYes & \tblYes & \tblPart & \tblPart & \tblYes & \tblYes \\
+\addlinespace[1.5pt]
 \midrule
-\multicolumn{9}{@{}l@{}}{\textit{\textbf{Benchmark systems}}}\\[-1pt]
+\multicolumn{8}{@{}l@{}}{\textit{\textbf{Automated attack systems}}}\\[-1.5pt]
+GPTFuzzer~\cite{yu2023gptfuzzer}
+& LLM & \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
+LLM-Fuzzer~\cite{yu2024llmfuzzer}
+& LLM & \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
+APRT~\cite{jiang2024aprt}
+& LLM & \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
+AutoRedTeamer~\cite{zhou2025autoredteamer}
+& LLM & \tblYes & \tblYes & \tblNo & \tblYes & \tblYes & \tblYes \\
+\addlinespace[1.5pt]
+\midrule
+\multicolumn{8}{@{}l@{}}{\textit{\textbf{Benchmark systems}}}\\[-1.5pt]
 HarmBench~\cite{mazeika2024harmbench}
-& LLM & C & B & \tblNo & \tblNo & \tblPart & \tblYes
-& Attack/defense comparison \\
+& LLM/M & \tblPart & \tblYes & \tblYes & \tblNo & \tblPart & \tblYes \\
 JailbreakBench~\cite{chao2024jailbreakbench}
-& LLM & C & B & \tblNo & \tblNo & \tblPart & \tblYes
-& Artifacts + protocol \\
-\addlinespace[2pt]
-\midrule
-\multicolumn{9}{@{}l@{}}{\textit{\textbf{Task environments}}}\\[-1pt]
-AgentDojo~\cite{debenedetti2024agentdojo}
-& Agent & L & B & \tblNo & \tblYes & \tblPart & \tblPart
-& Tool/action security \\
-CybersecurityBenchmarks~\cite{metaCybersecurityBenchmarks}
-& Cyber/agent & L & B & \tblNo & \tblPart & \tblUnclear & \tblPart
-& Cyber task environment \\
+& LLM & \tblPart & \tblYes & \tblNo & \tblNo & \tblPart & \tblYes \\
 \bottomrule
 \end{tabular*}
-\caption{Comparison of automated red-teaming harnesses and related evaluation infrastructures.}
-\label{tab:redteam-harnesses}
+\captionof{table}{Infrastructure and systems for automated red teaming.}
+\label{tab:redteam_harnesses}
 \par\vspace{1pt}\raggedright
-\begin{minipage}{\textwidth}
-\footnotesize\textit{Note:} \tblYes\ supported; \tblNo\ not supported; \tblPart\ partial or limited; \tblUnclear\ unclear. Attack: L limited, C configurable, P plugin-based. Judge: B built-in, B+E built-in with external evaluation.
+\begin{minipage}{\columnwidth}
+\scriptsize\textit{Key.} \tblYes\ supported; \tblPart\ limited; \tblNo\ no documented support. M: multimodal. Gen.: automatic attack generation. Judge: automatic safety score. Adapt.: feedback-driven attack update. Trace: retained run records. Repeat: rerun or re-score.
 \end{minipage}
-\end{table*}
+\end{minipage}
 \endgroup
 
-\paragraph{Interaction scope.}
-Harnesses differ most in the scope of interaction they can execute. Evaluation scope ranges from prompt-response probing to modular attacks, multimodal targets, tools, sandboxes, and agent environments. PyRIT extends red-team workflows through modular attacks and multimodal targets \cite{lopezmunoz2024pyrit}, while Inspect AI exposes tasks, solvers, tools, scorers, sandboxes, and execution logs \cite{ukaisi2024inspect}. AgentDojo and CybersecurityBenchmarks further illustrate evaluation in environments where success depends on tool use or application-level behavior \cite{debenedetti2024agentdojo,metaCybersecurityBenchmarks}. The relevant distinction is not simply the number of supported features, but how much of the target system can be brought inside the executable evaluation loop.
+Several systems illustrate how this infrastructure extends automated testing. PyRIT \cite{lopezmunoz2024pyrit} provides a reusable workflow for language and multimodal red teaming. Inspect AI \cite{ukaisi2024inspect} supports controlled execution with tools and agents, together with rerunning and re-scoring previous evaluations. AgentDojo \cite{debenedetti2024agentdojo} enables security evaluation in environments where failures depend on tool use and application state. These frameworks extend automated red teaming beyond isolated prompt-response tests.
 
-\paragraph{Benchmark versus harness.}
-Benchmark and harness are functional roles rather than stages in a replacement sequence. Fixed benchmark artifacts stabilize test cases, behaviors, and scoring protocols for standardized comparison. MM-SafetyBench provides this role for multimodal safety evaluation \cite{liu2024mmsafetybench}. Extensible harnesses instead provide replaceable targets, attacks, evaluators, and execution components: PyRIT supports modular targets, attacks, scorers, memory, and multimodal evaluation \cite{lopezmunoz2024pyrit}, while Inspect AI supports replaceable model APIs, tasks, solvers, tools, scorers, logs, sandboxing, and re-scoring \cite{ukaisi2024inspect}. Hybrid systems complicate a strict benchmark--harness dichotomy. HarmBench combines standardized behaviors and evaluation artifacts with extensible red-team methods and model configurations \cite{mazeika2024harmbench}, while JailbreakBench combines fixed artifacts, a threat model, scoring functions, model wrappers, and artifact-level attack submissions \cite{chao2024jailbreakbench}. The distinction is therefore functional rather than categorical: benchmarks stabilize what is tested, whereas harnesses organize how tests are executed, and modern systems can serve both roles.
+More importantly, evaluation harnesses make repeated red-team experiments easier to reproduce and extend. garak \cite{derczynski2024garak}, PyRIT \cite{lopezmunoz2024pyrit}, and promptfoo \cite{promptfooDocs} preserve structured test records that support repeated evaluation, while Inspect AI \cite{ukaisi2024inspect} provides rerunning and re-scoring capabilities. PyRIT \cite{lopezmunoz2024pyrit}, Inspect AI \cite{ukaisi2024inspect}, and AgentDojo \cite{debenedetti2024agentdojo} also extend automated testing to multimodal, tool-use, and agent settings. Together, these capabilities provide reusable infrastructure for scaling red teaming across targets and system updates.
 
-\paragraph{Persistence across runs.}
-Logging, reproducibility, and regression form increasingly strong levels of evaluation persistence. Logging records what happened in a run, including prompts, outputs, scores, reports, and metadata. Reproducibility preserves enough configuration, model and dataset identifiers, seeds, or artifacts to rerun or compare an evaluation. Here, we use regression testing to refer to deliberately re-executing retained tests or confirmed failures after changes to a model, system, configuration, or defense. The examined systems provide combinations of these mechanisms through saved artifacts, evaluation sets, repeat options, released prompts or completions, and standardized materials \cite{derczynski2024garak,openaiEvals,promptfooDocs,mazeika2024harmbench,chao2024jailbreakbench,debenedetti2024agentdojo,metaCybersecurityBenchmarks,liang2023helm}. Inspect AI provides a particularly explicit example through persistent evaluation logs, saved run configuration, and re-scoring support, which enable repeated analysis of prior evaluations \cite{ukaisi2024inspect}. Explicit regression workflows are less uniformly exposed than logging or rerun support in the systems reviewed here; this observation describes a documentation and workflow gap, not evidence that undocumented systems lack regression capability.
 
-\paragraph{The automation boundary.}
-Evaluation harnesses therefore do more than simplify implementation: they shape which parts of the red-team loop can be executed, recorded, compared, and repeated at scale. As evaluations move toward multimodal and agentic systems, this infrastructure increasingly defines the practical scope of automated red teaming. Expanding executable coverage does not remove the need for human expertise in defining risks, validating judges, and interpreting novel failures, which motivates the participatory-testing discussion in Section~8.2.
 
 \subsection{Where Human Expertise Still Matters}
 
@@ -424,15 +176,43 @@ Human red teaming is costly and difficult to scale across large or continuously 
 
 \subsection{Balancing Transparency and Exploitability}
 
-Automated red teaming produces artifacts ranging from evaluation logs and benchmark cases to optimized prompts, attacker models, and reproduction triggers. These materials can support scientific scrutiny, but they can also lower the cost of misuse. External red teaming can itself create information hazards when it exposes novel jailbreaks or harmful-content techniques \cite{ahmad2025externalredteaming}. Recent offensive-security evaluations illustrate why this concern can become operationally relevant \cite{fang2024llmagentsautonomouslyhack}.
+Automated red teaming can produce reusable jailbreaks, attack prompts, harmful test cases, and reproduction procedures, creating a tension between scientific transparency and misuse risk \cite{ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,zhu2025teamsllmagentsexploit}. Table~\ref{tab:redteam_disclosure} groups representative release practices into four forms: open release, gated access, restricted disclosure, and coordinated reporting \cite{ganguli2022redteaming,mazeika2024harmbench,ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,zhu2025teamsllmagentsexploit,mcgregor2025toerr,cattell2024coordinatedflaw}. These practices differ mainly in how much actionable attack information becomes available and who can access it.
 
-A useful way to characterize artifact sensitivity is by how directly an artifact enables exploitation, including its actionability, reusability, and the expertise or search effort required to use it. These dimensions are best viewed as an organizing lens rather than a formal risk score. The reviewed studies also suggest why file type alone is insufficient. Qi et al. gated realistic harmful benchmark questions while reporting results on the public AdvBench benchmark, while offensive-security studies restricted prompts, source documents, or agent implementations and still reported the resulting evaluations \cite{qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,zhu2025teamsllmagentsexploit}. Together, these practices suggest that sensitivity depends more on operational reusability than on artifact format alone.
+\begingroup
+\noindent\begin{minipage}{\columnwidth}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{1.2pt}
+\renewcommand{\arraystretch}{1.04}
+\begin{tabular}{@{}p{0.84in}p{0.98in}p{1.43in}@{}}
+\toprule
+\textbf{Representative work} & \textbf{Reported} & \textbf{Process} \\
+\midrule
+\multicolumn{3}{@{}l@{}}{\textit{\textbf{Open}}}\\[-1.5pt]
+HarmBench~\cite{mazeika2024harmbench} & Benchmark and pipeline & Public \\
+Ganguli et al.~\cite{ganguli2022redteaming} & Dataset and analysis & Public \\
+\addlinespace[1pt]
+\multicolumn{3}{@{}l@{}}{\textit{\textbf{Gated access}}}\\[-1.5pt]
+Ahmad et al.~\cite{ahmad2025externalredteaming} & External findings & Controlled access \\
+Qi et al.~\cite{qi2023finetuningalignedlanguagemodels} & Public results & Gate questions; withhold examples \\
+\addlinespace[1pt]
+\multicolumn{3}{@{}l@{}}{\textit{\textbf{Restricted disclosure}}}\\[-1.5pt]
+Fang et al.~\cite{fang2024llmagentsautonomouslyhack} & Setup and results & Withhold attack details; disclose to provider \\
+Zhu et al.~\cite{zhu2025teamsllmagentsexploit} & Results & Withhold prompts and agent details \\
+\addlinespace[1pt]
+\multicolumn{3}{@{}l@{}}{\textit{\textbf{Coordinated reporting}}}\\[-1.5pt]
+McGregor et al.~\cite{mcgregor2025toerr} & Reporting practices & Review/disclosure workflow \\
+Cattell et al.~\cite{cattell2024coordinatedflaw} & Disclosure framework & Verification/adjudication \\
+\bottomrule
+\end{tabular}
+\captionof{table}{Representative disclosure practices for red-team artifacts.}
+\label{tab:redteam_disclosure}
+\end{minipage}
+\endgroup
 
-The reviewed studies use markedly different release practices. Harmful evaluation sets have been placed behind manually reviewed access or withheld, while offensive-security studies have restricted prompts, implementation details, or target identities and disclosed sensitive findings directly to providers \cite{qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,zhu2025teamsllmagentsexploit}. These practices vary along four main dimensions: content, access, timing, and disclosure process. Solaiman et al.'s staged release of GPT-2 provides an earlier precedent for conditioning availability on evolving risk assessment, but not a ready-made standard for red-team artifacts \cite{solaiman2019release}.
+\noindent\textbf{Access Control.} The practices in Table~\ref{tab:redteam_disclosure} suggest that access decisions should consider how easily an artifact can be reused for harmful behavior. We identify three practical questions. \textbf{(1) Artifact sensitivity.} Benchmark definitions, aggregate results, and evaluation code may support broad scrutiny, while directly reusable jailbreak prompts, exploit chains, or detailed reproduction procedures require stronger review when they substantially lower the effort needed for misuse \cite{ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,zhu2025teamsllmagentsexploit}. \textbf{(2) Access level.} Sensitive artifacts can be released through graduated access, ranging from public release to vetted access or provider-only disclosure. Existing studies demonstrate these options, but do not establish common criteria for moving an artifact from one level to another \cite{ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,zhu2025teamsllmagentsexploit,mcgregor2025toerr,cattell2024coordinatedflaw}. \textbf{(3) Access process.} A mature access policy also needs rules for requester eligibility, approval, revocation, and subsequent redistribution. The reviewed literature provides examples of controlled access and coordinated disclosure, but a standardized access-control procedure for automated red-team artifacts remains underdeveloped.
 
-These restrictions need not eliminate scientific transparency. A study can remain auditable by documenting the threat model, experimental setup, evaluation procedure, and representative non-sensitive evidence even when prompts, source documents, target identities, or agent implementations are not public \cite{qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,fang2024llmagentsautonomouslyexploit,zhu2025teamsllmagentsexploit}. This does not guarantee full reproducibility, but it preserves information needed to scrutinize the reported claim. Open-release benchmarks such as Cybench, HarmBench, and the red-team dataset of Ganguli et al. show that public artifacts can support inspection and standardized comparison when tasks, threat models, and evaluation protocols are explicitly scoped. These practices do not establish that the same release choice is appropriate for directly reusable exploit chains \cite{zhang2025cybenchframeworkevaluatingcybersecurity,mazeika2024harmbench,ganguli2022redteaming}.
-
-Based on these practices, we argue that reporting should preserve the evaluation trace from the threat model and attack-generation process through execution and evaluation to the observed failure. Relevant model or environment versions, evaluation criteria, and cost should be reported where they affect interpretation. If remediation is part of the study, the trace should also include the mitigation and a held-out regression result; an attack-discovery study need not make a remediation claim that it did not evaluate. The reviewed studies make different portions of the setup and evidence available \cite{ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,zhu2025teamsllmagentsexploit}. When artifacts are restricted, authors should state clearly which experimental details and materials remain available for independent scrutiny. Shared rules for access rights, release timing, benchmark maintenance, and public accountability remain a field-level governance problem taken up in the future directions below.
+\noindent\textbf{Reporting Standard.} Release restrictions should be accompanied by a minimum reporting standard that allows the reported safety claim to be examined. We suggest recording \textbf{(1) the threat model and target configuration}, including model or system versions and attacker access; \textbf{(2) the artifact status}, specifying which prompts, datasets, models, or reproduction materials are public, gated, or withheld; \textbf{(3) the evaluation procedure}, including judges, metrics, attack budget, and success criteria; and \textbf{(4) the disclosure process}, including verification, provider notification, and remediation status when applicable. Existing studies report subsets of these elements \cite{ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,zhu2025teamsllmagentsexploit,mcgregor2025toerr,cattell2024coordinatedflaw}, but no common standard currently links artifact sensitivity, access level, and minimum reporting requirements. Developing and validating such a standard remains an open problem for automated red teaming.
 
 \section{Open Problems and Future Directions}
 \label{sec:agenda}
@@ -466,7 +246,6 @@ Scores change when the target definition, cases, search policy, judge, or budget
 External red-teaming practice \cite{ahmad2025externalredteaming} and coordinated flaw disclosure \cite{cattell2024coordinatedflaw} offer partial precedents for access and reporting. Shared repositories still need clear decision rights, maintenance duties, and response procedures for severe findings. Record provenance and versions for cases, judges, and attack artifacts, then define verification, provider notification, remediation tracking, and disclosure procedures.
 
 \medskip
-
 \section{Conclusion}
 
 Automated red teaming should be evaluated as a closed-loop safety-evaluation system rather than as a collection of isolated jailbreak techniques. A useful survey must therefore connect risk specification, generation, search, interaction, judgment, coverage, mitigation, and responsible operational practice across generative-model targets.
