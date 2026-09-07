@@ -3,6 +3,9 @@
 \usepackage{pifont}
 \usepackage{colortbl}
 
+\newcommand{\sysYes}{\ding{51}}
+\newcommand{\sysNo}{\ding{55}}
+
 \title{Automated Red Teaming for Generative Models: A Survey}
 % \shorttitle{Automated Red Teaming for Generative Models}
 \author[1,*]{Anonymous Author(s)}
@@ -61,6 +64,49 @@ Training-time remediation cannot fully prevent failures caused by adaptive promp
 
 As LLMs evolve from standalone chatbots into integrated systems with tools, memory, APIs, and autonomous workflows, their security boundary expands beyond model parameters. Research on prompt injection, tool-integrated applications, agent memory, and agent-security benchmarks has found that adversaries can redirect a deployed system through malicious user inputs, instructions embedded in external content, poisoned persistent state, and compromised control paths \cite{perez2022promptinject,abdelnabi2023indirect,debenedetti2024agentdojo,chen2024agentpoison,zhang2025asb}. Safety behavior can also weaken after downstream fine-tuning of open-weight models \cite{qi2023finetuningalignedlanguagemodels,yang2023shadowalignment}. Alignment therefore does not guarantee instruction integrity, authorized execution, or durable state integrity after deployment. System-level protection must control information flow, executable authority, and the consequences of agent actions.
 
+\begin{table}[t]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{1.5pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}@{}p{0.93in}p{0.78in}ccccc@{}}
+\toprule
+\textbf{Method} & \textbf{Control point} &
+\shortstack{\textbf{Auth.}\\[-1pt]\textbf{sep.}} &
+\shortstack{\textbf{Perm.}\\[-1pt]\textbf{enf.}} &
+\shortstack{\textbf{Action}\\[-1pt]\textbf{val.}} &
+\shortstack{\textbf{Effect}\\[-1pt]\textbf{cont.}} &
+\textbf{Recovery} \\
+\midrule
+\multicolumn{7}{@{}l@{}}{\textit{Control and information separation}} \\
+\emph{StruQ}~\cite{chen2025struq} & Query & \sysYes & \sysNo & \sysNo & \sysNo & \sysNo \\
+\emph{$f$-secure}~\cite{wu2024fsecure} & Planning & \sysYes & \sysNo & \sysNo & \sysNo & \sysNo \\
+\emph{CaMeL}~\cite{debenedetti2025camel} & Control flow & \sysYes & \sysYes & \sysYes & \sysNo & \sysNo \\
+\emph{IPIGuard}~\cite{an-etal-2025-ipiguard} & TDG & \sysYes & \sysYes & \sysYes & \sysNo & \sysNo \\
+\midrule
+\multicolumn{7}{@{}l@{}}{\textit{Authorization and action control}} \\
+\emph{Task Shield}~\cite{jia2025taskshield} & Instr. check & \sysNo & \sysNo & \sysYes & \sysNo & \sysNo \\
+\emph{ToolSafe}~\cite{mou2026toolsafe} & Tool call & \sysNo & \sysNo & \sysYes & \sysNo & \sysNo \\
+\emph{MELON}~\cite{pmlr-v267-zhu25z} & Trajectory & \sysNo & \sysNo & \sysYes & \sysNo & \sysNo \\
+\emph{Progent}~\cite{shi2025progent} & Policy & \sysNo & \sysYes & \sysYes & \sysNo & \sysNo \\
+\emph{MiniScope}~\cite{zhu2025miniscope} & Permission & \sysNo & \sysYes & \sysYes & \sysNo & \sysNo \\
+\emph{GuardAgent}~\cite{pmlr-v267-xiang25a} & Safety policy & \sysNo & \sysNo & \sysYes & \sysNo & \sysNo \\
+\emph{ShieldAgent}~\cite{pmlr-v267-chen25ae} & Safety policy & \sysNo & \sysNo & \sysYes & \sysNo & \sysNo \\
+\midrule
+\multicolumn{7}{@{}l@{}}{\textit{Containment and recovery}} \\
+\emph{IsolateGPT}~\cite{wu2025isolategpt} & Execution & \sysNo & \sysYes & \sysNo & \sysYes & \sysNo \\
+\emph{Cordon}~\cite{chen2026cordon} & Transaction & \sysNo & \sysNo & \sysYes & \sysYes & \sysYes \\
+\bottomrule
+\end{tabular*}
+\caption{System-level protection mechanisms classified by capabilities explicitly implemented in the cited paper.}
+\label{tab:system_protection_capabilities}
+\begin{minipage}{\columnwidth}
+\scriptsize\textit{Note.} \sysYes{} means that the paper explicitly implements the capability as part of its defense; \sysNo{} means that it does not provide that capability, not that the method is ineffective. \textit{Authority separation} separates trusted control information from untrusted data. \textit{Permission enforcement} restricts tools, capabilities, or authorization scopes. \textit{Action validation} checks a proposed external action against the task, policy, or structured plan before execution. \textit{Effect containment} prevents immediate impact on the real environment through isolation, sandboxing, or staged/shadow state. \textit{Recovery} provides explicit abort, rollback, or compensation. The columns are independent; CaMeL, for example, separates control/data flow and checks security policies before tool calls.
+\end{minipage}
+\end{table}
+
+The matrix separates the location of a defense boundary from its measured effectiveness. Most of the surveyed methods intervene before an external effect is committed, whereas Cordon is the only method in this set that explicitly implements recovery through staged effects, commit, abort, and rollback. The pattern therefore supports a progression from information and authority separation, through authorization and action checks, toward execution containment and recovery.
+
 \noindent\textbf{Context and Information-Flow Control.} A system must keep untrusted content from redefining the task or gaining authority over later actions. At the prompt layer, \emph{Ignore Previous Prompt}~\cite{perez2022promptinject} documents goal hijacking and prompt leakage through crafted inputs. Greshake et al.~\cite{abdelnabi2023indirect} extend the threat to LLM-integrated applications, where instructions hidden in webpages or emails can redirect an agent that reads external content before calling tools or handling private data. AgentPoison~\cite{chen2024agentpoison} shows that an attacker can poison an agent's memory or knowledge base and thereby influence later behavior. These attacks expose two integrity boundaries: the context assembled for the current task and the state retained for future tasks. CaMeL~\cite{debenedetti2025camel} separates trusted control flow from untrusted data and uses capabilities to restrict how retrieved content influences program execution. A practical design should preserve the source and trust level of information through retrieval, memory, planning, and execution, then restrict the operations that untrusted content may trigger.
 
 \noindent\textbf{Access Control and Permission Management.} Independent application controls limit what an agent can do after it interprets a request. IsolateGPT~\cite{wu2025isolategpt} mediates application execution through isolated interfaces and permissions. Task Shield~\cite{jia2025taskshield} checks whether a proposed tool action stays aligned with the user's task, while ToolSafe~\cite{mou2026toolsafe} detects unsafe tool invocations before execution and returns the judgment to the agent. AuthBench~\cite{do2026leastprivilege} finds that coding agents may seek unnecessary or sensitive permissions, even when extra inference-time reasoning is available. These methods treat a model decision and an application authorization as separate events. The agent may propose an action, but an independent control must decide whether that action is permitted under the user's task, the available capabilities, and the current system state.
@@ -103,7 +149,7 @@ System & Target & Gen. & Judge & MM & Adapt. & Trace & Repeat \\
 garak~\cite{derczynski2024garak}
 & LLM & \tblPart & \tblYes & \tblNo & \tblNo & \tblYes & \tblPart \\
 PyRIT~\cite{lopezmunoz2024pyrit}
-& LLM/M & \tblYes & \tblYes & \tblYes & \tblPart & \tblYes & \tblPart \\
+& LLM, MM & \tblYes & \tblYes & \tblYes & \tblPart & \tblYes & \tblPart \\
 promptfoo~\cite{promptfooDocs}
 & LLM & \tblYes & \tblYes & \tblPart & \tblNo & \tblYes & \tblYes \\
 EasyJailbreak~\cite{zhou2024easyjailbreak}
@@ -125,7 +171,7 @@ AutoRedTeamer~\cite{zhou2025autoredteamer}
 \midrule
 \multicolumn{8}{@{}l@{}}{\textit{\textbf{Benchmark systems}}}\\[-1.5pt]
 HarmBench~\cite{mazeika2024harmbench}
-& LLM/M & \tblPart & \tblYes & \tblYes & \tblNo & \tblPart & \tblYes \\
+& LLM, MM & \tblPart & \tblYes & \tblYes & \tblNo & \tblPart & \tblYes \\
 JailbreakBench~\cite{chao2024jailbreakbench}
 & LLM & \tblPart & \tblYes & \tblNo & \tblNo & \tblPart & \tblYes \\
 \bottomrule
@@ -147,21 +193,13 @@ JailbreakBench~\cite{chao2024jailbreakbench}
 
 \subsection{Where Human Expertise Still Matters}
 
-\paragraph{Expanding the risk space.}
-Human participation can expand the red-team risk space by changing what is searched for, rather than merely adding tests within a fixed objective \cite{quaye2024adversarialnibbler,rastogi2026goingplaces,weidinger-etal-2024-star}. Adversarial Nibbler used crowdsourced red teaming to elicit implicitly adversarial text-to-image prompts, revealing non-obvious, long-tail safety issues and novel attack strategies within that setting \cite{quaye2024adversarialnibbler}. Local knowledge can likewise change the content and interpretation of tests: Going PLACES elicited culturally and linguistically situated prompts and annotations in Ghana, Nigeria, Karnataka, and Punjab, while CulturalBench combined human-written and human-verified questions across 45 global regions through a process inspired by Human--AI red teaming \cite{rastogi2026goingplaces,chiu-etal-2025-culturalbench}. Human input can also shape the search objective itself. STAR operationalizes human-authored, parameterized risk rules, while a participatory study in South Korea shows how lived experience informed stereotype-targeted attack strategies \cite{weidinger-etal-2024-star,kim2026darkbright}. These studies do not imply exhaustive coverage or general superiority over automated discovery. Instead, they show that human participation can introduce risks and contexts omitted by predefined risk objectives \cite{quaye2024adversarialnibbler,rastogi2026goingplaces,chiu-etal-2025-culturalbench}. If human participation helps determine what should be tested, automation determines how broadly those specifications can be exercised.
+\noindent\textbf{Human Contribution.} The evaluation infrastructure discussed above can scale test execution and scoring, but human expertise is still needed to determine which risks and contexts should enter the test space. Participatory red teaming \cite{quaye2024adversarialnibbler,weidinger-etal-2024-star} and localized testing \cite{rastogi2026goingplaces,chiu-etal-2025-culturalbench} are especially useful when predefined taxonomies do not fully represent cultural, regional, or application-specific risks. \emph{Adversarial Nibbler}~\cite{quaye2024adversarialnibbler} uses open-ended human exploration to identify text-to-image risks outside predefined categories, while \emph{Going PLACES}~\cite{rastogi2026goingplaces} relies on local participants to construct and judge culturally and linguistically grounded test cases. \emph{STAR}~\cite{weidinger-etal-2024-star} incorporates human-defined risk rules into red-team testing, and practitioner studies \cite{alvaradogarcia2026sociotechnical} show that choices in test data and scenario design affect which users, contexts, and interaction patterns are represented. Human input can also be used selectively when automated judgments are difficult to interpret: \emph{Build It Break It Fix It}~\cite{dinan-etal-2019-build} shows that dialogue safety judgments depend on conversational context, while \emph{DICES}~\cite{NEURIPS2023_a74b697b} and \emph{D3CODE}~\cite{mostafazadeh-davani-etal-2024-d3code} document persistent disagreement across annotators and cultural backgrounds. Human expertise therefore contributes primarily by supplying risk definitions, contextual knowledge, and evaluation criteria that are difficult to obtain from automated generation alone.
 
-\paragraph{Scaling human-specified risks.}
-The literature repeatedly adopts a complementary division of labor in which humans define risks, seeds, contexts, or priorities, while automated systems generate, execute, and screen tests at scale \cite{radharapu-etal-2023-aart,perez2022redteaming,quaye2026bridging,alvaradogarcia2026sociotechnical}. At the specification stage, AART encodes application context, policies, harms, populations, regions, and priorities as human-defined recipes that a language model expands into adversarial prompts. Bridging the Scale Gap similarly expands human-authored seeds with human-derived strategies, increasing geographic and demographic coverage without proportional human authoring effort \cite{radharapu-etal-2023-aart,quaye2026bridging}. At the scaling stage, Perez et al. use attacker models, classifiers, reinforcement learning, and clustering, but find that optimizing attack effectiveness can reduce diversity; greater automation therefore does not automatically broaden coverage \cite{perez2022redteaming}. In operational practice, interviewees describe selecting and ranking harms, inspecting outputs, and handling ambiguous cases while using synthetic generation and automated judges to support scale \cite{alvaradogarcia2026sociotechnical}. Across these systems, automation primarily scales human-defined risks and seeds rather than replacing human specification. The literature supports complementarity more clearly than any fixed division of labor. Scaling test generation also shifts the bottleneck toward judging the resulting failures.
-
-\paragraph{Human validation of automated judgments.}
-Automated judges enable large-scale failure screening, while human expertise can enter the judging workflow at targeted points \cite{perez2022redteaming,alvaradogarcia2026sociotechnical}. First, human labels can validate an automated judge on a bounded sample before large-scale use, as in Perez et al.'s evaluation of an offensive-language classifier against human annotations \cite{perez2022redteaming}. Second, uncertain, novel, or context-sensitive cases can be escalated for human interpretation. Build it Break it Fix it shows that offensive-language detection in dialogue depends critically on conversational context; Going PLACES uses local annotations for culturally situated harms; and Adversarial Nibbler combines machine safety annotations with richer human annotations of harm types and attack styles \cite{dinan-etal-2019-build,rastogi2026goingplaces,quaye2024adversarialnibbler}. Third, disagreement can be adjudicated without treating human judgment as an unquestionable gold standard. STAR gives an arbitrator access to annotator reasoning, DICES preserves individual and demographic ratings alongside expert labels, and D3CODE analyzes culturally structured disagreement rather than collapsing it during collection \cite{weidinger-etal-2024-star,NEURIPS2023_a74b697b,mostafazadeh-davani-etal-2024-d3code}. These mechanisms support selective human review where context or disagreement matters, while leaving the appropriate escalation criteria largely unresolved \cite{perez2022redteaming,weidinger-etal-2024-star,alvaradogarcia2026sociotechnical}.
-
-\paragraph{Limits of human scaling.}
-Human red teaming is costly and difficult to scale across large or continuously changing test spaces. Practitioner studies report that recruiting suitable evaluators and maintaining manual review throughout the testing pipeline require substantial human effort, making exhaustive human evaluation impractical at scale \cite{alvaradogarcia2026sociotechnical}. Consistent with this constraint, hybrid workflows use automation for high-volume generation and screening while reserving human effort for risk definition and difficult judgments \cite{radharapu-etal-2023-aart,perez2022redteaming,alvaradogarcia2026sociotechnical}. Human effort is therefore a limited resource within the red-teaming pipeline, making selective involvement more practical than exhaustive manual review.
+\noindent\textbf{Machine Amplification.} Automation is most useful when it turns these human inputs into reusable and scalable testing procedures. \emph{AART}~\cite{radharapu-etal-2023-aart} converts human-defined application risks into reusable recipes and then uses model generation to produce larger adversarial test sets. \emph{Bridging the Scale Gap}~\cite{quaye2026bridging} extracts reusable strategies from human red-team cases and applies them to expand text-to-image testing. Model-based red teaming in Perez et al.~\cite{perez2022redteaming} similarly demonstrates how automated generation can produce attacks at much larger scale, while also showing that different generation objectives lead to different trade-offs between attack success and diversity. Automated judges \cite{perez2022redteaming} can further screen large numbers of generated cases before more expensive review. In this division of labor, humans provide the risks, contexts, and testing directions, while automated systems amplify those inputs through repeated generation, execution, and initial screening. Human review can therefore be concentrated on context-dependent dialogue judgments \cite{dinan-etal-2019-build}, persistent annotator disagreement \cite{NEURIPS2023_a74b697b}, culturally structured evaluation differences \cite{mostafazadeh-davani-etal-2024-d3code}, and cases requiring additional adjudication \cite{weidinger-etal-2024-star}.
 
 \subsection{Balancing Transparency and Exploitability}
 
-Automated red teaming can produce reusable jailbreaks, attack prompts, harmful test cases, and reproduction procedures, creating a tension between scientific transparency and misuse risk \cite{ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,zhu2025teamsllmagentsexploit}. Table~\ref{tab:redteam_disclosure} groups representative release practices into four forms: open release, gated access, restricted disclosure, and coordinated reporting \cite{ganguli2022redteaming,mazeika2024harmbench,ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,zhu2025teamsllmagentsexploit,mcgregor2025toerr,cattell2024coordinatedflaw}. These practices differ mainly in how much actionable attack information becomes available and who can access it.
+Automated red teaming can produce reusable jailbreaks, harmful cases, and reproduction steps, creating a tension between scientific transparency and misuse risk \cite{ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,fang2024llmagentsautonomouslyexploit,zhu2025teamsllmagentsexploit}. Table~\ref{tab:redteam_disclosure} groups 17 representative papers and practice reports into four forms: open release, gated access, restricted disclosure, and coordinated reporting. The table is intentionally balanced across the categories, with five open-release examples and four examples in each of the other three categories \cite{ganguli2022redteaming,mazeika2024harmbench,chao2024jailbreakbench,yu2023gptfuzzer,quaye2024adversarialnibbler,ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,solaiman2019release,bullwinkel2025lessons100products,openai2023gpt4systemcard,fang2024llmagentsautonomouslyhack,fang2024llmagentsautonomouslyexploit,zhu2025teamsllmagentsexploit,mcgregor2025toerr,cattell2024coordinatedflaw,paeth2025lessons,longpre2026flareai}. These practices differ mainly in how much actionable attack information becomes available and who can access it.
 
 \begingroup
 \noindent\begin{minipage}{\columnwidth}
@@ -177,31 +215,44 @@ Automated red teaming can produce reusable jailbreaks, attack prompts, harmful t
 \multicolumn{3}{@{}l@{}}{\textit{\textbf{Open}}}\\[-1.5pt]
 HarmBench~\cite{mazeika2024harmbench} & Benchmark and pipeline & Public \\
 Ganguli et al.~\cite{ganguli2022redteaming} & Dataset and analysis & Public \\
+JailbreakBench~\cite{chao2024jailbreakbench} & Dataset and artifact repository & Open repository and leaderboard \\
+GPTFuzzer~\cite{yu2023gptfuzzer} & Fuzzer and attack prompts & Public code and method \\
+Adversarial Nibbler~\cite{quaye2024adversarialnibbler} & Challenge and prompts & Open challenge with public submissions \\
 \addlinespace[1pt]
 \rowcolor{gray!12}
 \multicolumn{3}{@{}l@{}}{\textit{\textbf{Gated access}}}\\[-1.5pt]
 Ahmad et al.~\cite{ahmad2025externalredteaming} & External findings & Controlled access \\
 Qi et al.~\cite{qi2023finetuningalignedlanguagemodels} & Public results & Gate questions; withhold examples \\
+Solaiman et al.~\cite{solaiman2019release} & Release strategy & Staged release; risk review \\
+Bullwinkel et al.~\cite{bullwinkel2025lessons100products} & Product-level lessons & Aggregate lessons; cases summarized \\
 \addlinespace[1pt]
 \rowcolor{gray!12}
 \multicolumn{3}{@{}l@{}}{\textit{\textbf{Restricted disclosure}}}\\[-1.5pt]
+OpenAI~\cite{openai2023gpt4systemcard} & Red-team findings & Public summary; sensitive detail abstracted \\
 Fang et al.~\cite{fang2024llmagentsautonomouslyhack} & Setup and results & Withhold attack details; disclose to provider \\
+Fang et al.~\cite{fang2024llmagentsautonomouslyexploit} & Vulnerability exploits & Limit actionable exploit details \\
 Zhu et al.~\cite{zhu2025teamsllmagentsexploit} & Results & Withhold prompts and agent details \\
 \addlinespace[1pt]
 \rowcolor{gray!12}
 \multicolumn{3}{@{}l@{}}{\textit{\textbf{Coordinated reporting}}}\\[-1.5pt]
 McGregor et al.~\cite{mcgregor2025toerr} & Reporting practices & Review/disclosure workflow \\
 Cattell et al.~\cite{cattell2024coordinatedflaw} & Disclosure framework & Verification/adjudication \\
+Paeth et al.~\cite{paeth2025lessons} & Incident records & Structured intake/editing process \\
+Longpre et al.~\cite{longpre2026flareai} & Flaw reports & Machine-readable coordination workflow \\
 \bottomrule
 \end{tabular}
-\captionof{table}{Representative disclosure practices for red-team artifacts.}
+\captionof{table}{Representative release and disclosure practices for red-team artifacts.}
 \label{tab:redteam_disclosure}
+\par\vspace{1pt}\raggedright
+\begin{minipage}{\columnwidth}
+\scriptsize\textit{Note.} Categories indicate the dominant access or disclosure pattern described or exemplified by each work; practice reports are included when they document operational red teaming or reporting.
+\end{minipage}
 \end{minipage}
 \endgroup
 
-\noindent\textbf{Access Control.} The practices in Table~\ref{tab:redteam_disclosure} suggest that access decisions should consider how easily an artifact can be reused for harmful behavior. We identify three practical questions. \textbf{(1) Artifact sensitivity.} Benchmark definitions, aggregate results, and evaluation code may support broad scrutiny, while directly reusable jailbreak prompts, exploit chains, or detailed reproduction procedures require stronger review when they substantially lower the effort needed for misuse \cite{ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,zhu2025teamsllmagentsexploit}. \textbf{(2) Access level.} Sensitive artifacts can be released through graduated access, ranging from public release to vetted access or provider-only disclosure. Existing studies demonstrate these options, but do not establish common criteria for moving an artifact from one level to another \cite{ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,zhu2025teamsllmagentsexploit,mcgregor2025toerr,cattell2024coordinatedflaw}. \textbf{(3) Access process.} A mature access policy also needs rules for requester eligibility, approval, revocation, and subsequent redistribution. The reviewed literature provides examples of controlled access and coordinated disclosure, but a standardized access-control procedure for automated red-team artifacts remains underdeveloped.
+\noindent\textbf{Access Control.} The practices in Table~\ref{tab:redteam_disclosure} suggest that access decisions should consider how easily an artifact can be reused for harmful behavior. We identify three practical questions. \textbf{(1) Artifact sensitivity.} Benchmark definitions, aggregate results, and evaluation code may support broad scrutiny, while directly reusable jailbreak prompts, exploit chains, or detailed reproduction procedures require stronger review when they substantially lower the effort needed for misuse \cite{ganguli2022redteaming,mazeika2024harmbench,chao2024jailbreakbench,yu2023gptfuzzer,quaye2024adversarialnibbler,fang2024llmagentsautonomouslyhack,fang2024llmagentsautonomouslyexploit,zhu2025teamsllmagentsexploit}. \textbf{(2) Access level.} Sensitive artifacts can be released through graduated access, ranging from public release to vetted access or provider-only disclosure. Existing studies and practice reports demonstrate these options, but do not establish common criteria for moving an artifact from one level to another \cite{ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,solaiman2019release,bullwinkel2025lessons100products,openai2023gpt4systemcard,mcgregor2025toerr,cattell2024coordinatedflaw}. \textbf{(3) Access process.} A mature access policy also needs rules for requester eligibility, approval, revocation, and subsequent redistribution. The reviewed literature provides examples of controlled access, restricted technical disclosure, and coordinated reporting, but a standardized access-control procedure for automated red-team artifacts remains underdeveloped \cite{paeth2025lessons,longpre2026flareai}.
 
-\noindent\textbf{Reporting Standard.} Release restrictions should be accompanied by a minimum reporting standard that allows the reported safety claim to be examined. We suggest recording \textbf{(1) the threat model and target configuration}, including model or system versions and attacker access; \textbf{(2) the artifact status}, specifying which prompts, datasets, models, or reproduction materials are public, gated, or withheld; \textbf{(3) the evaluation procedure}, including judges, metrics, attack budget, and success criteria; and \textbf{(4) the disclosure process}, including verification, provider notification, and remediation status when applicable. Existing studies report subsets of these elements \cite{ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,zhu2025teamsllmagentsexploit,mcgregor2025toerr,cattell2024coordinatedflaw}, but no common standard currently links artifact sensitivity, access level, and minimum reporting requirements. Developing and validating such a standard remains an open problem for automated red teaming.
+\noindent\textbf{Reporting Standard.} Release restrictions should be accompanied by a minimum reporting standard that allows the reported safety claim to be examined. We suggest recording \textbf{(1) the threat model and target configuration}, including model or system versions and attacker access; \textbf{(2) the artifact status}, specifying which prompts, datasets, models, or reproduction materials are public, gated, or withheld; \textbf{(3) the evaluation procedure}, including judges, metrics, attack budget, and success criteria; and \textbf{(4) the disclosure process}, including verification, provider notification, and remediation status when applicable. Existing studies and practice reports describe subsets of these elements across public benchmarks, external red-team campaigns, restricted technical reports, and incident-reporting frameworks \cite{ganguli2022redteaming,mazeika2024harmbench,chao2024jailbreakbench,ahmad2025externalredteaming,openai2023gpt4systemcard,fang2024llmagentsautonomouslyhack,fang2024llmagentsautonomouslyexploit,zhu2025teamsllmagentsexploit,mcgregor2025toerr,cattell2024coordinatedflaw,paeth2025lessons,longpre2026flareai}, but no common standard currently links artifact sensitivity, access level, and minimum reporting requirements. Developing and validating such a standard remains an open problem for automated red teaming.
 
 \section{Open Problems and Future Directions}
 \label{sec:agenda}
