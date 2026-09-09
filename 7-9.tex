@@ -64,27 +64,31 @@ Training-time remediation cannot fully prevent failures caused by adaptive promp
 
 As LLMs evolve from standalone chatbots into integrated systems with tools, memory, APIs, and autonomous workflows, their security boundary expands beyond model parameters. Research on prompt injection, tool-integrated applications, agent memory, and agent-security benchmarks has found that adversaries can redirect a deployed system through malicious user inputs, instructions embedded in external content, poisoned persistent state, and compromised control paths \cite{perez2022promptinject,abdelnabi2023indirect,debenedetti2024agentdojo,chen2024agentpoison,zhang2025asb}. Safety behavior can also weaken after downstream fine-tuning of open-weight models \cite{qi2023finetuningalignedlanguagemodels,yang2023shadowalignment}. Alignment therefore does not guarantee instruction integrity, authorized execution, or durable state integrity after deployment. System-level protection must control information flow, executable authority, and the consequences of agent actions.
 
+% Keep the capability symbols available even when this section is compiled
+% from a document setup that does not include the global definitions above.
+\providecommand{\sysYes}{\ding{51}}
+\providecommand{\sysNo}{\ding{55}}
+
 \begin{table}[t]
 \centering
 \scriptsize
-\setlength{\tabcolsep}{1.5pt}
+\setlength{\tabcolsep}{2pt}
 \renewcommand{\arraystretch}{1.05}
-\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}@{}p{0.93in}p{0.78in}ccccc@{}}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}@{}p{0.70in}p{0.53in}ccccc@{}}
 \toprule
-\textbf{Method} & \textbf{Control point} &
-\shortstack{\textbf{Auth.}\\[-1pt]\textbf{sep.}} &
-\shortstack{\textbf{Perm.}\\[-1pt]\textbf{enf.}} &
-\shortstack{\textbf{Action}\\[-1pt]\textbf{val.}} &
-\shortstack{\textbf{Effect}\\[-1pt]\textbf{cont.}} &
+\textbf{Method} & \textbf{Control} &
+\textbf{Authority} & \textbf{Permission} &
+\textbf{Validation} &
+\textbf{Containment} &
 \textbf{Recovery} \\
 \midrule
-\multicolumn{7}{@{}l@{}}{\textit{Control and information separation}} \\
+\multicolumn{7}{@{}l@{}}{\textit{Information control}} \\
 \emph{StruQ}~\cite{chen2025struq} & Query & \sysYes & \sysNo & \sysNo & \sysNo & \sysNo \\
 \emph{$f$-secure}~\cite{wu2024fsecure} & Planning & \sysYes & \sysNo & \sysNo & \sysNo & \sysNo \\
 \emph{CaMeL}~\cite{debenedetti2025camel} & Control flow & \sysYes & \sysYes & \sysYes & \sysNo & \sysNo \\
 \emph{IPIGuard}~\cite{an-etal-2025-ipiguard} & TDG & \sysYes & \sysYes & \sysYes & \sysNo & \sysNo \\
 \midrule
-\multicolumn{7}{@{}l@{}}{\textit{Authorization and action control}} \\
+\multicolumn{7}{@{}l@{}}{\textit{Action control}} \\
 \emph{Task Shield}~\cite{jia2025taskshield} & Instr. check & \sysNo & \sysNo & \sysYes & \sysNo & \sysNo \\
 \emph{ToolSafe}~\cite{mou2026toolsafe} & Tool call & \sysNo & \sysNo & \sysYes & \sysNo & \sysNo \\
 \emph{MELON}~\cite{pmlr-v267-zhu25z} & Trajectory & \sysNo & \sysNo & \sysYes & \sysNo & \sysNo \\
@@ -98,10 +102,11 @@ As LLMs evolve from standalone chatbots into integrated systems with tools, memo
 \emph{Cordon}~\cite{chen2026cordon} & Transaction & \sysNo & \sysNo & \sysYes & \sysYes & \sysYes \\
 \bottomrule
 \end{tabular*}
-\caption{System-level protection mechanisms classified by capabilities explicitly implemented in the cited paper.}
+\caption{System controls implemented by representative defenses.}
 \label{tab:system_protection_capabilities}
 \begin{minipage}{\columnwidth}
-\scriptsize\textit{Note.} \sysYes{} means that the paper explicitly implements the capability as part of its defense; \sysNo{} means that it does not provide that capability, not that the method is ineffective. \textit{Authority separation} separates trusted control information from untrusted data. \textit{Permission enforcement} restricts tools, capabilities, or authorization scopes. \textit{Action validation} checks a proposed external action against the task, policy, or structured plan before execution. \textit{Effect containment} prevents immediate impact on the real environment through isolation, sandboxing, or staged/shadow state. \textit{Recovery} provides explicit abort, rollback, or compensation. The columns are independent; CaMeL, for example, separates control/data flow and checks security policies before tool calls.
+\scriptsize
+\textit{Note.} \sysYes{}: implemented; \sysNo{}: not reported.
 \end{minipage}
 \end{table}
 
@@ -141,46 +146,47 @@ Automated red teaming now spans more model interfaces, modalities, attack strate
 \scriptsize
 \setlength{\tabcolsep}{1.25pt}
 \renewcommand{\arraystretch}{1.07}
-\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lccccccc@{}}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lccccc c@{}}
 \toprule
-System & Target & Gen. & Judge & MM & Adapt. & Trace & Repeat \\
+\textbf{System} & \textbf{Generate} & \textbf{Judge} &
+\textbf{Multimodal} & \textbf{Adaptive} & \textbf{Record} & \textbf{Replay} \\
 \midrule
 \multicolumn{8}{@{}l@{}}{\textit{\textbf{Harnesses}}}\\[-1.5pt]
 garak~\cite{derczynski2024garak}
-& LLM & \tblPart & \tblYes & \tblNo & \tblNo & \tblYes & \tblPart \\
+& \tblPart & \tblYes & \tblNo & \tblNo & \tblYes & \tblPart \\
 PyRIT~\cite{lopezmunoz2024pyrit}
-& LLM, MM & \tblYes & \tblYes & \tblYes & \tblPart & \tblYes & \tblPart \\
+& \tblYes & \tblYes & \tblYes & \tblPart & \tblYes & \tblPart \\
 promptfoo~\cite{promptfooDocs}
-& LLM & \tblYes & \tblYes & \tblPart & \tblNo & \tblYes & \tblYes \\
+& \tblYes & \tblYes & \tblPart & \tblNo & \tblYes & \tblYes \\
 EasyJailbreak~\cite{zhou2024easyjailbreak}
-& LLM & \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
+& \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
 ARTKIT~\cite{artkitDocs}
-& GenAI & \tblYes & \tblYes & \tblPart & \tblPart & \tblYes & \tblYes \\
+& \tblYes & \tblYes & \tblPart & \tblPart & \tblYes & \tblYes \\
 \addlinespace[1.5pt]
 \midrule
 \multicolumn{8}{@{}l@{}}{\textit{\textbf{Automated attack systems}}}\\[-1.5pt]
 GPTFuzzer~\cite{yu2023gptfuzzer}
-& LLM & \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
+& \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
 LLM-Fuzzer~\cite{yu2024llmfuzzer}
-& LLM & \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
+& \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
 APRT~\cite{jiang2024aprt}
-& LLM & \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
+& \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
 AutoRedTeamer~\cite{zhou2025autoredteamer}
-& LLM & \tblYes & \tblYes & \tblNo & \tblYes & \tblYes & \tblYes \\
+& \tblYes & \tblYes & \tblNo & \tblYes & \tblYes & \tblYes \\
 \addlinespace[1.5pt]
 \midrule
 \multicolumn{8}{@{}l@{}}{\textit{\textbf{Benchmark systems}}}\\[-1.5pt]
 HarmBench~\cite{mazeika2024harmbench}
-& LLM, MM & \tblPart & \tblYes & \tblYes & \tblNo & \tblPart & \tblYes \\
+& \tblPart & \tblYes & \tblYes & \tblNo & \tblPart & \tblYes \\
 JailbreakBench~\cite{chao2024jailbreakbench}
-& LLM & \tblPart & \tblYes & \tblNo & \tblNo & \tblPart & \tblYes \\
+& \tblPart & \tblYes & \tblNo & \tblNo & \tblPart & \tblYes \\
 \bottomrule
 \end{tabular*}
 \captionof{table}{Infrastructure and systems for automated red teaming.}
 \label{tab:redteam_harnesses}
 \par\vspace{1pt}\raggedright
 \begin{minipage}{\columnwidth}
-\scriptsize\textit{Key.} \tblYes\ supported; \tblPart\ limited; \tblNo\ no documented support. M: multimodal. Gen.: automatic attack generation. Judge: automatic safety score. Adapt.: feedback-driven attack update. Trace: retained run records. Repeat: rerun or re-score.
+\scriptsize\textit{Note.} \tblYes\ supported; \tblPart\ limited; \tblNo\ not documented.
 \end{minipage}
 \end{minipage}
 \endgroup
@@ -199,7 +205,7 @@ JailbreakBench~\cite{chao2024jailbreakbench}
 
 \subsection{Balancing Transparency and Exploitability}
 
-Automated red teaming can produce reusable jailbreaks, harmful cases, and reproduction steps, creating a tension between scientific transparency and misuse risk \cite{ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,fang2024llmagentsautonomouslyexploit,zhu2025teamsllmagentsexploit}. Table~\ref{tab:redteam_disclosure} groups 17 representative papers and practice reports into four forms: open release, gated access, restricted disclosure, and coordinated reporting. The table is intentionally balanced across the categories, with five open-release examples and four examples in each of the other three categories \cite{ganguli2022redteaming,mazeika2024harmbench,chao2024jailbreakbench,yu2023gptfuzzer,quaye2024adversarialnibbler,ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,solaiman2019release,bullwinkel2025lessons100products,openai2023gpt4systemcard,fang2024llmagentsautonomouslyhack,fang2024llmagentsautonomouslyexploit,zhu2025teamsllmagentsexploit,mcgregor2025toerr,cattell2024coordinatedflaw,paeth2025lessons,longpre2026flareai}. These practices differ mainly in how much actionable attack information becomes available and who can access it.
+Automated red teaming can produce reusable jailbreaks, harmful cases, and reproduction steps, creating a tension between scientific transparency and misuse risk \cite{ahmad2025externalredteaming,qi2023finetuningalignedlanguagemodels,fang2024llmagentsautonomouslyhack,fang2024llmagentsautonomouslyexploit,zhu2025teamsllmagentsexploit}. Table~\ref{tab:redteam_disclosure} summarizes representative practices across four disclosure patterns: open release, gated access, restricted disclosure, and coordinated reporting. These practices differ mainly in how much actionable attack information becomes available and who can access it.
 
 \begingroup
 \noindent\begin{minipage}{\columnwidth}
@@ -207,9 +213,9 @@ Automated red teaming can produce reusable jailbreaks, harmful cases, and reprod
 \scriptsize
 \setlength{\tabcolsep}{1.2pt}
 \renewcommand{\arraystretch}{1.04}
-\begin{tabular}{@{}p{0.84in}p{0.98in}p{1.43in}@{}}
+\begin{tabular}{@{}p{0.78in}p{1.05in}p{1.42in}@{}}
 \toprule
-\textbf{Representative work} & \textbf{Reported} & \textbf{Process} \\
+\textbf{Work} & \textbf{Artifact} & \textbf{Release} \\
 \midrule
 \rowcolor{gray!12}
 \multicolumn{3}{@{}l@{}}{\textit{\textbf{Open}}}\\[-1.5pt]
@@ -220,25 +226,25 @@ GPTFuzzer~\cite{yu2023gptfuzzer} & Fuzzer and attack prompts & Public code and m
 Adversarial Nibbler~\cite{quaye2024adversarialnibbler} & Challenge and prompts & Open challenge with public submissions \\
 \addlinespace[1pt]
 \rowcolor{gray!12}
-\multicolumn{3}{@{}l@{}}{\textit{\textbf{Gated access}}}\\[-1.5pt]
-Ahmad et al.~\cite{ahmad2025externalredteaming} & External findings & Controlled access \\
-Qi et al.~\cite{qi2023finetuningalignedlanguagemodels} & Public results & Gate questions; withhold examples \\
-Solaiman et al.~\cite{solaiman2019release} & Release strategy & Staged release; risk review \\
-Bullwinkel et al.~\cite{bullwinkel2025lessons100products} & Product-level lessons & Aggregate lessons; cases summarized \\
+\multicolumn{3}{@{}l@{}}{\textit{\textbf{Gated}}}\\[-1.5pt]
+Ahmad et al.~\cite{ahmad2025externalredteaming} & Findings & Controlled access \\
+Qi et al.~\cite{qi2023finetuningalignedlanguagemodels} & Results & Examples withheld \\
+Solaiman et al.~\cite{solaiman2019release} & Release plan & Staged release \\
+Bullwinkel et al.~\cite{bullwinkel2025lessons100products} & Product lessons & Aggregated cases \\
 \addlinespace[1pt]
 \rowcolor{gray!12}
-\multicolumn{3}{@{}l@{}}{\textit{\textbf{Restricted disclosure}}}\\[-1.5pt]
-OpenAI~\cite{openai2023gpt4systemcard} & Red-team findings & Public summary; sensitive detail abstracted \\
-Fang et al.~\cite{fang2024llmagentsautonomouslyhack} & Setup and results & Withhold attack details; disclose to provider \\
-Fang et al.~\cite{fang2024llmagentsautonomouslyexploit} & Vulnerability exploits & Limit actionable exploit details \\
-Zhu et al.~\cite{zhu2025teamsllmagentsexploit} & Results & Withhold prompts and agent details \\
+\multicolumn{3}{@{}l@{}}{\textit{\textbf{Restricted}}}\\[-1.5pt]
+OpenAI~\cite{openai2023gpt4systemcard} & Red-team findings & Public summary \\
+Fang et al.~\cite{fang2024llmagentsautonomouslyhack} & Evaluation results & Attack details withheld \\
+Fang et al.~\cite{fang2024llmagentsautonomouslyexploit} & Exploit findings & Actionable details withheld \\
+Zhu et al.~\cite{zhu2025teamsllmagentsexploit} & Evaluation results & Prompts withheld \\
 \addlinespace[1pt]
 \rowcolor{gray!12}
-\multicolumn{3}{@{}l@{}}{\textit{\textbf{Coordinated reporting}}}\\[-1.5pt]
-McGregor et al.~\cite{mcgregor2025toerr} & Reporting practices & Review/disclosure workflow \\
-Cattell et al.~\cite{cattell2024coordinatedflaw} & Disclosure framework & Verification/adjudication \\
-Paeth et al.~\cite{paeth2025lessons} & Incident records & Structured intake/editing process \\
-Longpre et al.~\cite{longpre2026flareai} & Flaw reports & Machine-readable coordination workflow \\
+\multicolumn{3}{@{}l@{}}{\textit{\textbf{Coordinated}}}\\[-1.5pt]
+McGregor et al.~\cite{mcgregor2025toerr} & Reporting practices & Reviewed disclosure \\
+Cattell et al.~\cite{cattell2024coordinatedflaw} & Disclosure framework & Verification \\
+Paeth et al.~\cite{paeth2025lessons} & Incident records & Structured intake \\
+Longpre et al.~\cite{longpre2026flareai} & Flaw reports & Coordinated reporting \\
 \bottomrule
 \end{tabular}
 \captionof{table}{Representative release and disclosure practices for red-team artifacts.}
@@ -257,27 +263,39 @@ Longpre et al.~\cite{longpre2026flareai} & Flaw reports & Machine-readable coord
 \section{Open Problems and Future Directions}
 \label{sec:agenda}
 
-\subsection{Toward Open-World and Coverage-Aware Red Teaming}
+\subsection{Risk Coverage}
 
-Automated red teaming increasingly reaches beyond fixed harmful-behavior sets through standardized benchmarks, scalable adversarial generation, black-box search, and prompt diversification \cite{mazeika2024harmbench,chao2024jailbreakbench,li2024salad,ganguli2022redteaming,perez2022redteaming,mehrotra2024tap,chao2025pair,yu2024llmfuzzer,liu2024autodan}. Broader attack generation does not necessarily produce broader failure coverage, because syntactically or strategically distinct prompts can still exploit the same underlying vulnerability \cite{zhao2025diverct,tong2023multimon,weidinger-etal-2024-star,pugh2016qualitydiversity}. Coverage is therefore difficult to define when the relevant risk space is not known in advance. Future work should develop \textbf{(1) extensible risk-space representations} that preserve benchmark comparability while admitting unspecified failure classes, \textbf{(2) failure-level novelty measures} that distinguish superficial prompt variation from genuinely new vulnerabilities, and \textbf{(3) discovery-aware stopping criteria} that connect testing budget and marginal discovery to uncertainty about unseen risks \cite{chao1984unseenclasses,pugh2016qualitydiversity}. These directions treat coverage as a property of the red-teaming process, not only of a predefined test set.
-
-\medskip
-
-\subsection{Toward Reliable and Adversary-Resistant Evaluation}
-
-Automated judges have become central to scalable red teaming, with recent benchmarks increasingly replacing refusal matching and simple toxicity detection with specialized classifiers, rubric-based LLM judges, and multimodal evaluators \cite{mazeika2024harmbench,chao2024jailbreakbench,souly2024strongreject,han2024wildguard,inan2023llamaguard,li2024salad}. However, evaluator choice can substantially change measured attack success, while agreement with human judgments remains sensitive to evaluation criteria, output style, prompt formulation, distribution shift, and model-specific biases \cite{zheng2023mtbench,chen2024humansjudge,chen2025saferluckier,eiras2025knowthyjudge,thakur2025judgingjudges}. More importantly, judges themselves constitute an attack surface: adversarial phrases, manipulated outputs, and poisoned evaluator data can systematically alter their decisions \cite{raina2024robustjudge,tong2025badjudge}, while multimodal evaluation introduces additional disagreement when harmfulness depends jointly on text, images, or temporal context \cite{chen2024mllmjudge,ying2024safebench,lee2025elite,wang2025mmsafeaware,liu2025videosafetybench}. Future evaluation could therefore advance along three directions: \textbf{(1) calibrated and uncertainty-aware judging} that exposes disagreement rather than collapsing every case into a single label; \textbf{(2) adversary-resistant evaluation} that explicitly includes the judge within the red-team threat model and tests robustness under attack and distribution shift; and \textbf{(3) selective human validation} concentrated on uncertain, conflicting, novel, or high-severity cases. Together, these directions would shift automated judgment from a convenient scoring component toward a measurable and auditable source of red-team evidence.
+Automated red teaming has moved from fixed sets of harmful prompts toward larger-scale and more adaptive testing, with recent work using automated generation, iterative search, mutation, and diversity objectives to uncover a wider range of unsafe behaviors \cite{mazeika2024harmbench,chao2024jailbreakbench,li2024salad,perez2022redteaming,chao2025pair,mehrotra2024tap,yu2024llmfuzzer,liu2024autodan}. However, generating more attacks does not necessarily mean covering more risks. Different prompts may expose the same underlying weakness, while fixed benchmarks can only measure the risk categories defined in advance \cite{zhao2025diverct,tong2023multimon,weidinger-etal-2024-star,zhang2024harm}. Future work could therefore focus on \textbf{(1) broader risk coverage}, allowing newly observed risks to be added instead of forcing all cases into fixed categories; \textbf{(2) clearer measures of novelty}, distinguishing genuinely new vulnerabilities from repeated variants of known attacks; and \textbf{(3) better stopping rules}, using the rate of new discoveries to judge whether further testing is still revealing new weaknesses or has begun to saturate \cite{li2024rtpe,jiang2024aprt,wu2025trident,zhou2025autoredteamer,pugh2016qualitydiversity,chao1984unseenclasses}. These directions would make coverage a clearer measure of what automated red teaming has actually explored, rather than simply how many prompts or benchmark categories have been tested.
 
 \medskip
 
-\subsection{Toward Stateful and Transferable System-Level Red Teaming}
+\subsection{Evaluation Reliability}
 
-Automated red teaming is beginning to move beyond isolated prompt--response failures toward multi-turn interaction, persistent memory, tool use, retrieval state, and dynamic environments \cite{yan2025muse,debenedetti2024agentdojo,zhang2025asb,zhan2024injecagent,ruan2024toolemu,chen2024agentpoison,zou2025poisonedrag,wang2025webinject}. Interactive agent benchmarks further provide environments in which outcomes depend on action sequences and changing application state rather than a single generated response \cite{zhou2024webarena,koh2024visualwebarena,xie2024osworld,liu2024agentbench,yao2025taubench}. However, these dimensions remain only partially connected: multi-turn dialogue does not necessarily involve persistent external state, stateful attacks do not necessarily require long trajectories, and failures observed in one system may not persist after the model, language, modality, or application boundary changes. Transfer studies likewise report substantial source--target dependence across models and representations \cite{zou2023gcg,liu2024autodan,liao2024amplegcg,deng2024multilingual,geng2025coninstruction,he2026tear}. Future work could therefore advance along three directions: \textbf{(1) trajectory-level search} over histories, memory, tools, and environment state; \textbf{(2) consequence-level evaluation} based on state transitions and external actions rather than final text alone; and \textbf{(3) structured transfer testing} that separates reuse of attack artifacts from transfer of attack strategies and underlying failures. Together, these directions would extend red teaming from testing model responses toward testing failures of evolving model-based systems.
+Automated judges have become a common component of large-scale red teaming, but different evaluators can assign different labels to the same response and consequently change the reported success of an attack \cite{mazeika2024harmbench,chao2024jailbreakbench,souly2024strongreject,han2024wildguard,inan2023llamaguard,li2024salad}. This disagreement is also observed between automated evaluators and human annotators, especially when responses are ambiguous or require contextual interpretation \cite{zheng2023mtbench,chen2024humansjudge,thakur2025judgingjudges,chen2025saferluckier,eiras2025knowthyjudge}. Meanwhile, recent studies show that evaluators themselves can be influenced by adversarially constructed outputs, making the judge part of the attack surface rather than a neutral scorer \cite{raina2024robustjudge,tong2025badjudge,shi2024optimization}. Multimodal red teaming introduces another difficulty because the evidence needed for judgment may not be contained in text alone \cite{chen2024mllmjudge,ying2024safebench,wang2025mmsafeaware,liu2025videosafetybench}. Future work could therefore focus on \textbf{(1) human--machine disagreement}, identifying when automated and human judgments diverge and when human review is needed; \textbf{(2) judge gaming}, testing whether evaluators can be systematically misled by adversarial outputs; and \textbf{(3) multimodal judgment}, determining whether evaluators remain reliable when safety depends on information across modalities.
 
 \medskip
 
-\subsection{Continuous Evaluation under System Drift}
+\subsection{Long Horizon Testing}
 
-Red teaming is increasingly adapting evaluation content and search strategies as models and deployment settings evolve \cite{zhou2025autoredteamer,zhang2025jbdistill,wang2026agenticeval}. At the same time, model updates, fine-tuning, system state, evaluators, and test procedures can each change measured safety \cite{tang2026evojail,peng2026cwac,khan2026safetydrift,dhodapkar2026safetydrift,mazeika2024harmbench,chao2024jailbreakbench}. A longitudinal comparison is therefore hard to interpret when both the target and the evaluation change. Future work should establish \textbf{(1) versioned anchor evaluations} that isolate changes in the target configuration, \textbf{(2) living regression suites} that replay retained failures while periodically renewing attacks and test cases, and \textbf{(3) governed evidence repositories} that preserve provenance, manage sensitive artifacts, and support verification and disclosure \cite{paeth2025lessons,longpre2026flareai,ahmad2025externalredteaming,cattell2024coordinatedflaw}. Together, these directions would make safety evidence cumulative across model and system changes.
+Many red teaming studies still evaluate attack success from a single prompt and response \cite{mazeika2024harmbench,chao2024jailbreakbench,li2024salad}. As models are increasingly used in sustained conversations and systems that can take actions, some failures may appear only after repeated interaction \cite{yan2025muse,debenedetti2024agentdojo,zhan2024injecagent,ruan2024toolemu}. Earlier exchanges can also change later behavior, so single prompt--response tests may miss risks that develop during a conversation or task \cite{chen2024agentpoison,zou2025poisonedrag,wang2025webinject}. Future work could therefore focus on \textbf{(1) Extended Interaction}, testing longer sequences rather than isolated exchanges; \textbf{(2) Contextual Influence}, examining how earlier information changes later responses and decisions; and \textbf{(3) System Outcomes}, evaluating attack success from the final behavior or action rather than generated text alone.
+
+\medskip
+
+\subsection{Attack Transferability}
+
+Transferability has become an important concern in automated red teaming because an attack discovered on one model may also succeed on other targets. Several studies demonstrate that adversarial prompts and suffixes can transfer across models, while more recent methods explicitly optimize attacks or red-team policies for cross-model effectiveness \cite{zou2023gcg,liu2024autodan,liao2024amplegcg,li2024magic,jiang2024aprt}. However, transfer is far from consistent. Attack success can vary substantially with the source--target pair, the optimization constraints, the prompt or trigger representation, and the evaluation protocol \cite{meade2025triggers,yang2025guiding,chao2024jailbreakbench,souly2024strongreject}. It remains unclear whether models from the same family systematically inherit similar weaknesses, or whether apparent similarities mainly reflect shared training data, alignment procedures, or input representations. Evidence from multilingual and multimodal jailbreak studies shows that safety failures can cross language and modality boundaries, but does not by itself establish stable family-level transfer \cite{deng2024multilingual,yong2023lowresource,geng2025coninstruction}. A related question is whether the same model remains equally robust after being embedded in different applications. Studies of LLM-integrated applications, tool-using agents, memory systems, and function calling show that deployment context can expose failures even when the underlying model appears safe in ordinary chat settings \cite{abdelnabi2023indirect,liu2023houyi,zhan2024injecagent,debenedetti2024agentdojo,chen2024agentpoison,wu2025darkfunction}. Future work could therefore focus on \textbf{(1) cross-model transfer}, testing how reliably attacks found on one target remain effective on others; \textbf{(2) family-level weaknesses}, examining whether related models repeatedly exhibit similar vulnerabilities; and \textbf{(3) application-dependent robustness}, comparing the same model across different deployment settings. These comparisons would help distinguish failures tied to a particular model from those that persist across broader model families or application contexts.
+
+\medskip
+
+\subsection{Evaluation Drift}
+
+Continual red teaming must adapt as stronger attacks are developed. However, when the evaluation itself changes, the same model may receive different safety results over time \cite{mazeika2024harmbench,chao2024jailbreakbench,li2024salad,souly2024strongreject,jiang2024wildteaming}. This problem becomes more apparent as newer search methods uncover failures that earlier tests could not find \cite{perez2022redteaming,chao2025pair,mehrotra2024tap,yu2023gptfuzzer,liu2024autodan,zhao2025diverct}. As a result, improvements in testing can make historical results difficult to compare, even when the reported metric remains unchanged \cite{liang2023helm,cui2025orbench,xie2025sorrybench,yuan2024rjudge}. Future work should therefore update red teaming methods while preserving stable references and clear version records, so that results collected at different times remain comparable.
+
+\medskip
+
+\subsection{Responsible Release}
+
+As discussed in Section~8.3, current disclosure practices still lack consistent rules for balancing reproducibility with the risk of attack reuse. Future work should therefore establish clearer \textbf{release criteria} for different red teaming artifacts, develop shared \textbf{reporting standards} that support verification without exposing unnecessary attack details, and connect disclosure with \textbf{remediation tracking} so that serious findings can be followed through verification, mitigation, and retesting.
 
 \medskip
 \section{Conclusion}
