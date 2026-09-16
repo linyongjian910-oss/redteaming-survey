@@ -1,7 +1,14 @@
 % !TeX program = pdflatex
+\PassOptionsToPackage{nocompress}{cite}
 \documentclass[review]{fcs}
 \usepackage{pifont}
 \usepackage{colortbl}
+
+% Permit a line break before a citation when a citation would otherwise
+% extend into the gutter.  This changes only emergency line breaking; it
+% does not alter the normal interline or interparagraph spacing.
+\let\fcsOriginalCite\cite
+\renewcommand{\cite}[1]{\allowbreak\fcsOriginalCite{#1}}
 
 \newcommand{\sysYes}{\ding{51}}
 \newcommand{\sysNo}{\ding{55}}
@@ -54,7 +61,8 @@ Early automated red-teaming studies focused primarily on scalable failure discov
 
 \subsection{Turning Safety Judgments into Runtime Control}
 
-Training-time remediation cannot fully prevent failures caused by adaptive prompts and unseen attack strategies after deployment \cite{andriushchenko2025adaptive,andriushchenko2025pasttense}. Inference-time mitigation therefore introduces runtime interventions without modifying model parameters. Existing studies mainly explore two intervention points: input protection before generation and output protection after generation \cite{inan2023llamaguard,zeng2024shieldgemma,han2024wildguard}.
+Training-time remediation cannot fully prevent failures caused by adaptive prompts and unseen attack strategies after deployment \cite{andriushchenko2025adaptive,andriushchenko2025pasttense}.\linebreak
+\mbox{Inference-time} mitigation therefore introduces runtime interventions without modifying model parameters. Existing studies mainly explore two intervention points: input protection before generation and output protection after generation \cite{inan2023llamaguard,zeng2024shieldgemma,han2024wildguard}.
 
 \noindent\textbf{\ding{224}\hspace{0.35em}Input Protection.} Input-level methods intervene before generation by detecting harmful requests, controlling external contexts, or reducing sensitivity to adversarial prompts. Llama Guard \cite{inan2023llamaguard}, ShieldGemma \cite{zeng2024shieldgemma}, and WildGuard \cite{han2024wildguard} develop safety classifiers for detecting unsafe inputs and responses during deployment. However, direct harmful prompts represent only one class of runtime failures. BIPIA \cite{yi2025bipia} studies indirect prompt injection attacks and evaluates defenses against malicious instructions embedded in external contexts, while Spotlighting \cite{hines2024spotlighting} marks the provenance of external information to distinguish trusted instructions from untrusted data. Another line of work focuses on adversarial prompt robustness. SmoothLLM \cite{robey2023smoothllm} applies randomized perturbations to prompts and aggregates multiple outputs to identify unstable jailbreak attempts, while Erase-and-Check \cite{kumar2023erasecheck} removes parts of the input and verifies whether the remaining prompt still induces unsafe behavior. These studies extend input protection from explicit harmful-request filtering toward handling hidden instructions and adversarially structured inputs.
 
@@ -71,6 +79,9 @@ As LLMs evolve from standalone chatbots into integrated systems with tools, memo
 
 \begin{table}[t]
 \centering
+\captionsetup{font=small}
+\caption{System controls implemented by representative defenses.}
+\label{tab:system_protection_capabilities}
 \scriptsize
 \setlength{\tabcolsep}{2pt}
 \renewcommand{\arraystretch}{1.05}
@@ -82,13 +93,13 @@ As LLMs evolve from standalone chatbots into integrated systems with tools, memo
 \textbf{Containment} &
 \textbf{Recovery} \\
 \midrule
-\multicolumn{7}{@{}l@{}}{\textit{Information control}} \\
+\multicolumn{7}{@{}l@{}}{\textit{\textbf{Information control}}} \\
 \emph{StruQ}~\cite{chen2025struq} & Query & \sysYes & \sysNo & \sysNo & \sysNo & \sysNo \\
 \emph{$f$-secure}~\cite{wu2024fsecure} & Planning & \sysYes & \sysNo & \sysNo & \sysNo & \sysNo \\
 \emph{CaMeL}~\cite{debenedetti2025camel} & Control flow & \sysYes & \sysYes & \sysYes & \sysNo & \sysNo \\
 \emph{IPIGuard}~\cite{an-etal-2025-ipiguard} & TDG & \sysYes & \sysYes & \sysYes & \sysNo & \sysNo \\
 \midrule
-\multicolumn{7}{@{}l@{}}{\textit{Action control}} \\
+\multicolumn{7}{@{}l@{}}{\textit{\textbf{Action control}}} \\
 \emph{Task Shield}~\cite{jia2025taskshield} & Instr. check & \sysNo & \sysNo & \sysYes & \sysNo & \sysNo \\
 \emph{ToolSafe}~\cite{mou2026toolsafe} & Tool call & \sysNo & \sysNo & \sysYes & \sysNo & \sysNo \\
 \emph{MELON}~\cite{pmlr-v267-zhu25z} & Trajectory & \sysNo & \sysNo & \sysYes & \sysNo & \sysNo \\
@@ -97,15 +108,13 @@ As LLMs evolve from standalone chatbots into integrated systems with tools, memo
 \emph{GuardAgent}~\cite{pmlr-v267-xiang25a} & Safety policy & \sysNo & \sysNo & \sysYes & \sysNo & \sysNo \\
 \emph{ShieldAgent}~\cite{pmlr-v267-chen25ae} & Safety policy & \sysNo & \sysNo & \sysYes & \sysNo & \sysNo \\
 \midrule
-\multicolumn{7}{@{}l@{}}{\textit{Containment and recovery}} \\
+\multicolumn{7}{@{}l@{}}{\textit{\textbf{Containment and recovery}}} \\
 \emph{IsolateGPT}~\cite{wu2025isolategpt} & Execution & \sysNo & \sysYes & \sysNo & \sysYes & \sysNo \\
 \emph{Cordon}~\cite{chen2026cordon} & Transaction & \sysNo & \sysNo & \sysYes & \sysYes & \sysYes \\
 \bottomrule
 \end{tabular*}
-\caption{System controls implemented by representative defenses.}
-\label{tab:system_protection_capabilities}
 \begin{minipage}{\columnwidth}
-\scriptsize
+\footnotesize
 \textit{Note.} \sysYes{}: implemented; \sysNo{}: not reported.
 \end{minipage}
 \end{table}
@@ -126,7 +135,7 @@ Red-team evidence is tied to the model and system configuration under which the 
 
 \noindent\textbf{Safety Drift.} Retained failures are useful only if safety is re-evaluated as the target evolves. \emph{Safety Drift After Fine-Tuning}~\cite{khan2026safetydrift} evaluates 100 base and adapted models and finds that benign fine-tuning can produce large and heterogeneous changes in measured safety, with improvement on one evaluation sometimes accompanied by degradation on another. \emph{Preventing Safety Drift in Large Language Models via Coupled Weight and Activation Constraints}~\cite{peng2026cwac} further shows that benign adaptation can weaken previously learned refusal behavior, motivating methods that preserve safety-critical representations during model updates. \emph{SafetyDrift: Predicting When AI Agents Cross the Line Before They Actually Do}~\cite{dhodapkar2026safetydrift} studies agent trajectories in which individually acceptable actions accumulate into later violations, extending the problem from model updates to evolving system state. Continuous red teaming therefore needs to compare safety across versions and repeatedly test the updated model or system; an earlier safety result should not be assumed valid after a change.
 
-\noindent\textbf{Continuous Testing.} Retained replay and renewed discovery provide two complementary ways to track safety after updates. AutoRedTeamer~\cite{zhou2025autoredteamer} continually integrates newly discovered attack strategies, while Jailbreak Distillation~\cite{zhang2025jbdistill} refreshes evaluation artifacts as models and attacks evolve. AgenticEval~\cite{wang2026agenticeval} further explores self-evolving evaluation strategies during testing. Together, these approaches suggest that continuous red teaming should preserve historical failures for longitudinal comparison while periodically renewing the attacks or evaluation set. In practice, this also requires consistent execution, persistent records, and reusable evaluation workflows across changing targets and test conditions.
+\noindent\textbf{Continuous Testing.} Retained replay and renewed discovery provide two complementary ways to track safety after updates. AutoRedTeamer continually integrates newly discovered attack strategies~\cite{zhou2025autoredteamer}, while Jailbreak Distillation~\cite{zhang2025jbdistill} refreshes evaluation artifacts as models and attacks evolve. AgenticEval~\cite{wang2026agenticeval} further explores self-evolving evaluation strategies during testing. Together, these approaches suggest that continuous red teaming should preserve historical failures for longitudinal comparison while periodically renewing the attacks or evaluation set. In practice, this also requires consistent execution, persistent records, and reusable evaluation workflows across changing targets and test conditions.
 
 
 \section{Practice: Tools: Responsible Use}
@@ -137,21 +146,25 @@ Red-team evidence is tied to the model and system configuration under which the 
 
 Automated red teaming now spans more model interfaces, modalities, attack strategies, judges, and deployment settings. Independently implemented pipelines handle target access, test execution, scoring, and record keeping differently, making outcomes difficult to reproduce and compare across studies. Evaluation harnesses organize these recurring operations into reusable workflows~\cite{derczynski2024garak,lopezmunoz2024pyrit,ukaisi2024inspect,promptfooDocs}. They differ in target interfaces, attack execution, automated judging, and experiment replay. Table~\ref{tab:redteam_harnesses} compares representative infrastructures and systems along these capabilities.
 
+\begin{table}[t]
 \begingroup
 \newcommand{\tblYes}{\tikz[baseline=-0.55ex,scale=.105]{\fill (0,0) circle (1);}}
 \newcommand{\tblPart}{\tikz[baseline=-0.55ex,scale=.105]{\fill (0,1) arc (90:270:1) -- cycle; \draw (0,0) circle (1);}}
 \newcommand{\tblNo}{\tikz[baseline=-0.55ex,scale=.105]{\draw (0,0) circle (1);}}
 \noindent\begin{minipage}{\columnwidth}
 \centering
+\captionsetup{font=small,hypcap=false}
+\captionof{table}{Infrastructure and systems for automated red teaming.}
+\label{tab:redteam_harnesses}
 \scriptsize
 \setlength{\tabcolsep}{1.25pt}
 \renewcommand{\arraystretch}{1.07}
-\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lccccc c@{}}
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcccccc@{}}
 \toprule
 \textbf{System} & \textbf{Generate} & \textbf{Judge} &
 \textbf{Multimodal} & \textbf{Adaptive} & \textbf{Record} & \textbf{Replay} \\
 \midrule
-\multicolumn{8}{@{}l@{}}{\textit{\textbf{Harnesses}}}\\[-1.5pt]
+\multicolumn{7}{@{}l@{}}{\textit{\textbf{Harnesses}}}\\[-1.5pt]
 garak~\cite{derczynski2024garak}
 & \tblPart & \tblYes & \tblNo & \tblNo & \tblYes & \tblPart \\
 PyRIT~\cite{lopezmunoz2024pyrit}
@@ -162,9 +175,13 @@ EasyJailbreak~\cite{zhou2024easyjailbreak}
 & \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
 ARTKIT~\cite{artkitDocs}
 & \tblYes & \tblYes & \tblPart & \tblPart & \tblYes & \tblYes \\
+Inspect AI~\cite{ukaisi2024inspect}
+& \tblNo & \tblYes & \tblNo & \tblNo & \tblYes & \tblYes \\
+OpenAI Evals~\cite{openaiEvals}
+& \tblNo & \tblYes & \tblNo & \tblNo & \tblYes & \tblYes \\
 \addlinespace[1.5pt]
 \midrule
-\multicolumn{8}{@{}l@{}}{\textit{\textbf{Automated attack systems}}}\\[-1.5pt]
+\multicolumn{7}{@{}l@{}}{\textit{\textbf{Automated attack systems}}}\\[-1.5pt]
 GPTFuzzer~\cite{yu2023gptfuzzer}
 & \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
 LLM-Fuzzer~\cite{yu2024llmfuzzer}
@@ -173,23 +190,30 @@ APRT~\cite{jiang2024aprt}
 & \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
 AutoRedTeamer~\cite{zhou2025autoredteamer}
 & \tblYes & \tblYes & \tblNo & \tblYes & \tblYes & \tblYes \\
+AutoDAN~\cite{liu2024autodan}
+& \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
+TAP~\cite{mehrotra2024tap}
+& \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
 \addlinespace[1.5pt]
 \midrule
-\multicolumn{8}{@{}l@{}}{\textit{\textbf{Benchmark systems}}}\\[-1.5pt]
+\multicolumn{7}{@{}l@{}}{\textit{\textbf{Benchmark systems}}}\\[-1.5pt]
 HarmBench~\cite{mazeika2024harmbench}
 & \tblPart & \tblYes & \tblYes & \tblNo & \tblPart & \tblYes \\
 JailbreakBench~\cite{chao2024jailbreakbench}
 & \tblPart & \tblYes & \tblNo & \tblNo & \tblPart & \tblYes \\
+AgentDojo~\cite{debenedetti2024agentdojo}
+& \tblPart & \tblYes & \tblNo & \tblNo & \tblYes & \tblYes \\
+MM-SafetyBench~\cite{liu2024mmsafetybench}
+& \tblPart & \tblYes & \tblYes & \tblNo & \tblPart & \tblYes \\
 \bottomrule
 \end{tabular*}
-\captionof{table}{Infrastructure and systems for automated red teaming.}
-\label{tab:redteam_harnesses}
 \par\vspace{1pt}\raggedright
 \begin{minipage}{\columnwidth}
-\scriptsize\textit{Note.} \tblYes\ supported; \tblPart\ limited; \tblNo\ not documented.
+\footnotesize\textit{Note.} \tblYes\ supported; \tblPart\ limited; \tblNo\ not documented.
 \end{minipage}
 \end{minipage}
 \endgroup
+\end{table}
 
 \noindent\textbf{Framework Capabilities.} An evaluation harness combines the components that turn a red-team configuration into an executable experiment. Target adapters expose model APIs or application endpoints through a common runner. garak~\cite{derczynski2024garak} uses a plug-in structure that combines probes, generators, and detectors for security testing. PyRIT~\cite{lopezmunoz2024pyrit} structures targets, attack orchestrators, converters, and scorers into a reusable workflow and supports multimodal testing. promptfoo~\cite{promptfooDocs} defines providers, red-team strategies, and automated assertions in configuration files. Inspect AI~\cite{ukaisi2024inspect} couples model interfaces and scorers with tools and sandbox environments, then retains evaluation logs that support rerunning and re-scoring. Attack components issue selected probes; judges convert outputs into decisions; traces preserve the prompts, responses, settings, and scores that produced a result. Tool and agent environments extend this chain beyond prompt-response pairs, while retained records support replay after a target, judge, or execution setting changes.
 
@@ -210,10 +234,13 @@ Automated red teaming can produce reusable jailbreaks, harmful cases, and reprod
 \begingroup
 \noindent\begin{minipage}{\columnwidth}
 \centering
+\captionsetup{font=small,hypcap=false}
+\captionof{table}{Representative release and disclosure practices for red-team artifacts.}
+\label{tab:redteam_disclosure}
 \scriptsize
 \setlength{\tabcolsep}{1.2pt}
 \renewcommand{\arraystretch}{1.04}
-\begin{tabular}{@{}p{0.78in}p{1.05in}p{1.42in}@{}}
+\begin{tabular}{@{}p{0.92in}p{0.95in}p{1.38in}@{}}
 \toprule
 \textbf{Work} & \textbf{Artifact} & \textbf{Release} \\
 \midrule
@@ -247,12 +274,6 @@ Paeth et al.~\cite{paeth2025lessons} & Incident records & Structured intake \\
 Longpre et al.~\cite{longpre2026flareai} & Flaw reports & Coordinated reporting \\
 \bottomrule
 \end{tabular}
-\captionof{table}{Representative release and disclosure practices for red-team artifacts.}
-\label{tab:redteam_disclosure}
-\par\vspace{1pt}\raggedright
-\begin{minipage}{\columnwidth}
-\scriptsize\textit{Note.} Categories indicate the dominant access or disclosure pattern described or exemplified by each work; practice reports are included when they document operational red teaming or reporting.
-\end{minipage}
 \end{minipage}
 \endgroup
 
