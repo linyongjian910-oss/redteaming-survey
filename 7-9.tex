@@ -49,24 +49,27 @@ The rapid deployment of generative models has created a need for automated red-t
 
 \subsection{Learning from Red-Team Failures}
 
-Early automated red-teaming studies focused primarily on scalable failure discovery and characterization \cite{ganguli2022redteaming,perez2022redteaming}. More recent work connects these failures to model updates by reusing adversarial examples during safety tuning, expanding the distribution of attacks used for training, and generating new attacks against updated targets \cite{ge2024mart,lee2025diverseattacks,zhao2025diverct,mazeika2024harmbench}. These developments move remediation from isolated repair toward an iterative process in which red-team generation also determines part of the safety-training distribution.
+Early automated red-teaming studies focused primarily on scalable failure discovery and characterization \cite{ganguli2022redteaming,perez2022redteaming}. More recent work treats discovered failures as training material: attacks can be converted into safe-response supervision, selected to broaden the training distribution, and regenerated as the target model changes \cite{ge2024mart,lee2025diverseattacks,zhao2025diverct,mazeika2024harmbench,wu2025trident}. Training-time remediation therefore forms a loop in which red teaming determines not only what is tested, but also part of what the model learns.
 
-\noindent\textbf{Training on Failures.} A direct approach converts successful red-team cases into safety supervision. MART \cite{ge2024mart} constructs safety-aligned data around adversarial prompts and fine-tunes the target model on these examples before the next attack round. This establishes a direct path from observed failures to targeted model updates. Once red-team traces enter training, the composition of those traces also becomes important.
+\noindent\textbf{Failure-Derived Supervision.} The most direct route from red-team evidence to remediation pairs a harmful or adversarial instruction with an aligned response and fine-tunes the target on those pairs. MART~\cite{ge2024mart} combines automatic adversarial prompt writing with safe-response generation, then updates the target model on the resulting safety-aligned data. TRIDENT~\cite{wu2025trident} similarly synthesizes harmful instructions and pairs them with ethically aligned responses for supervised fine-tuning. In both cases, a discovered or generated failure becomes a concrete supervision signal rather than only an evaluation result.
 
-\noindent\textbf{Diverse Attack Training.} Learning Diverse Attacks \cite{lee2025diverseattacks} trains red-team policies to discover attacks with different behaviors and reuses the resulting data for safety tuning. DiveR-CT \cite{zhao2025diverct} relaxes constraints during red-team generation to increase attack diversity and examines how the resulting attacks affect downstream blue-team tuning. Both studies treat diversity as part of the data-generation problem for remediation, extending the training set beyond repeated variants of the same successful attack.
+\noindent\textbf{Coverage-Oriented Data Design.} The quality of this supervision depends on which attack modes enter the training set. Learning Diverse Attacks~\cite{lee2025diverseattacks} trains red-team policies to generate effective prompts with diverse behaviors and uses the resulting cases for safety tuning. DiveR-CT~\cite{zhao2025diverct} relaxes generation constraints to enlarge the range of attacks used in downstream blue-team tuning. TRIDENT~\cite{wu2025trident} makes this coverage problem explicit by constructing data across lexical diversity, malicious intent, and jailbreak tactics. These approaches shift the emphasis from accumulating successful prompts to constructing a training distribution that represents different ways a model can be induced to fail.
 
-\noindent\textbf{Re-Attacking Updated Models.} Diversity within one training round does not account for changes introduced by the model update itself. An attack that exposed the original target may disappear after tuning, while other weaknesses can remain or become easier to discover. MART \cite{ge2024mart} addresses this by alternating adversarial prompt generation and safety fine-tuning across multiple rounds, so later attacks are generated against the revised target. R2D2 in HarmBench \cite{mazeika2024harmbench} follows a related adversarial-training setting in which persistent test cases are dynamically optimized during training. The common design choice is to refresh the attack distribution as the target changes. This creates a stronger remediation loop than training once on a fixed collection of failures, because later red-team rounds probe the residual vulnerabilities of the updated model.
+\noindent\textbf{Dynamic Adversarial Training.} Training also changes the target that the red team must attack. MART~\cite{ge2024mart} alternates attack generation and safety fine-tuning across multiple rounds, so later prompts are constructed against the updated target rather than against an earlier model. R2D2~\cite{mazeika2024harmbench}, introduced in HarmBench, maintains a persistent pool of adversarial test cases that is continually optimized during training. The shared principle is to refresh adversarial pressure as the model changes, allowing later rounds to test residual weaknesses instead of only replaying the failures that produced the original update.
 
-\noindent\textbf{Limitations.} Repeated remediation still does not establish robustness to attack strategies outside the training distribution. Simple Adaptive Attacks \cite{andriushchenko2025adaptive} reports high attack success on several safety-aligned models when attacks are adapted to the target, while past-tense reformulation \cite{andriushchenko2025pasttense} shows that a simple change in attack form can recover substantial attack success after refusal training. Safety Reasoning with Guidelines \cite{wang2025safetyreasoning} further reports that direct refusal training can generalize poorly under out-of-distribution attacks. Training-time remediation therefore requires held-out evaluation on attack strategies and behaviors that were not used to construct the remediation data.
+Training-time remediation changes model parameters using a constructed distribution of past and newly generated failures. Once a model is deployed, however, the system must still decide how to handle the particular prompts and external context that arrive at runtime. Section~7.2 therefore turns from training data to runtime controls that inspect inputs, guide decoding, and moderate completed outputs.
 
 \subsection{Turning Safety Judgments into Runtime Control}
 
-Training-time remediation cannot fully prevent failures caused by adaptive prompts and unseen attack strategies after deployment \cite{andriushchenko2025adaptive,andriushchenko2025pasttense}.\linebreak
-\mbox{Inference-time} mitigation therefore introduces runtime interventions without modifying model parameters. Existing studies mainly explore two intervention points: input protection before generation and output protection after generation \cite{inan2023llamaguard,zeng2024shieldgemma,han2024wildguard}.
+Training-time remediation cannot fully prevent failures caused by adaptive prompts and unseen attack strategies after deployment \cite{andriushchenko2025adaptive,andriushchenko2025pasttense}. Inference-time mitigation therefore introduces runtime interventions without modifying model parameters. As summarized in Figure~\ref{fig:section7_flowmap}, these interventions operate at three points: input guarding before generation, decoding control during generation, and output moderation after generation.
 
-\noindent\textbf{\ding{224}\hspace{0.35em}Input Protection.} Input-level methods intervene before generation by detecting harmful requests, controlling external contexts, or reducing sensitivity to adversarial prompts. Llama Guard \cite{inan2023llamaguard}, ShieldGemma \cite{zeng2024shieldgemma}, and WildGuard \cite{han2024wildguard} develop safety classifiers for detecting unsafe inputs and responses during deployment. However, direct harmful prompts represent only one class of runtime failures. BIPIA \cite{yi2025bipia} studies indirect prompt injection attacks and evaluates defenses against malicious instructions embedded in external contexts, while Spotlighting \cite{hines2024spotlighting} marks the provenance of external information to distinguish trusted instructions from untrusted data. Another line of work focuses on adversarial prompt robustness. SmoothLLM \cite{robey2023smoothllm} applies randomized perturbations to prompts and aggregates multiple outputs to identify unstable jailbreak attempts, while Erase-and-Check \cite{kumar2023erasecheck} removes parts of the input and verifies whether the remaining prompt still induces unsafe behavior. These studies extend input protection from explicit harmful-request filtering toward handling hidden instructions and adversarially structured inputs.
+\noindent\textbf{\ding{224}\hspace{0.35em}Input Guard.} Input guards inspect or transform prompts and retrieved context before the target model generates a response. Llama Guard~\cite{inan2023llamaguard}, ShieldGemma~\cite{zeng2024shieldgemma}, and WildGuard~\cite{han2024wildguard} provide reusable guard models for judging harmful requests, jailbreaks, refusals, and generated content. For indirect prompt injection, BIPIA~\cite{yi2025bipia} combines a benchmark with boundary-awareness and explicit-reminder defenses, while Spotlighting~\cite{hines2024spotlighting} adds provenance signals to distinguish external data from trusted instructions. Robustness-oriented defenses reduce sensitivity to adversarial prompt modifications: SmoothLLM~\cite{robey2023smoothllm} perturbs multiple copies of an input and aggregates their safety predictions, whereas Erase-and-Check~\cite{kumar2023erasecheck} applies a safety filter to token-erased subsequences and provides a bounded certificate against several insertion patterns. SemanticSmooth~\cite{ji2024semanticsmoothing} extends the smoothing idea to semantically transformed prompts. Together, these methods broaden input protection from direct harmful-request filtering to context integrity and adversarial-prompt robustness.
 
-\noindent\textbf{\ding{224}\hspace{0.35em}Output Protection.} Output-level methods intervene after generation by evaluating, revising, or filtering model responses. LLM Self Defense \cite{phute2023llmselfdefense} introduces a response-side examination mechanism that uses an auxiliary model to identify unsafe generations and request safer responses. Backtranslation \cite{wang2024backtranslation} further analyzes the underlying intent of generated responses by reconstructing the original request and uses this information to guide response correction. These methods introduce an additional verification step after generation and create a lightweight correction loop without modifying the target model. Recent studies extend output protection by coordinating multiple models or agents during runtime decisions. AutoDefense \cite{zeng2024autodefense} assigns different agents to intention analysis, prompt analysis, and response judging, then aggregates their decisions to filter harmful outputs. AutoJailbreak \cite{lu2024autojailbreak} explores automated combinations of pre-generation and post-generation defenses through a mixture of defense strategies. These approaches move output protection from single-model response evaluation toward coordinated runtime decision processes, while the reliability of individual judges and the independence between defense components remain important factors.
+\noindent\textbf{\ding{224}\hspace{0.35em}Decoding Control.} Decoding controls intervene while the response is being generated rather than filtering only the input or completed output. SafeDecoding~\cite{xu2024safedecoding} modifies token selection using safety-aware decoding signals, while Reasoning-to-Defend~\cite{zhu2025reasoningtodefend} inserts an explicit safety-reasoning stage before the final response. Jailbreak Antidote~\cite{shen2025jailbreakantidote} adjusts internal representations to reduce the likelihood of harmful generations. These approaches preserve the original model parameters, but may introduce additional computation, latency, or safety--utility trade-offs.
+
+\noindent\textbf{\ding{224}\hspace{0.35em}Output Moderation.} Output moderation acts after generation by evaluating, revising, or filtering model responses. LLM Self Defense~\cite{phute2023llmselfdefense} uses a response-side safety examination, while Backtranslation~\cite{wang2024backtranslation} reconstructs the underlying request intent to guide response correction. AutoDefense~\cite{zeng2024autodefense} extends this pattern through multiple defender agents that collaborate to filter harmful responses. AutoJailbreak~\cite{lu2024autojailbreak} is better understood as a framework for analyzing and composing dependencies among attack, defense, and evaluation methods; its AutoDefense component illustrates how pre-generative and post-generative defenses can be combined. These methods add a verification or correction stage after generation, but their effectiveness still depends on judge reliability and on whether harmful content has already produced an external effect.
+
+The three forms of inference-time mitigation provide layered protection for model responses, but they do not by themselves constrain tool authority, persistent memory, or external side effects. Those broader controls require information-flow, permission, action-validation, containment, and recovery mechanisms, which are discussed as system-level protection in Section~7.3.
 
 \subsection{System-Level Protection Beyond Model Alignment}
 
@@ -144,7 +147,7 @@ Red-team evidence is tied to the model and system configuration under which the 
 
 \subsection{Operationalizing Red Teaming with Evaluation Harnesses}
 
-Automated red teaming now spans more model interfaces, modalities, attack strategies, judges, and deployment settings. Independently implemented pipelines handle target access, test execution, scoring, and record keeping differently, making outcomes difficult to reproduce and compare across studies. Evaluation harnesses organize these recurring operations into reusable workflows~\cite{derczynski2024garak,lopezmunoz2024pyrit,ukaisi2024inspect,promptfooDocs}. They differ in target interfaces, attack execution, automated judging, and experiment replay. Table~\ref{tab:redteam_harnesses} compares representative infrastructures and systems along these capabilities.
+Automated red teaming becomes an evaluable practice only when a campaign can be specified and preserved: which target and system configuration was tested, how cases were generated or selected, how interactions were judged, and what trace permits a later replay. Evaluation harnesses provide the execution and evidence layer for this workflow~\cite{derczynski2024garak,lopezmunoz2024pyrit,ukaisi2024inspect,promptfooDocs}. They do not replace the other resources used in a campaign. Attack-generation systems contribute candidate failures and adaptive search, whereas evaluation suites contribute fixed cases, environments, or scoring protocols for controlled comparison. Table~\ref{tab:redteam_harnesses} therefore maps complementary operational roles rather than ranking interchangeable systems.
 
 \begin{table}[t]
 \begingroup
@@ -154,70 +157,74 @@ Automated red teaming now spans more model interfaces, modalities, attack strate
 \noindent\begin{minipage}{\columnwidth}
 \centering
 \captionsetup{font=small,hypcap=false}
-\captionof{table}{Infrastructure and systems for automated red teaming.}
+\captionof{table}{Operational capabilities across resources used in automated red teaming.}
 \label{tab:redteam_harnesses}
 \scriptsize
 \setlength{\tabcolsep}{1.25pt}
 \renewcommand{\arraystretch}{1.07}
 \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lcccccc@{}}
 \toprule
-\textbf{System} & \textbf{Generate} & \textbf{Judge} &
-\textbf{Multimodal} & \textbf{Adaptive} & \textbf{Record} & \textbf{Replay} \\
+\textbf{Resource} & \textbf{Generate} & \textbf{Adaptive} &
+\textbf{Judge} & \textbf{Multimodal} & \textbf{Record} & \textbf{Replay} \\
 \midrule
 \multicolumn{7}{@{}l@{}}{\textit{\textbf{Harnesses}}}\\[-1.5pt]
 garak~\cite{derczynski2024garak}
-& \tblPart & \tblYes & \tblNo & \tblNo & \tblYes & \tblPart \\
+& \tblPart & \tblNo & \tblYes & \tblNo & \tblYes & \tblPart \\
 PyRIT~\cite{lopezmunoz2024pyrit}
-& \tblYes & \tblYes & \tblYes & \tblPart & \tblYes & \tblPart \\
+& \tblYes & \tblPart & \tblYes & \tblYes & \tblYes & \tblPart \\
 promptfoo~\cite{promptfooDocs}
-& \tblYes & \tblYes & \tblPart & \tblNo & \tblYes & \tblYes \\
+& \tblYes & \tblNo & \tblYes & \tblPart & \tblNo & \tblYes \\
 EasyJailbreak~\cite{zhou2024easyjailbreak}
-& \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
+& \tblYes & \tblYes & \tblYes & \tblNo & \tblPart & \tblYes \\
 ARTKIT~\cite{artkitDocs}
-& \tblYes & \tblYes & \tblPart & \tblPart & \tblYes & \tblYes \\
+& \tblYes & \tblPart & \tblYes & \tblPart & \tblYes & \tblYes \\
 Inspect AI~\cite{ukaisi2024inspect}
-& \tblNo & \tblYes & \tblNo & \tblNo & \tblYes & \tblYes \\
+& \tblNo & \tblNo & \tblYes & \tblNo & \tblYes & \tblYes \\
 OpenAI Evals~\cite{openaiEvals}
-& \tblNo & \tblYes & \tblNo & \tblNo & \tblYes & \tblYes \\
+& \tblNo & \tblNo & \tblYes & \tblNo & \tblYes & \tblYes \\
 \addlinespace[1.5pt]
 \midrule
-\multicolumn{7}{@{}l@{}}{\textit{\textbf{Automated attack systems}}}\\[-1.5pt]
+\multicolumn{7}{@{}l@{}}{\textit{\textbf{Attack-generation systems}}}\\[-1.5pt]
 GPTFuzzer~\cite{yu2023gptfuzzer}
-& \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
+& \tblYes & \tblYes & \tblYes & \tblNo & \tblPart & \tblYes \\
 LLM-Fuzzer~\cite{yu2024llmfuzzer}
-& \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
+& \tblYes & \tblYes & \tblYes & \tblNo & \tblPart & \tblYes \\
 APRT~\cite{jiang2024aprt}
-& \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
+& \tblYes & \tblYes & \tblYes & \tblNo & \tblPart & \tblYes \\
 AutoRedTeamer~\cite{zhou2025autoredteamer}
-& \tblYes & \tblYes & \tblNo & \tblYes & \tblYes & \tblYes \\
+& \tblYes & \tblYes & \tblYes & \tblNo & \tblYes & \tblYes \\
 AutoDAN~\cite{liu2024autodan}
-& \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
+& \tblYes & \tblYes & \tblYes & \tblNo & \tblPart & \tblYes \\
 TAP~\cite{mehrotra2024tap}
-& \tblYes & \tblYes & \tblNo & \tblYes & \tblPart & \tblYes \\
+& \tblYes & \tblYes & \tblYes & \tblNo & \tblPart & \tblYes \\
 \addlinespace[1.5pt]
 \midrule
-\multicolumn{7}{@{}l@{}}{\textit{\textbf{Benchmark systems}}}\\[-1.5pt]
+\multicolumn{7}{@{}l@{}}{\textit{\textbf{Evaluation suites and environments}}}\\[-1.5pt]
 HarmBench~\cite{mazeika2024harmbench}
-& \tblPart & \tblYes & \tblYes & \tblNo & \tblPart & \tblYes \\
+& \tblPart & \tblNo & \tblYes & \tblYes & \tblPart & \tblYes \\
 JailbreakBench~\cite{chao2024jailbreakbench}
-& \tblPart & \tblYes & \tblNo & \tblNo & \tblPart & \tblYes \\
+& \tblPart & \tblNo & \tblYes & \tblNo & \tblPart & \tblYes \\
 AgentDojo~\cite{debenedetti2024agentdojo}
-& \tblPart & \tblYes & \tblNo & \tblNo & \tblYes & \tblYes \\
+& \tblPart & \tblNo & \tblYes & \tblNo & \tblYes & \tblYes \\
 MM-SafetyBench~\cite{liu2024mmsafetybench}
-& \tblPart & \tblYes & \tblYes & \tblNo & \tblPart & \tblYes \\
+& \tblPart & \tblNo & \tblYes & \tblYes & \tblPart & \tblYes \\
 \bottomrule
 \end{tabular*}
 \par\vspace{1pt}\raggedright
 \begin{minipage}{\columnwidth}
-\footnotesize\textit{Note.} \tblYes\ supported; \tblPart\ limited; \tblNo\ not documented.
+\footnotesize\textit{Note.} \tblYes\ supported; \tblPart\ limited; \tblNo\ not documented. Generate and Adaptive concern case construction and search; Judge and Multimodal concern evaluation interactions; Record and Replay concern the preservation and reuse of campaign evidence.
 \end{minipage}
 \end{minipage}
 \endgroup
 \end{table}
 
-\noindent\textbf{Framework Capabilities.} An evaluation harness combines the components that turn a red-team configuration into an executable experiment. Target adapters expose model APIs or application endpoints through a common runner. garak~\cite{derczynski2024garak} uses a plug-in structure that combines probes, generators, and detectors for security testing. PyRIT~\cite{lopezmunoz2024pyrit} structures targets, attack orchestrators, converters, and scorers into a reusable workflow and supports multimodal testing. promptfoo~\cite{promptfooDocs} defines providers, red-team strategies, and automated assertions in configuration files. Inspect AI~\cite{ukaisi2024inspect} couples model interfaces and scorers with tools and sandbox environments, then retains evaluation logs that support rerunning and re-scoring. Attack components issue selected probes; judges convert outputs into decisions; traces preserve the prompts, responses, settings, and scores that produced a result. Tool and agent environments extend this chain beyond prompt-response pairs, while retained records support replay after a target, judge, or execution setting changes.
+\noindent\textbf{Harness Capabilities.} A harness turns a red-team design into an executable experiment by connecting five operations. First, target adapters expose model APIs or application endpoints through a common runner. Second, attack orchestration selects prompts, seeds, budgets, and interaction steps. Third, judges convert responses, tool calls, or terminal outcomes into recorded decisions. Fourth, traces retain the prompts, responses, settings, model versions, and scores that produced those decisions. Finally, replay reruns a case under the original configuration or under a changed target, judge, or execution setting. In Table~\ref{tab:redteam_harnesses}, Generate and Adaptive describe how cases are constructed or updated; Judge and Multimodal describe what interactions can be assessed; Record and Replay describe whether the evidence needed for later comparison is preserved. A checkmark for Judge denotes an available judging interface or mechanism, not a claim that its labels are universally reliable.
 
-\noindent\textbf{Harnesses and Static Benchmarks.} Static benchmarks remain useful because fixed cases and scoring procedures support direct comparison under controlled conditions. HarmBench~\cite{mazeika2024harmbench} and JailbreakBench~\cite{chao2024jailbreakbench} provide common behavior sets, attack artifacts, and protocols for this purpose. Their coverage remains bounded by predefined behaviors and artifacts, while target systems and jailbreak strategies change. \emph{h4rm3l: A Dynamic Benchmark of Composable Jailbreak Attacks for LLM Safety Assessment}~\cite{doumbouya2025h4rm3l} represents attacks as composable transformations and synthesizes new attacks against the target, illustrating why static or templated sets can miss evolving combinations. Jailbreak Distillation~\cite{zhang2025jbdistill} distills attacks into updateable benchmark artifacts. Harnesses make it easier to replace attacks, targets, judges, and execution settings, then retain comparable records when rerunning an experiment. They cannot, by themselves, ensure broader coverage, prevent saturation or contamination, or discover every new failure mode. Fixed benchmarks, renewable benchmarks, and harnesses are complementary: the first fixes comparison conditions, the second refreshes test content, and the third executes, records, and reruns either form.
+\noindent\textbf{Representative Designs.} garak~\cite{derczynski2024garak} combines probes, generators, and detectors through a plug-in structure for security testing. PyRIT~\cite{lopezmunoz2024pyrit} organizes targets, attack orchestrators, converters, and scorers into a reusable workflow, including multimodal testing. promptfoo~\cite{promptfooDocs} makes providers, red-team strategies, and automated assertions configurable. Inspect AI~\cite{ukaisi2024inspect} couples model interfaces and scorers with tools and sandbox environments, then retains evaluation logs for rerunning and re-scoring. These design differences matter because a campaign may need only a prompt-level probe, or it may need to preserve a stateful trajectory through tools and an execution environment. In both cases, the harness supplies the configuration and evidence boundary that makes a reported result interpretable.
+
+\noindent\textbf{Attack Engines and Evaluation Suites.} The harness does not decide which cases a campaign should run. Attack-generation systems such as GPTFuzzer~\cite{yu2023gptfuzzer}, APRT~\cite{jiang2024aprt}, AutoDAN~\cite{liu2024autodan}, and TAP~\cite{mehrotra2024tap} primarily contribute candidate attacks and adaptive search; in the role shown in Table~\ref{tab:redteam_harnesses}, they supply workload-generation capabilities rather than a general execution substrate. Evaluation suites and environments instead fix part of the comparison protocol. HarmBench~\cite{mazeika2024harmbench} and JailbreakBench~\cite{chao2024jailbreakbench} provide common behaviors, attack artifacts, and evaluation procedures; AgentDojo~\cite{debenedetti2024agentdojo} supplies an environment for agent security evaluation; and MM-SafetyBench~\cite{liu2024mmsafetybench} extends the workload to multimodal safety. This distinction explains why benchmarks belong in this section: they are inputs and protocols that a harness executes, records, and replays, not competing harnesses.
+
+\noindent\textbf{Static and Renewable Workloads.} Fixed suites remain useful because stable cases and scoring procedures support direct comparison under controlled conditions. Their coverage, however, is bounded by predefined behaviors and artifacts while target systems and jailbreak strategies change. \emph{h4rm3l: A Dynamic Benchmark of Composable Jailbreak Attacks for LLM Safety Assessment}~\cite{doumbouya2025h4rm3l} represents attacks as composable transformations and synthesizes new attacks against the target, illustrating why static or templated sets can miss evolving combinations. Jailbreak Distillation~\cite{zhang2025jbdistill} distills attacks into updateable benchmark artifacts. Fixed suites, renewable workloads, and harnesses are therefore complementary: the first stabilizes comparison conditions, the second refreshes test content, and the third preserves the configuration and traces needed to run either form over time. None of these resources determines which risks matter in a deployment or resolves a context-dependent judgment; those remaining tasks motivate the human role in the next subsection.
 
 
 
