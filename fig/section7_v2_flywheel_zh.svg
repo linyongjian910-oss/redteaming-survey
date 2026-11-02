@@ -1,0 +1,245 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="1200" height="680">
+<defs>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#36393C" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#6C8EBE" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#B85350" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#005600" />
+    </marker>
+
+
+    <style>
+      text {
+        font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      }
+      .title-large {
+        font-size: 16.5px;
+        font-weight: bold;
+      }
+            .subtitle-small {
+        font-family: "Songti SC", "SimSun", "Times New Roman", Times, serif;
+        font-size: 10px;
+        fill: #36393D;
+        font-style: italic;
+      }
+      .subblock-title {
+        font-size: 11.5px;
+        font-weight: bold;
+      }
+      .card-title {
+        font-size: 10.5px;
+        font-weight: bold;
+      }
+      .card-body {
+        font-size: 9px;
+        fill: #36393C;
+      }
+      .card-citation {
+        font-size: 8.5px;
+        font-style: normal;
+        fill: #555555;
+      }
+      .edge-label {
+        font-family: "Songti SC", "SimSun", "Times New Roman", Times, serif;
+        font-size: 8.8px;
+        fill: #36393D;
+        font-style: italic;
+      }
+      .badge-text {
+        font-size: 8.5px;
+        font-weight: 500;
+      }
+      .code-snippet {
+        font-family: "Menlo", "Courier New", monospace;
+        font-size: 8px;
+        fill: #24292F;
+      }
+      .bridge-title {
+        font-size: 11px;
+        font-weight: bold;
+      }
+      .panel-title {
+        font-size: 10px;
+        font-weight: bold;
+      }
+      .panel-body {
+        font-size: 9px;
+        fill: #333333;
+      }
+      .panel-desc {
+        font-size: 8.5px;
+        fill: #555555;
+      }
+    </style>
+
+</defs>
+<rect width="1200" height="680" fill="#FFFFFF" />
+<rect x="14" y="14" width="644" height="650" rx="5" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1.2" />
+<text x="30" y="40" class="title-large" fill="#006DAE">(a) 分层失效治理谱系 (Layered Mitigation)</text>
+<text x="30" y="53" class="subtitle-small">第7.1-7.3节 | 训练时参数硬化、推理时流水线拦截与系统沙箱隔离</text>
+<rect x="28" y="56" width="616" height="172" rx="4" fill="#F1F7EF" stroke="#82B366" stroke-width="0.8" />
+<text x="38" y="73" class="subblock-title" fill="#005600">1. 训练时权重硬化层 (Training-Time Parametric Hardening)</text>
+<rect x="38" y="82" width="138" height="96" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="107.0" y="102" class="card-title" text-anchor="middle" fill="#006DAE">红队失效样本</text>
+<text x="107.0" y="122" class="card-body" text-anchor="middle">诱导越狱与利用提示</text>
+<text x="107.0" y="138" class="card-body" text-anchor="middle">执行失效轨迹归档</text>
+<text x="107.0" y="160" class="card-citation" text-anchor="middle">WildTeaming, AdvBench</text>
+<line x1="176" y1="130.0" x2="188" y2="130.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="190" y="82" width="138" height="96" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="259.0" y="102" class="card-title" text-anchor="middle" fill="#006DAE">覆盖导向配比</text>
+<text x="259.0" y="122" class="card-body" text-anchor="middle">危害意图聚类分流</text>
+<text x="259.0" y="138" class="card-body" text-anchor="middle">配比采样平衡效用</text>
+<text x="259.0" y="160" class="card-citation" text-anchor="middle">TRIDENT, DiveR-CT</text>
+<line x1="328" y1="130.0" x2="340" y2="130.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="342" y="82" width="138" height="96" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="411.0" y="102" class="card-title" text-anchor="middle" fill="#006DAE">动态对抗微调</text>
+<text x="411.0" y="122" class="card-body" text-anchor="middle">轮番对抗样本生成</text>
+<text x="411.0" y="138" class="card-body" text-anchor="middle">对抗样本自适应重训</text>
+<text x="411.0" y="160" class="card-citation" text-anchor="middle">MART, R2D2 pool</text>
+<line x1="480" y1="130.0" x2="492" y2="130.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="494" y="82" width="138" height="96" rx="4" fill="#D4E8D3" stroke="#82B366" stroke-width="1" />
+<text x="563.0" y="102" class="card-title" text-anchor="middle" fill="#005600">内生强化权重</text>
+<text x="563.0" y="122" class="card-body" text-anchor="middle">表征流形安全对齐</text>
+<text x="563.0" y="138" class="card-body" text-anchor="middle">原生防御基模输出</text>
+<text x="563.0" y="160" class="card-citation" text-anchor="middle">Safe-RLHF, BeaverTails</text>
+<text x="336.0" y="215" class="edge-label" text-anchor="middle">参数微调直接重塑底层模型表征分布，提升内生鲁棒性</text>
+<rect x="28" y="242" width="616" height="184" rx="4" fill="#F0F6FC" stroke="#6C8EBE" stroke-width="0.8" />
+<text x="38" y="259" class="subblock-title" fill="#006DAE">2. 推理时流水线拦截网关 (Inference-Time Guardrail Gateways)</text>
+<rect x="38" y="268" width="138" height="106" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="107.0" y="288" class="card-title" text-anchor="middle" fill="#36393C">输入防护网关</text>
+<text x="107.0" y="308" class="card-body" text-anchor="middle">意图前置过滤与分类</text>
+<text x="107.0" y="324" class="card-body" text-anchor="middle">困惑度过滤与随机平滑</text>
+<text x="107.0" y="340" class="card-body" text-anchor="middle" fill="#7C3531">拦截恶意 Token</text>
+<text x="107.0" y="360" class="card-citation" text-anchor="middle">LlamaGuard, SmoothLLM</text>
+<line x1="176" y1="321.0" x2="188" y2="321.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="190" y="268" width="138" height="106" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="259.0" y="288" class="card-title" text-anchor="middle" fill="#36393C">解码表征干预</text>
+<text x="259.0" y="308" class="card-body" text-anchor="middle">激活向量引导干预</text>
+<text x="259.0" y="324" class="card-body" text-anchor="middle">Token 概率分布调优</text>
+<text x="259.0" y="340" class="card-body" text-anchor="middle" fill="#006DAE">动态抑制越狱倾向</text>
+<text x="259.0" y="360" class="card-citation" text-anchor="middle">Representation Steering</text>
+<line x1="328" y1="321.0" x2="340" y2="321.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="342" y="268" width="138" height="106" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="411.0" y="288" class="card-title" text-anchor="middle" fill="#36393C">输出合规审查</text>
+<text x="411.0" y="308" class="card-body" text-anchor="middle">生成后意图违规审查</text>
+<text x="411.0" y="324" class="card-body" text-anchor="middle">后处理修正与遮蔽</text>
+<text x="411.0" y="340" class="card-body" text-anchor="middle" fill="#7C3531">有害输出阻断撤回</text>
+<text x="411.0" y="360" class="card-citation" text-anchor="middle">Self-Defense, AutoDefense</text>
+<line x1="480" y1="321.0" x2="492" y2="321.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="494" y="268" width="138" height="106" rx="4" fill="#D4E8D3" stroke="#82B366" stroke-width="1" />
+<text x="563.0" y="288" class="card-title" text-anchor="middle" fill="#005600">合规安全响应</text>
+<text x="563.0" y="308" class="card-body" text-anchor="middle">验证合规安全输出</text>
+<text x="563.0" y="324" class="card-body" text-anchor="middle">标准安全拒答或澄清</text>
+<text x="563.0" y="340" class="card-body" text-anchor="middle" fill="#005600">基座参数免重新训练</text>
+<text x="563.0" y="360" class="card-citation" text-anchor="middle">Guarded Deployment</text>
+<text x="336.0" y="413" class="edge-label" text-anchor="middle">在输入端、解码流与输出端设置三重检查卡口，不修改基座参数即时拦截攻击</text>
+<rect x="28" y="440" width="616" height="188" rx="4" fill="#F8F7EC" stroke="#B5AD8F" stroke-width="0.8" />
+<text x="38" y="457" class="subblock-title" fill="#36393C">3. 系统级沙箱与特权隔离防护 (System Sandboxing)</text>
+<rect x="190" y="464" width="444" height="120" rx="4" fill="#FFFFFF" stroke="#B85350" stroke-width="1.2" stroke-dasharray="4,4" />
+<text x="624" y="479" class="card-citation" text-anchor="end" fill="#7C3531">安全沙箱硬隔离边界 (Sandbox Boundary)</text>
+<rect x="38" y="486" width="138" height="88" rx="4" fill="#FFFFFF" stroke="#B5AD8F" stroke-width="1" />
+<text x="107.0" y="502" class="card-title" text-anchor="middle" fill="#36393C">不可信上下文</text>
+<text x="107.0" y="520" class="card-body" text-anchor="middle">外部检索与记忆状态</text>
+<text x="107.0" y="535" class="card-body" text-anchor="middle">第三方工具调用返回值</text>
+<text x="107.0" y="556" class="card-citation" text-anchor="middle">Indirect Injections</text>
+<line x1="176" y1="530.0" x2="194" y2="530.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="200" y="486" width="132" height="88" rx="3" fill="#DAE8FB" stroke="#6C8EBE" stroke-width="1" />
+<text x="266.0" y="502" class="card-title" text-anchor="middle" fill="#006DAE">特权边界隔离</text>
+<text x="266.0" y="520" class="card-body" text-anchor="middle">控制面与数据面</text>
+<text x="266.0" y="535" class="card-body" text-anchor="middle">严格通道隔离</text>
+<text x="266.0" y="556" class="card-citation" text-anchor="middle">CaMeL, ToolSafe</text>
+<line x1="332" y1="530.0" x2="342" y2="530.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="344" y="486" width="132" height="88" rx="3" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="410.0" y="502" class="card-title" text-anchor="middle" fill="#36393C">动作沙箱校验</text>
+<text x="410.0" y="520" class="card-body" text-anchor="middle">前后置条件约束</text>
+<text x="410.0" y="535" class="card-body" text-anchor="middle">多步断言校验</text>
+<text x="410.0" y="556" class="card-citation" text-anchor="middle">TaskShield, IsolateGPT</text>
+<line x1="476" y1="530.0" x2="486" y2="530.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="488" y="486" width="132" height="88" rx="3" fill="#D4E8D3" stroke="#82B366" stroke-width="1" />
+<text x="554.0" y="502" class="card-title" text-anchor="middle" fill="#005600">受限系统执行</text>
+<text x="554.0" y="520" class="card-body" text-anchor="middle">持久状态环境隔离</text>
+<text x="554.0" y="535" class="card-body" text-anchor="middle">原子性事务回滚</text>
+<text x="554.0" y="556" class="card-citation" text-anchor="middle">Agent Sandboxing</text>
+<text x="336.0" y="615" class="edge-label" text-anchor="middle">约束智能体自主工具调用权限与外部环境持久状态变更，防止越权滥用</text>
+<text x="336.0" y="644" class="edge-label" text-anchor="middle">全系统栈分层防御体系：训练时更新模型参数，推理时审查 Token，应用层隔离工具权限</text>
+<rect x="672" y="14" width="514" height="650" rx="5" fill="#FFFFFF" stroke="#82B366" stroke-width="1.2" />
+<text x="688" y="40" class="title-large" fill="#005600">(b) 持续评测与修复闭环飞轮</text>
+<text x="688" y="53" class="subtitle-small">第7.4节 | 结构化失效仓库与纵向双轨安全演进</text>
+<rect x="686" y="56" width="466" height="172" rx="4" fill="#F8F7EC" stroke="#B5AD8F" stroke-width="0.8" />
+<text x="696" y="73" class="subblock-title" fill="#36393C">1. 失效留存与结构化仓库</text>
+<rect x="698" y="82" width="128" height="100" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="762.0" y="102" class="card-title" text-anchor="middle" fill="#006DAE">红队探索引擎</text>
+<text x="762.0" y="124" class="card-body" text-anchor="middle">自动化候选漏洞搜索</text>
+<text x="762.0" y="140" class="card-body" text-anchor="middle">自适应攻击策略演进</text>
+<text x="762.0" y="164" class="card-citation" text-anchor="middle">APRT, TAP, GPTFuzzer</text>
+<line x1="826" y1="132.0" x2="836" y2="132.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="838" y="82" width="128" height="100" rx="4" fill="#F8CECC" stroke="#B85350" stroke-width="1" />
+<text x="902.0" y="102" class="card-title" text-anchor="middle" fill="#7C3531">失效分诊与评定</text>
+<text x="902.0" y="124" class="card-body" text-anchor="middle" fill="#7C3531">真实执行轨迹复现</text>
+<text x="902.0" y="140" class="card-body" text-anchor="middle" fill="#7C3531">危害严重性分级量化</text>
+<text x="902.0" y="164" class="card-citation" text-anchor="middle" fill="#7C3531">StrongREJECT, WildGuard</text>
+<line x1="966" y1="132.0" x2="978" y2="132.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="978" y="82" width="162" height="100" rx="4" fill="#FFFFFF" stroke="#B5AD8F" stroke-width="1" />
+<text x="1059.0" y="100" class="card-title" text-anchor="middle" fill="#36393C">结构化失效仓库</text>
+<rect x="986" y="108" width="146" height="18" rx="3" fill="#F8F7EC" stroke="#B5AD8F" stroke-width="0.7" />
+<text x="1059.0" y="121" class="badge-text" text-anchor="middle" fill="#36393C">用例种子与环境配置</text>
+<rect x="986" y="131" width="146" height="18" rx="3" fill="#DAE8FB" stroke="#6C8EBE" stroke-width="0.7" />
+<text x="1059.0" y="144" class="badge-text" text-anchor="middle" fill="#006DAE">执行遥测与 Trace 日志</text>
+<rect x="986" y="154" width="146" height="18" rx="3" fill="#D4E8D3" stroke="#82B366" stroke-width="0.7" />
+<text x="1059.0" y="167" class="badge-text" text-anchor="middle" fill="#005600">目标版本关联元数据</text>
+<text x="919.0" y="215" class="edge-label" text-anchor="middle">固化可验证实验证据，连接失效现象与确切系统版本 (FLARE-AI, AIID)</text>
+<rect x="686" y="242" width="466" height="386" rx="4" fill="#F1F7EF" stroke="#82B366" stroke-width="0.8" />
+<text x="696" y="259" class="subblock-title" fill="#005600">2. 双轨持续评测机制</text>
+<text x="700" y="276" class="card-title" fill="#006DAE">轨道 A: 历史基准确定性回归重放与漂移审计</text>
+<rect x="698" y="284" width="138" height="68" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="767.0" y="302" class="card-title" text-anchor="middle" fill="#36393C">固定历史基准库</text>
+<text x="767.0" y="320" class="card-body" text-anchor="middle">归档高危失效测试集</text>
+<text x="767.0" y="335" class="card-body" text-anchor="middle" fill="#555555">受控确定性用例集</text>
+<line x1="836" y1="318.0" x2="846" y2="318.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="848" y="284" width="138" height="68" rx="4" fill="#DAE8FB" stroke="#6C8EBE" stroke-width="1" />
+<text x="917.0" y="302" class="card-title" text-anchor="middle" fill="#006DAE">新版本确定性重放</text>
+<text x="917.0" y="320" class="card-body" text-anchor="middle">针对新目标全量复测</text>
+<text x="917.0" y="335" class="card-body" text-anchor="middle" fill="#555555">受控环境一致性重放</text>
+<line x1="986" y1="318.0" x2="996" y2="318.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="998" y="284" width="138" height="68" rx="4" fill="#F8CECC" stroke="#B85350" stroke-width="1" />
+<text x="1067.0" y="302" class="card-title" text-anchor="middle" fill="#7C3531">安全漂移回归审计</text>
+<text x="1067.0" y="320" class="card-body" text-anchor="middle" fill="#7C3531">监测已修复漏洞复现</text>
+<text x="1067.0" y="335" class="card-body" text-anchor="middle" fill="#7C3531">量化跨版本安全退化</text>
+<text x="700" y="372" class="card-title" fill="#005600">轨道 B: 面向演进防御的自适应未知漏洞挖掘</text>
+<rect x="698" y="380" width="138" height="68" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="767.0" y="398" class="card-title" text-anchor="middle" fill="#36393C">演进攻击策略库</text>
+<text x="767.0" y="416" class="card-body" text-anchor="middle">动态更新对抗变异算子</text>
+<text x="767.0" y="431" class="card-body" text-anchor="middle" fill="#555555">启发式与梯度搜索策略</text>
+<line x1="836" y1="414.0" x2="846" y2="414.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="848" y="380" width="138" height="68" rx="4" fill="#DAE8FB" stroke="#6C8EBE" stroke-width="1" />
+<text x="917.0" y="398" class="card-title" text-anchor="middle" fill="#006DAE">目标感知自适应探索</text>
+<text x="917.0" y="416" class="card-body" text-anchor="middle">定向探测加固后安全护栏</text>
+<text x="917.0" y="431" class="card-body" text-anchor="middle" fill="#555555">多轮交互动态绕过渗透</text>
+<line x1="986" y1="414.0" x2="996" y2="414.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="998" y="380" width="138" height="68" rx="4" fill="#F8CECC" stroke="#B85350" stroke-width="1" />
+<text x="1067.0" y="398" class="card-title" text-anchor="middle" fill="#7C3531">残留未知漏洞发现</text>
+<text x="1067.0" y="416" class="card-body" text-anchor="middle" fill="#7C3531">主动暴露防御机制盲区</text>
+<text x="1067.0" y="431" class="card-body" text-anchor="middle" fill="#7C3531">捕获针对新规则绕过样本</text>
+<rect x="698" y="466" width="438" height="86" rx="4" fill="#FFFFFF" stroke="#B85350" stroke-width="1" />
+<text x="710" y="483" class="bridge-title" fill="#7C3531">持续修复反馈回路与更新桥接 (Continuous Remediation Feedback Bridge)</text>
+<rect x="710" y="490" width="201" height="52" rx="3" fill="#FDF8F7" stroke="#E0B4B2" stroke-width="0.8" />
+<text x="810.5" y="505" class="panel-title" text-anchor="middle" fill="#B85350">遥测样本回流 (Telemetry Ingestion)</text>
+<text x="810.5" y="520" class="panel-body" text-anchor="middle">汇聚漂移用例与新生绕过 Trace</text>
+<text x="810.5" y="534" class="panel-desc" text-anchor="middle">更新并丰富结构化失效资产库</text>
+<rect x="923" y="490" width="201" height="52" rx="3" fill="#F4F8FC" stroke="#B8D0EB" stroke-width="0.8" />
+<text x="1023.5" y="505" class="panel-title" text-anchor="middle" fill="#006DAE">防御策略演进 (Defensive Retuning)</text>
+<text x="1023.5" y="520" class="panel-body" text-anchor="middle">指导基座对齐微调与偏好学习</text>
+<text x="1023.5" y="534" class="panel-desc" text-anchor="middle">校准运行时护栏与沙箱执行边界</text>
+<path d="M 1136 509.0 L 1169 509.0 L 1169 132.0 L 1143 132.0" fill="none" stroke="#B85350" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arrow-red)" />
+<line x1="1136" y1="318.0" x2="1169" y2="318.0" stroke="#B85350" stroke-width="1.2" stroke-dasharray="3,3" />
+<line x1="1136" y1="414.0" x2="1169" y2="414.0" stroke="#B85350" stroke-width="1.2" stroke-dasharray="3,3" />
+<text x="919.0" y="615" class="edge-label" text-anchor="middle">双轨协同：历史回归复测防安全漂移，自适应前瞻探索挖残留盲区</text>
+<text x="929.0" y="644" class="edge-label" text-anchor="middle">纵向安全评估机制：回归重放检验跨版本稳定性，自适应挖掘主动暴露针对新防御的规避手段</text>
+</svg>

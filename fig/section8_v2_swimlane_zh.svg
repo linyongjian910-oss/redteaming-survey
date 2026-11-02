@@ -1,0 +1,247 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="1200" height="680">
+<defs>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#36393C" />
+    </marker>
+    <marker id="arrow-start" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 8 1.5 L 0 5 L 8 8.5 z" fill="#36393C" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#6C8EBE" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#B85350" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#005600" />
+    </marker>
+
+
+    <style>
+      text {
+        font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      }
+      .title-large {
+        font-size: 16.5px;
+        font-weight: bold;
+      }
+            .subtitle-small {
+        font-family: "Songti SC", "SimSun", "Times New Roman", Times, serif;
+        font-size: 10px;
+        fill: #36393D;
+        font-style: italic;
+      }
+      .subblock-title {
+        font-size: 11.5px;
+        font-weight: bold;
+      }
+      .card-title {
+        font-size: 10.5px;
+        font-weight: bold;
+      }
+      .card-body {
+        font-size: 9px;
+        fill: #36393C;
+      }
+      .tier-body {
+        font-size: 9px;
+        font-weight: bold;
+      }
+      .tier-sub {
+        font-size: 8.2px;
+        fill: #555555;
+      }
+      .card-citation {
+        font-size: 8.5px;
+        font-style: normal;
+        fill: #555555;
+      }
+      .edge-label {
+        font-family: "Songti SC", "SimSun", "Times New Roman", Times, serif;
+        font-size: 8.5px;
+        fill: #36393D;
+        font-style: italic;
+      }
+      .swimlane-title {
+        font-size: 9.5px;
+        font-weight: bold;
+      }
+    </style>
+
+</defs>
+<rect width="1200" height="680" fill="#FFFFFF" />
+<rect x="14" y="14" width="368" height="642" rx="5" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1.2" />
+<text x="30" y="40" class="title-large" fill="#006DAE">(a) 评测框架执行底座</text>
+<text x="30" y="53" class="subtitle-small">第8.1节 | 调度编排、遥测留存与回归重放</text>
+<rect x="26" y="56" width="344" height="132" rx="4" fill="#F8F7EC" stroke="#B5AD8F" stroke-width="0.8" />
+<text x="36" y="73" class="subblock-title" fill="#36393C">1. 评测负载摄入 (Campaign Workloads)</text>
+<rect x="34" y="82" width="156" height="80" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="112.0" y="100" class="card-title" text-anchor="middle" fill="#006DAE">动态对抗引擎</text>
+<text x="112.0" y="118" class="card-body" text-anchor="middle">自适应搜索与提示变异优化</text>
+<text x="112.0" y="132" class="card-body" text-anchor="middle">高通量生成高危候选提示</text>
+<text x="112.0" y="150" class="card-citation" text-anchor="middle">GPTFuzzer, APRT, TAP</text>
+<rect x="202" y="82" width="156" height="80" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="280.0" y="100" class="card-title" text-anchor="middle" fill="#005600">固定评估基准</text>
+<text x="280.0" y="118" class="card-body" text-anchor="middle">标准化基准用例与对照基线</text>
+<text x="280.0" y="132" class="card-body" text-anchor="middle">受控跨模型横向评测环境</text>
+<text x="280.0" y="150" class="card-citation" text-anchor="middle">HarmBench, AgentDojo</text>
+<line x1="112.0" y1="162" x2="112.0" y2="198" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<line x1="280.0" y1="162" x2="280.0" y2="198" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="26" y="202" width="344" height="236" rx="4" fill="#F0F6FC" stroke="#6C8EBE" stroke-width="0.8" />
+<text x="36" y="219" class="subblock-title" fill="#006DAE">2. 核心评测执行底座 (garak, PyRIT, Inspect)</text>
+<rect x="34" y="226" width="142" height="52" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="105.0" y="242" class="card-title" text-anchor="middle" fill="#36393C">目标适配器</text>
+<text x="105.0" y="258" class="card-body" text-anchor="middle">模型 API 封装与运行抽象</text>
+<text x="105.0" y="271" class="card-citation" text-anchor="middle">promptfoo, garak</text>
+<rect x="192" y="226" width="142" height="52" rx="4" fill="#DAE8FB" stroke="#6C8EBE" stroke-width="1" />
+<text x="263.0" y="242" class="card-title" text-anchor="middle" fill="#006DAE">攻击编排调度器</text>
+<text x="263.0" y="258" class="card-body" text-anchor="middle">多轮状态机与调用预算</text>
+<text x="263.0" y="271" class="card-citation" text-anchor="middle">PyRIT, ARTKIT, EasyJailbreak</text>
+<line x1="192" y1="252.0" x2="180" y2="252.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="34" y="298" width="300" height="50" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="184.0" y="313" class="card-title" text-anchor="middle" fill="#36393C">执行运行时与环境沙箱</text>
+<text x="184.0" y="328" class="card-body" text-anchor="middle">隔离工具调用沙箱与智能体执行轨迹记录</text>
+<text x="184.0" y="341" class="card-citation" text-anchor="middle">Inspect AI sandbox, AgentDojo</text>
+<line x1="105.0" y1="278" x2="105.0" y2="295" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<line x1="255.0" y1="278" x2="255.0" y2="295" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="34" y="368" width="300" height="54" rx="4" fill="#DAE8FB" stroke="#6C8EBE" stroke-width="1" />
+<text x="184.0" y="384" class="card-title" text-anchor="middle" fill="#006DAE">自动化裁判与评分器</text>
+<text x="184.0" y="400" class="card-body" text-anchor="middle">大模型裁判细则、拒答分类与策略断言</text>
+<text x="184.0" y="415" class="card-citation" text-anchor="middle">WildGuard, StrongREJECT, LlamaGuard</text>
+<line x1="184.0" y1="348" x2="184.0" y2="365" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="26" y="452" width="344" height="186" rx="4" fill="#F1F7EF" stroke="#82B366" stroke-width="0.8" />
+<text x="36" y="469" class="subblock-title" fill="#005600">3. 审计留存与确定性回归重放</text>
+<line x1="184.0" y1="422" x2="184.0" y2="449" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="34" y="476" width="140" height="128" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="104.0" y="494" class="card-title" text-anchor="middle" fill="#005600">不可变审计轨迹</text>
+<text x="104.0" y="514" class="card-body" text-anchor="middle">环境配置、种子与执行日志</text>
+<text x="104.0" y="530" class="card-body" text-anchor="middle">裁判推理证据与判定结果</text>
+<text x="104.0" y="546" class="card-body" text-anchor="middle" fill="#555555">结构化交互遥测数据留存</text>
+<text x="104.0" y="576" class="card-citation" text-anchor="middle">Inspect AI logs, PyRIT DuckDB</text>
+<line x1="174" y1="540.0" x2="191" y2="540.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="194" y="476" width="140" height="128" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="264.0" y="494" class="card-title" text-anchor="middle" fill="#005600">确定性回归重放</text>
+<text x="264.0" y="514" class="card-body" text-anchor="middle">固定种子的新版本回归复测</text>
+<text x="264.0" y="530" class="card-body" text-anchor="middle">跨版本安全漂移自动化检验</text>
+<text x="264.0" y="546" class="card-body" text-anchor="middle" fill="#555555">跨模型基准等价性检验验证</text>
+<text x="264.0" y="576" class="card-citation" text-anchor="middle">promptfoo eval, AgenticEval</text>
+<text x="192.0" y="627" class="edge-label" text-anchor="middle">不可变遥测固化实验凭据，支撑跨版本确定性审计</text>
+<path d="M 334 540.0 L 352 540.0 L 352 252.0 L 334 252.0" fill="none" stroke="#005600" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arrow-green)" />
+<rect x="396" y="14" width="384" height="642" rx="5" fill="#FFFFFF" stroke="#82B366" stroke-width="1.2" />
+<text x="412" y="40" class="title-large" fill="#005600">(b) 人机协同漏斗与裁决闭环</text>
+<text x="412" y="53" class="subtitle-small">第8.2节 | 定性专家规约与算法高通量扩增</text>
+<rect x="408" y="56" width="360" height="132" rx="4" fill="#F1F7EF" stroke="#82B366" stroke-width="0.8" />
+<text x="418" y="73" class="subblock-title" fill="#005600">1. 人类专家定性规约 (Ground Truth Standards)</text>
+<rect x="414" y="82" width="112" height="78" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="470.0" y="98" class="card-title" text-anchor="middle" fill="#005600">规范范围界定</text>
+<text x="470.0" y="115" class="card-body" text-anchor="middle">风险分类边界</text>
+<text x="470.0" y="128" class="card-body" text-anchor="middle">明确安全红线</text>
+<text x="470.0" y="148" class="card-citation" text-anchor="middle">STAR, Alvarado G.</text>
+<rect x="534" y="82" width="112" height="78" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="590.0" y="98" class="card-title" text-anchor="middle" fill="#005600">本土文化语境</text>
+<text x="590.0" y="115" class="card-body" text-anchor="middle">地方规范习俗</text>
+<text x="590.0" y="128" class="card-body" text-anchor="middle">暗含语境意图</text>
+<text x="590.0" y="148" class="card-citation" text-anchor="middle">Going PLACES</text>
+<rect x="654" y="82" width="112" height="78" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="710.0" y="98" class="card-title" text-anchor="middle" fill="#005600">分歧与边界建模</text>
+<text x="710.0" y="115" class="card-body" text-anchor="middle">标注者分歧分布</text>
+<text x="710.0" y="128" class="card-body" text-anchor="middle">争议案例仲裁</text>
+<text x="710.0" y="148" class="card-citation" text-anchor="middle">DICES, D3CODE</text>
+<text x="588.0" y="178" class="edge-label" text-anchor="middle">定性专家规约确立风险分类基准，仲裁边界歧义</text>
+<line x1="588.0" y1="188" x2="588.0" y2="199" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="408" y="202" width="360" height="176" rx="4" fill="#F0F6FC" stroke="#6C8EBE" stroke-width="0.8" />
+<text x="418" y="219" class="subblock-title" fill="#006DAE">2. 算法规模化扩增与初筛 (Scale Multiplier)</text>
+<rect x="416" y="228" width="166" height="118" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="499.0" y="246" class="card-title" text-anchor="middle" fill="#006DAE">负载规模化扩增引擎</text>
+<text x="499.0" y="268" class="card-body" text-anchor="middle">结构化配方引导提示变异</text>
+<text x="499.0" y="286" class="card-body" text-anchor="middle">拓展社会语言学多样性</text>
+<text x="499.0" y="304" class="card-body" text-anchor="middle" fill="#555555">规模化覆盖 10,000+ 变异样例</text>
+<text x="499.0" y="328" class="card-citation" text-anchor="middle">AART, Bridging Scale Gap</text>
+<line x1="582" y1="287.0" x2="592" y2="287.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="594" y="228" width="166" height="118" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="677.0" y="246" class="card-title" text-anchor="middle" fill="#006DAE">自动化高通量分诊初筛</text>
+<text x="677.0" y="268" class="card-body" text-anchor="middle">高通量并发策略合规初筛</text>
+<text x="677.0" y="286" class="card-body" text-anchor="middle">失效模式聚类与异常隔离</text>
+<text x="677.0" y="304" class="card-body" text-anchor="middle" fill="#555555">过滤常规样例，提取高争议簇</text>
+<text x="677.0" y="328" class="card-citation" text-anchor="middle">WildGuard, StrongREJECT</text>
+<text x="588.0" y="368" class="edge-label" text-anchor="middle">高通量初筛分流高争议簇至专家复审</text>
+<line x1="588.0" y1="381" x2="588.0" y2="403" stroke="#36393C" stroke-width="1.3" marker-start="url(#arrow-start)" marker-end="url(#arrow)" />
+<rect x="408" y="406" width="360" height="232" rx="4" fill="#F8F7EC" stroke="#B5AD8F" stroke-width="0.8" />
+<text x="418" y="423" class="subblock-title" fill="#36393C">3. 专家仲裁裁决与准则持续校准 (Closed Loop)</text>
+<rect x="608" y="432" width="152" height="90" rx="4" fill="#F8CECC" stroke="#B85350" stroke-width="1" />
+<text x="684.0" y="450" class="card-title" text-anchor="middle" fill="#7C3531">专家定性仲裁裁决</text>
+<text x="684.0" y="470" class="card-body" text-anchor="middle" fill="#7C3531">仲裁边缘案例与标注者分歧</text>
+<text x="684.0" y="486" class="card-body" text-anchor="middle" fill="#7C3531">提纯新攻击模式与危害定义</text>
+<text x="684.0" y="508" class="card-citation" text-anchor="middle" fill="#7C3531">DICES, D3CODE, Human Panels</text>
+<line x1="608" y1="477.0" x2="572" y2="477.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<text x="588.0" y="471.0" class="edge-label" text-anchor="middle">裁决结论</text>
+<rect x="416" y="432" width="152" height="90" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="492.0" y="450" class="card-title" text-anchor="middle" fill="#005600">评判准则迭代校准</text>
+<text x="492.0" y="470" class="card-body" text-anchor="middle">动态修正安全细则与分级阈值</text>
+<text x="492.0" y="486" class="card-body" text-anchor="middle">规范准则版本化同步</text>
+<text x="492.0" y="508" class="card-citation" text-anchor="middle">STAR, Constitutional AI feedback</text>
+<rect x="416" y="532" width="344" height="62" rx="4" fill="#FFFFFF" stroke="#B5AD8F" stroke-width="1" />
+<text x="588.0" y="549" class="card-title" text-anchor="middle" fill="#36393C">风险清单与分类规约动态更新</text>
+<text x="588.0" y="567" class="card-body" text-anchor="middle">经仲裁的边界案例动态更新风险登记册、评分阈值与流转规则</text>
+<text x="588.0" y="583" class="card-citation" text-anchor="middle">STAR, Alvarado Garcia et al., Going PLACES</text>
+<text x="588.0" y="627" class="edge-label" text-anchor="middle">定性裁决提纯危害特征，驱动安全评测规约持续演进</text>
+<rect x="794" y="14" width="392" height="642" rx="5" fill="#FFFFFF" stroke="#B5AD8F" stroke-width="1.2" />
+<text x="810" y="40" class="title-large" fill="#36393C">(c) 资产分级与多方协同披露</text>
+<text x="810" y="53" class="subtitle-small">第8.3节 | 平衡透明复现性与对抗利用物扩散管控</text>
+<rect x="806" y="56" width="368" height="132" rx="4" fill="#F8F7EC" stroke="#B5AD8F" stroke-width="0.8" />
+<text x="816" y="73" class="subblock-title" fill="#36393C">1. 对抗资产分级访问货架 (Tiered Access)</text>
+<rect x="814" y="80" width="352" height="25" rx="3" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="822" y="96" class="tier-body" fill="#005600">级别一 (公开)：开放基准数据集与评测榜单 (HarmBench)</text>
+<rect x="814" y="111" width="352" height="25" rx="3" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="822" y="127" class="tier-body" fill="#006DAE">级别二 (受限)：高危利用载荷受控面向认证学者 (Fang et al.)</text>
+<rect x="814" y="142" width="352" height="25" rx="3" fill="#F8CECC" stroke="#B85350" stroke-width="1" />
+<text x="822" y="158" class="tier-body" fill="#7C3531">级别三 (扣留)：扣留武器化载荷；仅发布系统报告 (OpenAI)</text>
+<text x="990.0" y="178" class="edge-label" text-anchor="middle">依据双重用途风险与漏洞可利用性实行分级访问授权</text>
+<rect x="806" y="202" width="368" height="136" rx="4" fill="#F0F6FC" stroke="#6C8EBE" stroke-width="0.8" />
+<text x="816" y="219" class="subblock-title" fill="#006DAE">2. 缺陷责任制与审计规约 (Audit Dimensions)</text>
+<rect x="814" y="228" width="172.0" height="44" rx="3" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="0.9" />
+<text x="900.0" y="244" class="card-title" text-anchor="middle" fill="#36393C">威胁模型与配置</text>
+<text x="900.0" y="260" class="card-body" text-anchor="middle">目标版本、提示封装与查询预算</text>
+<rect x="994.0" y="228" width="172.0" height="44" rx="3" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="0.9" />
+<text x="1080.0" y="244" class="card-title" text-anchor="middle" fill="#36393C">评测协议与准则</text>
+<text x="1080.0" y="260" class="card-body" text-anchor="middle">随机种子、步长与裁判判定细则</text>
+<rect x="814" y="278" width="172.0" height="44" rx="3" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="0.9" />
+<text x="900.0" y="294" class="card-title" text-anchor="middle" fill="#36393C">证据凭据与访问级</text>
+<text x="900.0" y="310" class="card-body" text-anchor="middle">脱敏执行轨迹与最小复现凭据包</text>
+<rect x="994.0" y="278" width="172.0" height="44" rx="3" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="0.9" />
+<text x="1080.0" y="294" class="card-title" text-anchor="middle" fill="#36393C">披露状态与排期</text>
+<text x="1080.0" y="310" class="card-body" text-anchor="middle">私密通报日期、修复验证与通告</text>
+<text x="990.0" y="330" class="edge-label" text-anchor="middle">标准化报告维度确保跨机构多方验证与合规可审计性</text>
+<rect x="806" y="352" width="368" height="286" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="0.8" />
+<text x="816" y="368" class="subblock-title" fill="#005600">3. 协同漏洞披露 (CVD) 交互泳道</text>
+<text x="1164" y="368" class="edge-label" text-anchor="end">(FLARE-AI, CERT/CC)</text>
+<rect x="812" y="376" width="356" height="66" rx="3" fill="#F8F7EC" stroke="#B5AD8F" stroke-width="0.7" />
+<text x="862.0" y="402" class="swimlane-title" text-anchor="middle" fill="#36393C">红队安全</text>
+<text x="862.0" y="416" class="swimlane-title" text-anchor="middle" fill="#36393C">审计专家</text>
+<line x1="910" y1="382" x2="910" y2="436" stroke="#B5AD8F" stroke-dasharray="2,2" stroke-width="0.8" />
+<rect x="918" y="388" width="230" height="42" rx="3" fill="#FFFFFF" stroke="#B5AD8F" stroke-width="1" />
+<text x="1033.0" y="405" class="card-title" text-anchor="middle" fill="#36393C">1. 缺陷提交与证据确权</text>
+<text x="1033.0" y="420" class="card-body" text-anchor="middle">受控提交脱敏交互与复现脚本</text>
+<rect x="812" y="456" width="356" height="66" rx="3" fill="#F0F6FC" stroke="#6C8EBE" stroke-width="0.7" />
+<text x="862.0" y="482" class="swimlane-title" text-anchor="middle" fill="#006DAE">目标模型</text>
+<text x="862.0" y="496" class="swimlane-title" text-anchor="middle" fill="#006DAE">研发厂商</text>
+<line x1="910" y1="462" x2="910" y2="516" stroke="#6C8EBE" stroke-dasharray="2,2" stroke-width="0.8" />
+<rect x="918" y="468" width="104" height="42" rx="3" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="970.0" y="485" class="card-title" text-anchor="middle" fill="#006DAE">2. 缺陷复现评估</text>
+<text x="970.0" y="500" class="card-body" text-anchor="middle">复现与严重度核定</text>
+<rect x="1038" y="468" width="110" height="42" rx="3" fill="#DAE8FB" stroke="#6C8EBE" stroke-width="1" />
+<text x="1093.0" y="485" class="card-title" text-anchor="middle" fill="#006DAE">3. 补丁加固开发</text>
+<text x="1093.0" y="500" class="card-body" text-anchor="middle">微调或护栏拦截规则</text>
+<line x1="1022" y1="489.0" x2="1035" y2="489.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="812" y="536" width="356" height="66" rx="3" fill="#F1F7EF" stroke="#82B366" stroke-width="0.7" />
+<text x="862.0" y="562" class="swimlane-title" text-anchor="middle" fill="#005600">安全协调机构</text>
+<text x="862.0" y="576" class="swimlane-title" text-anchor="middle" fill="#005600">与社区公众</text>
+<line x1="910" y1="542" x2="910" y2="596" stroke="#82B366" stroke-dasharray="2,2" stroke-width="0.8" />
+<rect x="918" y="548" width="230" height="42" rx="3" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="1033.0" y="565" class="card-title" text-anchor="middle" fill="#005600">4. 协同发布安全通报</text>
+<text x="1033.0" y="580" class="card-body" text-anchor="middle">补丁检验后解密发布缓解方案</text>
+<line x1="970.0" y1="430" x2="970.0" y2="465" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<line x1="1093.0" y1="510" x2="1093.0" y2="545" stroke="#005600" stroke-width="1.2" marker-end="url(#arrow-green)" />
+<text x="990.0" y="627" class="edge-label" text-anchor="middle">协同披露流水线在公开发布前完成验证缓解</text>
+</svg>

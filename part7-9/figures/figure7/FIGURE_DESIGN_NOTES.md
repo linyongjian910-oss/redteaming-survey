@@ -54,7 +54,7 @@ The composition uses a compact taxonomy grammar: a neutral source pair, four sof
 ```latex
 \begin{figure*}[t]
   \centering
-  \includegraphics[width=0.98\textwidth]{fig/fig7_remediation_taxonomy.pdf}
+  \includegraphics[width=0.98\textwidth]{part7-9/figures/figure7/fig7_remediation_taxonomy.pdf}
   \caption{Closed-loop remediation after automated red-team failure discovery. Confirmed, reproducible failures can be reused for training-time tuning, runtime safety control, application-level containment, or continuous testing. Continuous testing combines persistence of verified failures with renewal of attacks or evaluation artifacts, feeding both retained and newly discovered failures back into red-team discovery.}
   \label{fig:remediation-loop}
 \end{figure*}

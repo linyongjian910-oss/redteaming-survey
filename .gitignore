@@ -39,3 +39,16 @@ _minted*/
 /*.pdf
 !/fig*.pdf
 !/fig/**/*.pdf
+
+# Raster figure previews are generated from the editable SVG/PDF sources.
+*.png
+
+# Local review material and source-paper caches are not publication sources.
+/.agents/
+/.drafts/
+/output/
+/previews/
+/reference/
+/moudel/
+/part1-3/
+/fig/archive/

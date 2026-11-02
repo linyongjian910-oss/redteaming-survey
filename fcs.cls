@@ -147,6 +147,10 @@
 %%% Required Packages
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Keep each numeric citation visible instead of compressing consecutive
+% references into a range such as [12--14].
+\PassOptionsToPackage { nocompress } { cite }
+
 \RequirePackage
   {
     % Mathematics packages
@@ -178,7 +182,7 @@
   }
 
 % Configure graphics
-\graphicspath { { fig/ } }
+\graphicspath { { shared/figures/ } { fig/ } }
 
 % Add FCS logo
 \AddToShipoutPictureBG*

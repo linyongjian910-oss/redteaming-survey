@@ -1,0 +1,247 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="1200" height="680">
+<defs>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#36393C" />
+    </marker>
+    <marker id="arrow-start" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto">
+      <path d="M 8 1.5 L 0 5 L 8 8.5 z" fill="#36393C" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#6C8EBE" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#B85350" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#005600" />
+    </marker>
+
+
+    <style>
+      text {
+        font-family: "Times New Roman", Times, serif;
+      }
+      .title-large {
+        font-size: 17.5px;
+        font-weight: bold;
+      }
+            .subtitle-small {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 10.5px;
+        fill: #36393D;
+        font-style: italic;
+      }
+      .subblock-title {
+        font-size: 12px;
+        font-weight: bold;
+      }
+      .card-title {
+        font-size: 10.5px;
+        font-weight: bold;
+      }
+      .card-body {
+        font-size: 9.2px;
+        fill: #36393C;
+      }
+      .tier-body {
+        font-size: 9px;
+        font-weight: bold;
+      }
+      .tier-sub {
+        font-size: 8.5px;
+        fill: #555555;
+      }
+      .card-citation {
+        font-size: 9px;
+        font-style: normal;
+        fill: #555555;
+      }
+      .edge-label {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 9.2px;
+        fill: #36393D;
+        font-style: italic;
+      }
+      .swimlane-title {
+        font-size: 10px;
+        font-weight: bold;
+      }
+    </style>
+
+</defs>
+<rect width="1200" height="680" fill="#FFFFFF" />
+<rect x="14" y="14" width="368" height="642" rx="5" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1.2" />
+<text x="30" y="40" class="title-large" fill="#006DAE">(a) Evaluation Harness Infrastructure</text>
+<text x="30" y="53" class="subtitle-small">Sec. 8.1 | Execution Substrate, Telemetry, and Replay</text>
+<rect x="26" y="56" width="344" height="132" rx="4" fill="#F8F7EC" stroke="#B5AD8F" stroke-width="0.8" />
+<text x="36" y="73" class="subblock-title" fill="#36393C">1. Campaign Input Workloads</text>
+<rect x="34" y="82" width="156" height="80" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="112.0" y="100" class="card-title" text-anchor="middle" fill="#006DAE">Attack Engines</text>
+<text x="112.0" y="118" class="card-body" text-anchor="middle">Adaptive search and mutation</text>
+<text x="112.0" y="132" class="card-body" text-anchor="middle">High-throughput exploit generation</text>
+<text x="112.0" y="150" class="card-citation" text-anchor="middle">GPTFuzzer, APRT, TAP</text>
+<rect x="202" y="82" width="156" height="80" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="280.0" y="100" class="card-title" text-anchor="middle" fill="#005600">Evaluation Suites</text>
+<text x="280.0" y="118" class="card-body" text-anchor="middle">Standardized benchmark suites</text>
+<text x="280.0" y="132" class="card-body" text-anchor="middle">Controlled comparative baselines</text>
+<text x="280.0" y="150" class="card-citation" text-anchor="middle">HarmBench, AgentDojo</text>
+<line x1="112.0" y1="162" x2="112.0" y2="198" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<line x1="280.0" y1="162" x2="280.0" y2="198" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="26" y="202" width="344" height="236" rx="4" fill="#F0F6FC" stroke="#6C8EBE" stroke-width="0.8" />
+<text x="36" y="219" class="subblock-title" fill="#006DAE">2. Core Harness Substrate (garak, PyRIT, Inspect)</text>
+<rect x="34" y="226" width="142" height="52" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="105.0" y="242" class="card-title" text-anchor="middle" fill="#36393C">Target Adapters</text>
+<text x="105.0" y="258" class="card-body" text-anchor="middle">Model API wrappers and runners</text>
+<text x="105.0" y="271" class="card-citation" text-anchor="middle">promptfoo, garak</text>
+<rect x="192" y="226" width="142" height="52" rx="4" fill="#DAE8FB" stroke="#6C8EBE" stroke-width="1" />
+<text x="263.0" y="242" class="card-title" text-anchor="middle" fill="#006DAE">Attack Orchestrator</text>
+<text x="263.0" y="258" class="card-body" text-anchor="middle">Multi-turn state and budget</text>
+<text x="263.0" y="271" class="card-citation" text-anchor="middle">PyRIT, ARTKIT, EasyJailbreak</text>
+<line x1="192" y1="252.0" x2="180" y2="252.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="34" y="298" width="300" height="50" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="184.0" y="313" class="card-title" text-anchor="middle" fill="#36393C">Execution Runtime and Sandbox</text>
+<text x="184.0" y="328" class="card-body" text-anchor="middle">Isolated tool sandbox and trace logging</text>
+<text x="184.0" y="341" class="card-citation" text-anchor="middle">Inspect AI sandbox, AgentDojo</text>
+<line x1="105.0" y1="278" x2="105.0" y2="295" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<line x1="255.0" y1="278" x2="255.0" y2="295" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="34" y="368" width="300" height="54" rx="4" fill="#DAE8FB" stroke="#6C8EBE" stroke-width="1" />
+<text x="184.0" y="384" class="card-title" text-anchor="middle" fill="#006DAE">Automated Judges and Scorers</text>
+<text x="184.0" y="400" class="card-body" text-anchor="middle">Model-graded rubrics, refusal scoring, assertions</text>
+<text x="184.0" y="415" class="card-citation" text-anchor="middle">WildGuard, StrongREJECT, LlamaGuard</text>
+<line x1="184.0" y1="348" x2="184.0" y2="365" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="26" y="452" width="344" height="186" rx="4" fill="#F1F7EF" stroke="#82B366" stroke-width="0.8" />
+<text x="36" y="469" class="subblock-title" fill="#005600">3. Evidence Preservation and Replay</text>
+<line x1="184.0" y1="422" x2="184.0" y2="449" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="34" y="476" width="140" height="128" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="104.0" y="494" class="card-title" text-anchor="middle" fill="#005600">Immutable Audit Traces</text>
+<text x="104.0" y="514" class="card-body" text-anchor="middle">Run configs, seeds, and logs</text>
+<text x="104.0" y="530" class="card-body" text-anchor="middle">Judge reasoning and verdicts</text>
+<text x="104.0" y="546" class="card-body" text-anchor="middle" fill="#555555">Structured telemetry state logs</text>
+<text x="104.0" y="576" class="card-citation" text-anchor="middle">Inspect AI logs, PyRIT DuckDB</text>
+<line x1="174" y1="540.0" x2="191" y2="540.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="194" y="476" width="140" height="128" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="264.0" y="494" class="card-title" text-anchor="middle" fill="#005600">Deterministic Replay</text>
+<text x="264.0" y="514" class="card-body" text-anchor="middle">Fixed-seed target regression</text>
+<text x="264.0" y="530" class="card-body" text-anchor="middle">Automated safety drift checks</text>
+<text x="264.0" y="546" class="card-body" text-anchor="middle" fill="#555555">Cross-version benchmark parity</text>
+<text x="264.0" y="576" class="card-citation" text-anchor="middle">promptfoo eval, AgenticEval</text>
+<text x="192.0" y="627" class="edge-label" text-anchor="middle">Immutable traces preserve experimental evidence for reproducible auditing</text>
+<path d="M 334 540.0 L 352 540.0 L 352 252.0 L 334 252.0" fill="none" stroke="#005600" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arrow-green)" />
+<rect x="396" y="14" width="384" height="642" rx="5" fill="#FFFFFF" stroke="#82B366" stroke-width="1.2" />
+<text x="412" y="40" class="title-large" fill="#005600">(b) Human-in-the-Loop Synergies</text>
+<text x="412" y="53" class="subtitle-small">Sec. 8.2 | Human Specification and Algorithmic Scaling</text>
+<rect x="408" y="56" width="360" height="132" rx="4" fill="#F1F7EF" stroke="#82B366" stroke-width="0.8" />
+<text x="418" y="73" class="subblock-title" fill="#005600">1. Human Qualitative Specification</text>
+<rect x="414" y="82" width="112" height="78" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="470.0" y="98" class="card-title" text-anchor="middle" fill="#005600">Normative Scope</text>
+<text x="470.0" y="115" class="card-body" text-anchor="middle">Harm boundaries</text>
+<text x="470.0" y="128" class="card-body" text-anchor="middle">and safety redlines</text>
+<text x="470.0" y="148" class="card-citation" text-anchor="middle">STAR, Alvarado G.</text>
+<rect x="534" y="82" width="112" height="78" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="590.0" y="98" class="card-title" text-anchor="middle" fill="#005600">Cultural Context</text>
+<text x="590.0" y="115" class="card-body" text-anchor="middle">Localized norms</text>
+<text x="590.0" y="128" class="card-body" text-anchor="middle">and contextual cues</text>
+<text x="590.0" y="148" class="card-citation" text-anchor="middle">Going PLACES</text>
+<rect x="654" y="82" width="112" height="78" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="710.0" y="98" class="card-title" text-anchor="middle" fill="#005600">Disagreement Models</text>
+<text x="710.0" y="115" class="card-body" text-anchor="middle">Annotator variance</text>
+<text x="710.0" y="128" class="card-body" text-anchor="middle">Boundary arbitration</text>
+<text x="710.0" y="148" class="card-citation" text-anchor="middle">DICES, D3CODE</text>
+<text x="588.0" y="178" class="edge-label" text-anchor="middle">Qualitative expertise grounds risk taxonomies and resolves boundary ambiguity</text>
+<line x1="588.0" y1="188" x2="588.0" y2="199" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="408" y="202" width="360" height="176" rx="4" fill="#F0F6FC" stroke="#6C8EBE" stroke-width="0.8" />
+<text x="418" y="219" class="subblock-title" fill="#006DAE">2. Algorithmic Scaling and Batch Screening</text>
+<rect x="416" y="228" width="166" height="118" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="499.0" y="246" class="card-title" text-anchor="middle" fill="#006DAE">Workload Multiplier</text>
+<text x="499.0" y="268" class="card-body" text-anchor="middle">Recipe-guided prompt mutation</text>
+<text x="499.0" y="286" class="card-body" text-anchor="middle">Sociolinguistic diversity scaling</text>
+<text x="499.0" y="304" class="card-body" text-anchor="middle" fill="#555555">Expands coverage to 10k+ variants</text>
+<text x="499.0" y="328" class="card-citation" text-anchor="middle">AART, Bridging Scale Gap</text>
+<line x1="582" y1="287.0" x2="592" y2="287.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="594" y="228" width="166" height="118" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="677.0" y="246" class="card-title" text-anchor="middle" fill="#006DAE">Automated Batch Triage</text>
+<text x="677.0" y="268" class="card-body" text-anchor="middle">High-throughput batch screening</text>
+<text x="677.0" y="286" class="card-body" text-anchor="middle">Cluster analysis isolates flaws</text>
+<text x="677.0" y="304" class="card-body" text-anchor="middle" fill="#555555">Filters passes; isolates edge cases</text>
+<text x="677.0" y="328" class="card-citation" text-anchor="middle">WildGuard, StrongREJECT</text>
+<text x="588.0" y="368" class="edge-label" text-anchor="middle">Batch screening routes edge cases to experts</text>
+<line x1="588.0" y1="381" x2="588.0" y2="403" stroke="#36393C" stroke-width="1.3" marker-start="url(#arrow-start)" marker-end="url(#arrow)" />
+<rect x="408" y="406" width="360" height="232" rx="4" fill="#F8F7EC" stroke="#B5AD8F" stroke-width="0.8" />
+<text x="418" y="423" class="subblock-title" fill="#36393C">3. Expert Adjudication and Rubric Recalibration</text>
+<rect x="608" y="432" width="152" height="90" rx="4" fill="#F8CECC" stroke="#B85350" stroke-width="1" />
+<text x="684.0" y="450" class="card-title" text-anchor="middle" fill="#7C3531">Human Expert Adjudication</text>
+<text x="684.0" y="470" class="card-body" text-anchor="middle" fill="#7C3531">Arbitrate annotator disagreement</text>
+<text x="684.0" y="486" class="card-body" text-anchor="middle" fill="#7C3531">Isolate emergent vulnerability types</text>
+<text x="684.0" y="508" class="card-citation" text-anchor="middle" fill="#7C3531">DICES, D3CODE, Human Panels</text>
+<line x1="608" y1="477.0" x2="572" y2="477.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<text x="588.0" y="471.0" class="edge-label" text-anchor="middle">Verdicts</text>
+<rect x="416" y="432" width="152" height="90" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="492.0" y="450" class="card-title" text-anchor="middle" fill="#005600">Criteria and Rubric Calibration</text>
+<text x="492.0" y="470" class="card-body" text-anchor="middle">Update rubrics, classification thresholds</text>
+<text x="492.0" y="486" class="card-body" text-anchor="middle">Sync versioned ground-truth criteria</text>
+<text x="492.0" y="508" class="card-citation" text-anchor="middle">STAR, Constitutional AI feedback</text>
+<rect x="416" y="532" width="344" height="62" rx="4" fill="#FFFFFF" stroke="#B5AD8F" stroke-width="1" />
+<text x="588.0" y="549" class="card-title" text-anchor="middle" fill="#36393C">Risk Register and Evaluation Standards Refinement</text>
+<text x="588.0" y="567" class="card-body" text-anchor="middle">Adjudicated boundary cases update risk registers and escalation thresholds</text>
+<text x="588.0" y="583" class="card-citation" text-anchor="middle">STAR, Alvarado Garcia et al., Going PLACES</text>
+<text x="588.0" y="627" class="edge-label" text-anchor="middle">Expert adjudication isolates novel harms, driving continuous rubric evolution</text>
+<rect x="794" y="14" width="392" height="642" rx="5" fill="#FFFFFF" stroke="#B5AD8F" stroke-width="1.2" />
+<text x="810" y="40" class="title-large" fill="#36393C">(c) Artifact Governance and Multi-Party CVD</text>
+<text x="810" y="53" class="subtitle-small">Sec. 8.3 | Balancing Transparency and Downstream Exploitability</text>
+<rect x="806" y="56" width="368" height="132" rx="4" fill="#F8F7EC" stroke="#B5AD8F" stroke-width="0.8" />
+<text x="816" y="73" class="subblock-title" fill="#36393C">1. Tiered Artifact Access Shelves</text>
+<rect x="814" y="80" width="352" height="25" rx="3" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="822" y="96" class="tier-body" fill="#005600">Tier 1 (Public): Open benchmark suites and leaderboards (HarmBench)</text>
+<rect x="814" y="111" width="352" height="25" rx="3" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="822" y="127" class="tier-body" fill="#006DAE">Tier 2 (Gated): Controlled access for vetted researchers (Fang et al.)</text>
+<rect x="814" y="142" width="352" height="25" rx="3" fill="#F8CECC" stroke="#B85350" stroke-width="1" />
+<text x="822" y="158" class="tier-body" fill="#7C3531">Tier 3 (Withheld): Exploits withheld; system cards published (OpenAI)</text>
+<text x="990.0" y="178" class="edge-label" text-anchor="middle">Artifact access is tiered by dual-use risk and downstream exploitability</text>
+<rect x="806" y="202" width="368" height="136" rx="4" fill="#F0F6FC" stroke="#6C8EBE" stroke-width="0.8" />
+<text x="816" y="219" class="subblock-title" fill="#006DAE">2. Finding Accountability Reporting Standard</text>
+<rect x="814" y="228" width="172.0" height="44" rx="3" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="0.9" />
+<text x="900.0" y="244" class="card-title" text-anchor="middle" fill="#36393C">Threat Model and Setup</text>
+<text x="900.0" y="260" class="card-body" text-anchor="middle">Model version, wrapper, query budget</text>
+<rect x="994.0" y="228" width="172.0" height="44" rx="3" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="0.9" />
+<text x="1080.0" y="244" class="card-title" text-anchor="middle" fill="#36393C">Evaluation Protocol</text>
+<text x="1080.0" y="260" class="card-body" text-anchor="middle">Seeds, step limits, judge rubrics</text>
+<rect x="814" y="278" width="172.0" height="44" rx="3" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="0.9" />
+<text x="900.0" y="294" class="card-title" text-anchor="middle" fill="#36393C">Evidence and Artifacts</text>
+<text x="900.0" y="310" class="card-body" text-anchor="middle">Redacted traces and proof package</text>
+<rect x="994.0" y="278" width="172.0" height="44" rx="3" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="0.9" />
+<text x="1080.0" y="294" class="card-title" text-anchor="middle" fill="#36393C">Disclosure Lifecycle</text>
+<text x="1080.0" y="310" class="card-body" text-anchor="middle">Confidential notice, patch, advisory</text>
+<text x="990.0" y="330" class="edge-label" text-anchor="middle">Standardized dimensions enable verifiable cross-party security auditing</text>
+<rect x="806" y="352" width="368" height="286" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="0.8" />
+<text x="816" y="368" class="subblock-title" fill="#005600">3. Coordinated Vulnerability Disclosure (CVD)</text>
+<text x="1164" y="368" class="edge-label" text-anchor="end">(FLARE-AI, CERT/CC)</text>
+<rect x="812" y="376" width="356" height="66" rx="3" fill="#F8F7EC" stroke="#B5AD8F" stroke-width="0.7" />
+<text x="862.0" y="402" class="swimlane-title" text-anchor="middle" fill="#36393C">Red-Team</text>
+<text x="862.0" y="416" class="swimlane-title" text-anchor="middle" fill="#36393C">Security Auditor</text>
+<line x1="910" y1="382" x2="910" y2="436" stroke="#B5AD8F" stroke-dasharray="2,2" stroke-width="0.8" />
+<rect x="918" y="388" width="230" height="42" rx="3" fill="#FFFFFF" stroke="#B5AD8F" stroke-width="1" />
+<text x="1033.0" y="405" class="card-title" text-anchor="middle" fill="#36393C">1. Defect and Proof Package</text>
+<text x="1033.0" y="420" class="card-body" text-anchor="middle">Submit redacted PoC and traces</text>
+<rect x="812" y="456" width="356" height="66" rx="3" fill="#F0F6FC" stroke="#6C8EBE" stroke-width="0.7" />
+<text x="862.0" y="482" class="swimlane-title" text-anchor="middle" fill="#006DAE">Target Model</text>
+<text x="862.0" y="496" class="swimlane-title" text-anchor="middle" fill="#006DAE">Vendor</text>
+<line x1="910" y1="462" x2="910" y2="516" stroke="#6C8EBE" stroke-dasharray="2,2" stroke-width="0.8" />
+<rect x="918" y="468" width="104" height="42" rx="3" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="970.0" y="485" class="card-title" text-anchor="middle" fill="#006DAE">2. Flaw Triage</text>
+<text x="970.0" y="500" class="card-body" text-anchor="middle">Verify severity</text>
+<rect x="1038" y="468" width="110" height="42" rx="3" fill="#DAE8FB" stroke="#6C8EBE" stroke-width="1" />
+<text x="1093.0" y="485" class="card-title" text-anchor="middle" fill="#006DAE">3. Patch Dev</text>
+<text x="1093.0" y="500" class="card-body" text-anchor="middle">Filters and fine-tuning</text>
+<line x1="1022" y1="489.0" x2="1035" y2="489.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="812" y="536" width="356" height="66" rx="3" fill="#F1F7EF" stroke="#82B366" stroke-width="0.7" />
+<text x="862.0" y="562" class="swimlane-title" text-anchor="middle" fill="#005600">Coordinator</text>
+<text x="862.0" y="576" class="swimlane-title" text-anchor="middle" fill="#005600">and Community</text>
+<line x1="910" y1="542" x2="910" y2="596" stroke="#82B366" stroke-dasharray="2,2" stroke-width="0.8" />
+<rect x="918" y="548" width="230" height="42" rx="3" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="1033.0" y="565" class="card-title" text-anchor="middle" fill="#005600">4. Joint Security Advisory</text>
+<text x="1033.0" y="580" class="card-body" text-anchor="middle">Advisory released upon patch validation</text>
+<line x1="970.0" y1="430" x2="970.0" y2="465" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<line x1="1093.0" y1="510" x2="1093.0" y2="545" stroke="#005600" stroke-width="1.2" marker-end="url(#arrow-green)" />
+<text x="990.0" y="627" class="edge-label" text-anchor="middle">Coordinated disclosure pipeline validates mitigations prior to advisory</text>
+</svg>

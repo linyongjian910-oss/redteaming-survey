@@ -1,0 +1,245 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" width="1200" height="680">
+<defs>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#36393C" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#6C8EBE" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#B85350" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#005600" />
+    </marker>
+
+
+    <style>
+      text {
+        font-family: "Times New Roman", Times, serif;
+      }
+      .title-large {
+        font-size: 17.5px;
+        font-weight: bold;
+      }
+            .subtitle-small {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 10.5px;
+        fill: #36393D;
+        font-style: italic;
+      }
+      .subblock-title {
+        font-size: 12px;
+        font-weight: bold;
+      }
+      .card-title {
+        font-size: 11px;
+        font-weight: bold;
+      }
+      .card-body {
+        font-size: 9.2px;
+        fill: #36393C;
+      }
+      .card-citation {
+        font-size: 9px;
+        font-style: normal;
+        fill: #555555;
+      }
+      .edge-label {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 9.2px;
+        fill: #36393D;
+        font-style: italic;
+      }
+      .badge-text {
+        font-size: 9px;
+        font-weight: 500;
+      }
+      .code-snippet {
+        font-family: "Menlo", "Courier New", monospace;
+        font-size: 8px;
+        fill: #24292F;
+      }
+      .bridge-title {
+        font-size: 11.5px;
+        font-weight: bold;
+      }
+      .panel-title {
+        font-size: 10.5px;
+        font-weight: bold;
+      }
+      .panel-body {
+        font-size: 9.2px;
+        fill: #333333;
+      }
+      .panel-desc {
+        font-size: 8.8px;
+        fill: #555555;
+      }
+    </style>
+
+</defs>
+<rect width="1200" height="680" fill="#FFFFFF" />
+<rect x="14" y="14" width="644" height="650" rx="5" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1.2" />
+<text x="30" y="40" class="title-large" fill="#006DAE">(a) Layered Failure Remediation Across Stack</text>
+<text x="30" y="53" class="subtitle-small">Sec. 7.1-7.3 | Training Hardening, Runtime Gates, and System Sandboxing</text>
+<rect x="28" y="56" width="616" height="172" rx="4" fill="#F1F7EF" stroke="#82B366" stroke-width="0.8" />
+<text x="38" y="73" class="subblock-title" fill="#005600">1. Training-Time Representation Hardening (Sec. 7.1)</text>
+<rect x="38" y="82" width="138" height="96" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="107.0" y="102" class="card-title" text-anchor="middle" fill="#006DAE">Adversarial Traces</text>
+<text x="107.0" y="122" class="card-body" text-anchor="middle">Harmful prompts and</text>
+<text x="107.0" y="138" class="card-body" text-anchor="middle">failure trajectories</text>
+<text x="107.0" y="160" class="card-citation" text-anchor="middle">WildTeaming, AdvBench</text>
+<line x1="176" y1="130.0" x2="188" y2="130.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="190" y="82" width="138" height="96" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="259.0" y="102" class="card-title" text-anchor="middle" fill="#006DAE">Coverage Curation</text>
+<text x="259.0" y="122" class="card-body" text-anchor="middle">Diverse intent, tactics</text>
+<text x="259.0" y="138" class="card-body" text-anchor="middle">Balanced utility mixture</text>
+<text x="259.0" y="160" class="card-citation" text-anchor="middle">TRIDENT, DiveR-CT</text>
+<line x1="328" y1="130.0" x2="340" y2="130.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="342" y="82" width="138" height="96" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="411.0" y="102" class="card-title" text-anchor="middle" fill="#006DAE">Dynamic Adv. SFT</text>
+<text x="411.0" y="122" class="card-body" text-anchor="middle">Alternating optimization</text>
+<text x="411.0" y="138" class="card-body" text-anchor="middle">Iterative buffer tuning</text>
+<text x="411.0" y="160" class="card-citation" text-anchor="middle">MART, R2D2 pool</text>
+<line x1="480" y1="130.0" x2="492" y2="130.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="494" y="82" width="138" height="96" rx="4" fill="#D4E8D3" stroke="#82B366" stroke-width="1" />
+<text x="563.0" y="102" class="card-title" text-anchor="middle" fill="#005600">Hardened Weights</text>
+<text x="563.0" y="122" class="card-body" text-anchor="middle">Direct weight alignment</text>
+<text x="563.0" y="138" class="card-body" text-anchor="middle">Intrinsic safety baseline</text>
+<text x="563.0" y="160" class="card-citation" text-anchor="middle">Safe-RLHF, BeaverTails</text>
+<text x="336.0" y="215" class="edge-label" text-anchor="middle">Parameter updates reshape underlying model representations directly to resist toxic prompts</text>
+<rect x="28" y="242" width="616" height="184" rx="4" fill="#F0F6FC" stroke="#6C8EBE" stroke-width="0.8" />
+<text x="38" y="259" class="subblock-title" fill="#006DAE">2. Inference-Time Runtime Guardrail Gateways (Sec. 7.2)</text>
+<rect x="38" y="268" width="138" height="106" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="107.0" y="288" class="card-title" text-anchor="middle" fill="#36393C">Input Guard Gate</text>
+<text x="107.0" y="308" class="card-body" text-anchor="middle">Front-end intent triage</text>
+<text x="107.0" y="324" class="card-body" text-anchor="middle">Perplexity, smoothing</text>
+<text x="107.0" y="340" class="card-body" text-anchor="middle" fill="#7C3531">Drops adversarial tokens</text>
+<text x="107.0" y="360" class="card-citation" text-anchor="middle">LlamaGuard, SmoothLLM</text>
+<line x1="176" y1="321.0" x2="188" y2="321.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="190" y="268" width="138" height="106" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="259.0" y="288" class="card-title" text-anchor="middle" fill="#36393C">Decoding Steering</text>
+<text x="259.0" y="308" class="card-body" text-anchor="middle">Activation steering shift</text>
+<text x="259.0" y="324" class="card-body" text-anchor="middle">Logit bias adjustments</text>
+<text x="259.0" y="340" class="card-body" text-anchor="middle" fill="#006DAE">Suppresses toxic logits</text>
+<text x="259.0" y="360" class="card-citation" text-anchor="middle">Representation Steering</text>
+<line x1="328" y1="321.0" x2="340" y2="321.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="342" y="268" width="138" height="106" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="411.0" y="288" class="card-title" text-anchor="middle" fill="#36393C">Output Moderation</text>
+<text x="411.0" y="308" class="card-body" text-anchor="middle">Post-generation screening</text>
+<text x="411.0" y="324" class="card-body" text-anchor="middle">Self-correction, rewriting</text>
+<text x="411.0" y="340" class="card-body" text-anchor="middle" fill="#7C3531">Blocks harmful bypasses</text>
+<text x="411.0" y="360" class="card-citation" text-anchor="middle">Self-Defense, AutoDefense</text>
+<line x1="480" y1="321.0" x2="492" y2="321.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="494" y="268" width="138" height="106" rx="4" fill="#D4E8D3" stroke="#82B366" stroke-width="1" />
+<text x="563.0" y="288" class="card-title" text-anchor="middle" fill="#005600">Sanitized Output</text>
+<text x="563.0" y="308" class="card-body" text-anchor="middle">Verified safe response</text>
+<text x="563.0" y="324" class="card-body" text-anchor="middle">Polite refusal or safe ans</text>
+<text x="563.0" y="340" class="card-body" text-anchor="middle" fill="#005600">Base weights untouched</text>
+<text x="563.0" y="360" class="card-citation" text-anchor="middle">Guarded Deployment</text>
+<text x="336.0" y="413" class="edge-label" text-anchor="middle">Layered checks across input, decoding, and output block attacks without modifying base weights</text>
+<rect x="28" y="440" width="616" height="188" rx="4" fill="#F8F7EC" stroke="#B5AD8F" stroke-width="0.8" />
+<text x="38" y="457" class="subblock-title" fill="#36393C">3. System-Level Application Protection and Sandboxing (Sec. 7.3)</text>
+<rect x="190" y="464" width="444" height="120" rx="4" fill="#FFFFFF" stroke="#B85350" stroke-width="1.2" stroke-dasharray="4,4" />
+<text x="624" y="479" class="card-citation" text-anchor="end" fill="#7C3531">Isolated Sandbox Security Boundary</text>
+<rect x="38" y="486" width="138" height="88" rx="4" fill="#FFFFFF" stroke="#B5AD8F" stroke-width="1" />
+<text x="107.0" y="502" class="card-title" text-anchor="middle" fill="#36393C">Untrusted Context</text>
+<text x="107.0" y="520" class="card-body" text-anchor="middle">Retrieved memory and</text>
+<text x="107.0" y="535" class="card-body" text-anchor="middle">third-party tool outputs</text>
+<text x="107.0" y="556" class="card-citation" text-anchor="middle">Indirect Injections</text>
+<line x1="176" y1="530.0" x2="194" y2="530.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="200" y="486" width="132" height="88" rx="3" fill="#DAE8FB" stroke="#6C8EBE" stroke-width="1" />
+<text x="266.0" y="502" class="card-title" text-anchor="middle" fill="#006DAE">Privilege Boundaries</text>
+<text x="266.0" y="520" class="card-body" text-anchor="middle">Control- and data-plane</text>
+<text x="266.0" y="535" class="card-body" text-anchor="middle">channel separation</text>
+<text x="266.0" y="556" class="card-citation" text-anchor="middle">CaMeL, ToolSafe</text>
+<line x1="332" y1="530.0" x2="342" y2="530.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="344" y="486" width="132" height="88" rx="3" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="410.0" y="502" class="card-title" text-anchor="middle" fill="#36393C">Action Sandboxing</text>
+<text x="410.0" y="520" class="card-body" text-anchor="middle">Pre- and post-condition</text>
+<text x="410.0" y="535" class="card-body" text-anchor="middle">assertion checks</text>
+<text x="410.0" y="556" class="card-citation" text-anchor="middle">TaskShield, IsolateGPT</text>
+<line x1="476" y1="530.0" x2="486" y2="530.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="488" y="486" width="132" height="88" rx="3" fill="#D4E8D3" stroke="#82B366" stroke-width="1" />
+<text x="554.0" y="502" class="card-title" text-anchor="middle" fill="#005600">Isolated Execution</text>
+<text x="554.0" y="520" class="card-body" text-anchor="middle">Transactional state</text>
+<text x="554.0" y="535" class="card-body" text-anchor="middle">isolation and rollback</text>
+<text x="554.0" y="556" class="card-citation" text-anchor="middle">Agent Sandboxing</text>
+<text x="336.0" y="615" class="edge-label" text-anchor="middle">Enforces execution boundaries for autonomous tools and persistent state transitions</text>
+<text x="336.0" y="644" class="edge-label" text-anchor="middle">Targeted Defense Boundaries: Training updates weights; runtime guards inspect tokens; application controls isolate tools.</text>
+<rect x="672" y="14" width="514" height="650" rx="5" fill="#FFFFFF" stroke="#82B366" stroke-width="1.2" />
+<text x="688" y="40" class="title-large" fill="#005600">(b) Continuous Testing and Feedback Flywheel</text>
+<text x="688" y="53" class="subtitle-small">Sec. 7.4 | Structured Repository and Dual-Track Longitudinal Safety</text>
+<rect x="686" y="56" width="466" height="172" rx="4" fill="#F8F7EC" stroke="#B5AD8F" stroke-width="0.8" />
+<text x="696" y="73" class="subblock-title" fill="#36393C">1. Failure Retention and Structured Repository</text>
+<rect x="698" y="82" width="128" height="100" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="762.0" y="102" class="card-title" text-anchor="middle" fill="#006DAE">Red-Team Engine</text>
+<text x="762.0" y="124" class="card-body" text-anchor="middle">Automated proposal and</text>
+<text x="762.0" y="140" class="card-body" text-anchor="middle">attack candidate search</text>
+<text x="762.0" y="164" class="card-citation" text-anchor="middle">APRT, TAP, GPTFuzzer</text>
+<line x1="826" y1="132.0" x2="836" y2="132.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="838" y="82" width="128" height="100" rx="4" fill="#F8CECC" stroke="#B85350" stroke-width="1" />
+<text x="902.0" y="102" class="card-title" text-anchor="middle" fill="#7C3531">Failure Triage</text>
+<text x="902.0" y="124" class="card-body" text-anchor="middle" fill="#7C3531">Verified execution traces</text>
+<text x="902.0" y="140" class="card-body" text-anchor="middle" fill="#7C3531">Severity triage, scoring</text>
+<text x="902.0" y="164" class="card-citation" text-anchor="middle" fill="#7C3531">StrongREJECT, WildGuard</text>
+<line x1="966" y1="132.0" x2="978" y2="132.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="978" y="82" width="162" height="100" rx="4" fill="#FFFFFF" stroke="#B5AD8F" stroke-width="1" />
+<text x="1059.0" y="100" class="card-title" text-anchor="middle" fill="#36393C">Failure Repository</text>
+<rect x="986" y="108" width="146" height="18" rx="3" fill="#F8F7EC" stroke="#B5AD8F" stroke-width="0.7" />
+<text x="1059.0" y="121" class="badge-text" text-anchor="middle" fill="#36393C">Seeds and Target Config</text>
+<rect x="986" y="131" width="146" height="18" rx="3" fill="#DAE8FB" stroke="#6C8EBE" stroke-width="0.7" />
+<text x="1059.0" y="144" class="badge-text" text-anchor="middle" fill="#006DAE">Execution Trace Logs</text>
+<rect x="986" y="154" width="146" height="18" rx="3" fill="#D4E8D3" stroke="#82B366" stroke-width="0.7" />
+<text x="1059.0" y="167" class="badge-text" text-anchor="middle" fill="#005600">Target Version Metadata</text>
+<text x="919.0" y="215" class="edge-label" text-anchor="middle">Preserves reproducible evidence linked to target configurations (FLARE-AI, AIID)</text>
+<rect x="686" y="242" width="466" height="386" rx="4" fill="#F1F7EF" stroke="#82B366" stroke-width="0.8" />
+<text x="696" y="259" class="subblock-title" fill="#005600">2. Dual-Track Longitudinal Safety Evaluation</text>
+<text x="700" y="276" class="card-title" fill="#006DAE">Track A: Longitudinal Benchmark Regression Replay</text>
+<rect x="698" y="284" width="138" height="68" rx="4" fill="#FFFFFF" stroke="#6C8EBE" stroke-width="1" />
+<text x="767.0" y="302" class="card-title" text-anchor="middle" fill="#36393C">Retained Benchmarks</text>
+<text x="767.0" y="320" class="card-body" text-anchor="middle">Archived failure test suite</text>
+<text x="767.0" y="335" class="card-body" text-anchor="middle" fill="#555555">Deterministic seed suite</text>
+<line x1="836" y1="318.0" x2="846" y2="318.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="848" y="284" width="138" height="68" rx="4" fill="#DAE8FB" stroke="#6C8EBE" stroke-width="1" />
+<text x="917.0" y="302" class="card-title" text-anchor="middle" fill="#006DAE">Versioned Replay</text>
+<text x="917.0" y="320" class="card-body" text-anchor="middle">Execute on updated target</text>
+<text x="917.0" y="335" class="card-body" text-anchor="middle" fill="#555555">Controlled harness replay</text>
+<line x1="986" y1="318.0" x2="996" y2="318.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="998" y="284" width="138" height="68" rx="4" fill="#F8CECC" stroke="#B85350" stroke-width="1" />
+<text x="1067.0" y="302" class="card-title" text-anchor="middle" fill="#7C3531">Safety Drift</text>
+<text x="1067.0" y="320" class="card-body" text-anchor="middle" fill="#7C3531">Detect regression on past flaws</text>
+<text x="1067.0" y="335" class="card-body" text-anchor="middle" fill="#7C3531">Quantify cross-version drift</text>
+<text x="700" y="372" class="card-title" fill="#005600">Track B: Adaptive Circumvention Search and Residual Discovery</text>
+<rect x="698" y="380" width="138" height="68" rx="4" fill="#FFFFFF" stroke="#82B366" stroke-width="1" />
+<text x="767.0" y="398" class="card-title" text-anchor="middle" fill="#36393C">Evolving Tactics</text>
+<text x="767.0" y="416" class="card-body" text-anchor="middle">Refreshed mutation operators</text>
+<text x="767.0" y="431" class="card-body" text-anchor="middle" fill="#555555">Heuristic and gradient search</text>
+<line x1="836" y1="414.0" x2="846" y2="414.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="848" y="380" width="138" height="68" rx="4" fill="#DAE8FB" stroke="#6C8EBE" stroke-width="1" />
+<text x="917.0" y="398" class="card-title" text-anchor="middle" fill="#006DAE">Adaptive Search</text>
+<text x="917.0" y="416" class="card-body" text-anchor="middle">Probe hardened guardrails</text>
+<text x="917.0" y="431" class="card-body" text-anchor="middle" fill="#555555">Dynamic multi-turn exploration</text>
+<line x1="986" y1="414.0" x2="996" y2="414.0" stroke="#36393C" stroke-width="1.2" marker-end="url(#arrow)" />
+<rect x="998" y="380" width="138" height="68" rx="4" fill="#F8CECC" stroke="#B85350" stroke-width="1" />
+<text x="1067.0" y="398" class="card-title" text-anchor="middle" fill="#7C3531">Residual Weaknesses</text>
+<text x="1067.0" y="416" class="card-body" text-anchor="middle" fill="#7C3531">Uncovered defense blindspots</text>
+<text x="1067.0" y="431" class="card-body" text-anchor="middle" fill="#7C3531">Circumvented jailbreak traces</text>
+<rect x="698" y="466" width="438" height="86" rx="4" fill="#FFFFFF" stroke="#B85350" stroke-width="1" />
+<text x="710" y="483" class="bridge-title" fill="#7C3531">Continuous Remediation Feedback Bridge (Telemetry and Policy Guidance)</text>
+<rect x="710" y="490" width="201" height="52" rx="3" fill="#FDF8F7" stroke="#E0B4B2" stroke-width="0.8" />
+<text x="810.5" y="505" class="panel-title" text-anchor="middle" fill="#B85350">Telemetry Ingestion</text>
+<text x="810.5" y="520" class="panel-body" text-anchor="middle">Ingest drift traces and exploit logs</text>
+<text x="810.5" y="534" class="panel-desc" text-anchor="middle">Update verified failure repository</text>
+<rect x="923" y="490" width="201" height="52" rx="3" fill="#F4F8FC" stroke="#B8D0EB" stroke-width="0.8" />
+<text x="1023.5" y="505" class="panel-title" text-anchor="middle" fill="#006DAE">Defensive Retuning</text>
+<text x="1023.5" y="520" class="panel-body" text-anchor="middle">Guide parametric retraining and DPO</text>
+<text x="1023.5" y="534" class="panel-desc" text-anchor="middle">Calibrate runtime guards and sandboxes</text>
+<path d="M 1136 509.0 L 1169 509.0 L 1169 132.0 L 1143 132.0" fill="none" stroke="#B85350" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arrow-red)" />
+<line x1="1136" y1="318.0" x2="1169" y2="318.0" stroke="#B85350" stroke-width="1.2" stroke-dasharray="3,3" />
+<line x1="1136" y1="414.0" x2="1169" y2="414.0" stroke="#B85350" stroke-width="1.2" stroke-dasharray="3,3" />
+<text x="919.0" y="615" class="edge-label" text-anchor="middle">Couples regression replay with exploratory discovery to prevent safety drift across versions</text>
+<text x="929.0" y="644" class="edge-label" text-anchor="middle">Complementary Roles: Regression replay benchmarks stability; adaptive search exposes active circumvention.</text>
+</svg>
